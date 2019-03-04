@@ -1,0 +1,11 @@
+auto-save-list
+backup
+bookmarks
+elpa
+eshell
+*.elc
+projectile*
+session.*
+transient
+.python-environments
+pyim
