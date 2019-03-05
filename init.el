@@ -19,6 +19,9 @@
 ;; change title bar display
 (setq frame-title-format '("" "[%b] %f - Emacs " emacs-version))
 
+(require 'speedbar)
+(add-to-list 'speedbar-mode-hook 'variable-pitch-mode)
+
 (when (display-graphic-p)
   (tool-bar-mode 0)  ;; Turn off toolbar.
   ;; (menu-bar-mode 0)  ;; Turn off menubar
@@ -74,9 +77,11 @@
 ;; 去掉 Emacs 和 gnus 启动时的引导界面
 (setq inhibit-startup-message t)
 
+;; Add confirmation for quit emacs
+(setq confirm-kill-emacs 'yes-or-no-p)
+
 (require 'face-remap)
 (add-hook 'markdown-mode-hook 'variable-pitch-mode)
-(add-hook 'org-mode-hook 'variable-pitch-mode)
 
 ;; ;; setup yasnippet
 ;; (setq yas-snippet-dirs `("~/.emacs.d/snippets"))
@@ -119,7 +124,7 @@
 (require 'company)
 (require 'company-rtags)
 (add-to-list 'company-backends 'company-rtags)
-(global-set-key (kbd "C-c c") 'company-complete)
+(global-set-key (kbd "C-c c c") 'company-complete)
 
 (require 'exec-path-from-shell)
 (exec-path-from-shell-initialize)
@@ -154,8 +159,15 @@
 (require 'flycheck-yamllint)
 (add-hook 'flycheck-mode-hook 'flycheck-yamllint-setup)
 
+(require 'ldap-mode)
+
 ;; Load macros defined in site directory.
 (require 'zoe)
+(add-hook 'org-mode-hook 'set-org-buffer-variable-pitch)
+(global-set-key (kbd "C-c r f") 'rtags-find-symbol)
+(global-set-key (kbd "C-c r c") 'rtags-find-symbol-at-point)
+(global-set-key (kbd "C-c r p") 'rtags-print-symbol-info)
+(global-set-key (kbd "C-c r b") 'rtags-location-stack-back)
 
 (require 'use-package)
 
@@ -181,6 +193,7 @@
       (setq pyim-page-length 5)))
 
 (load-theme 'spacemacs-dark t)
+(set-window-titlebar-theme-variant "dark")
 
 ;; ;; set up for web-beautify
 ;; ;; (require 'web-beautify) ;; Not necessary if using ELPA package

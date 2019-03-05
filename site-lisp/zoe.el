@@ -72,6 +72,17 @@
           (shell-command
            (concat "xprop -id " id " -f _GTK_THEME_VARIANT 8u -set _GTK_THEME_VARIANT dark")))))))
 
+(require 'org)
+(defun set-org-buffer-variable-pitch ()
+    "Set buffer variable pitch."
+    (interactive)
+    (variable-pitch-mode t)
+    ;(setq line-spacing 3)
+    (set-face-attribute 'org-table nil :inherit 'fixed-pitch)
+    (set-face-attribute 'org-code nil :inherit 'fixed-pitch)
+    (set-face-attribute 'org-block nil :inherit 'fixed-pitch)
+    (set-face-attribute 'org-block-background nil :inherit 'fixed-pitch))
+
 (provide 'zoe)
 ;;; zoe ends here
 
