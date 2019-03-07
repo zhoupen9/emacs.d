@@ -72,6 +72,15 @@
           (shell-command
            (concat "xprop -id " id " -f _GTK_THEME_VARIANT 8u -set _GTK_THEME_VARIANT dark")))))))
 
+(defun dark-flatpak-intellij-idea ()
+  "Change idea title bars theme to dark."
+  (interactive)
+  (let ((cmd (concat "wmctrl -lp | grep -e \"IntelliJ IDEA$\" | awk '{ print $1 }'")))
+    (let ((ids (replace-regexp-in-string "\n$" " " (shell-command-to-string cmd))))
+      (dolist (id (split-string ids))
+        (shell-command
+         (concat "xprop -id " id " -f _GTK_THEME_VARIANT 8u -set _GTK_THEME_VARIANT dark"))))))
+
 (require 'org)
 (defun set-org-buffer-variable-pitch ()
     "Set buffer variable pitch."
@@ -82,6 +91,12 @@
     (set-face-attribute 'org-code nil :inherit 'fixed-pitch)
     (set-face-attribute 'org-block nil :inherit 'fixed-pitch)
     (set-face-attribute 'org-block-background nil :inherit 'fixed-pitch))
+
+(defun set-markdown-buffer-variable-pitch ()
+  "Set markdown buffer variable pitch."
+  (interactive)
+  (variable-pitch-mode t)
+  (set-face-attribute 'markdown-table-face nil :inherit 'fixed-pitch))
 
 (provide 'zoe)
 ;;; zoe ends here

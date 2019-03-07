@@ -80,9 +80,6 @@
 ;; Add confirmation for quit emacs
 (setq confirm-kill-emacs 'yes-or-no-p)
 
-(require 'face-remap)
-(add-hook 'markdown-mode-hook 'variable-pitch-mode)
-
 ;; ;; setup yasnippet
 ;; (setq yas-snippet-dirs `("~/.emacs.d/snippets"))
 ;; (eval-after-load "autopair-autoloads"
@@ -164,6 +161,7 @@
 ;; Load macros defined in site directory.
 (require 'zoe)
 (add-hook 'org-mode-hook 'set-org-buffer-variable-pitch)
+(add-hook 'markdown-mode 'set-markdown-buffer-variable-pitch)
 (global-set-key (kbd "C-c r f") 'rtags-find-symbol)
 (global-set-key (kbd "C-c r c") 'rtags-find-symbol-at-point)
 (global-set-key (kbd "C-c r p") 'rtags-print-symbol-info)
