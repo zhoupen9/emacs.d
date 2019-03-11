@@ -1,0 +1,1 @@
+(1 (virtualstudio . [(20190311 7) ((emacs (26 1))) "VirtualStudio Developer Environment" tar ((:commit . "cf5e9cf0371e793f59ff8b8ce169efe4fcecb518") (:keywords "ide") (:authors ("Zhou Peng", "zhou.pen9@gmail.com")) (:maintainer "Zhou Peng" . "zhou.pen9@gmail.com") (:url . "https://zhoupeng.me/virtualstudio"))]))

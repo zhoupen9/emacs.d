@@ -9,3 +9,4 @@ session.*
 transient
 .python-environments
 pyim
+zelpa/*.tar
