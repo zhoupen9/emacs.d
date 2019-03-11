@@ -100,6 +100,7 @@
 
 (defun dark-titlebar ()
   "Change title bar to dark theme."
+  (interactive)
   (when (eq system-type 'darwin)
     (add-to-list 'default-frame-alist '(ns-appearance . dark)))
 

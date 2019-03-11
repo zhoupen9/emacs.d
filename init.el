@@ -22,20 +22,6 @@
 (require 'speedbar)
 (add-to-list 'speedbar-mode-hook 'variable-pitch-mode)
 
-(when (display-graphic-p)
-  (tool-bar-mode 0)  ;; Turn off toolbar.
-  ;; (menu-bar-mode 0)  ;; Turn off menubar
-  (speedbar-frame-mode)
-  ;; (fringe-mode 0)  ;; Turn off fringle mode
-  ;; (set-scroll-bar-mode 'right)  ;; right side scroll bar
-  (scroll-bar-mode 0)
-  
-  ;; Chinese Font
-  (dolist (charset '(kana han symbol cjk-misc bopomofo))
-    (set-fontset-font (frame-parameter nil 'font)
-			  charset
-			  (font-spec :family "Noto Sans CJK SC"))))
-
 ;; Set font color
 (global-font-lock-mode t)
 
@@ -167,30 +153,50 @@
 (global-set-key (kbd "C-c r p") 'rtags-print-symbol-info)
 (global-set-key (kbd "C-c r b") 'rtags-location-stack-back)
 
-(dark-titlebar)
+;; macos set frame theme before start speedbar
+(when (eq system-type 'darwin)
+  (dark-titlebar)
+  (when (display-graphic-p)
+    (tool-bar-mode 0)  ;; Turn off toolbar.
+    (scroll-bar-mode 0)
+    (speedbar-frame-mode)))
+
+;; gnu/linux set cjk-font, start speedbar and change theme afterwards
+(when (eq system-type 'gnu/linux)
+  (when (display-graphic-p)
+    (tool-bar-mode 0)  ;; Turn off toolbar.
+    (scroll-bar-mode 0)
+    (speedbar-frame-mode)
+
+    ;; Chinese Font
+    (dolist (charset '(kana han symbol cjk-misc bopomofo))
+      (set-fontset-font (frame-parameter nil 'font)
+			            charset
+			            (font-spec :family "Noto Sans CJK SC"))))
+  (dark-titlebar))
 
 (require 'use-package)
 
 (when (eq system-type 'gnu/linux)
-    (use-package pyim
+  (use-package pyim
+    :ensure nil
+    :demand t
+    :config
+    ;; 激活 basedict 拼音词库
+    (use-package pyim-basedict
       :ensure nil
-      :demand t
+      :commands pyim-basedict-enable
       :config
-      ;; 激活 basedict 拼音词库
-      (use-package pyim-basedict
-        :ensure nil
-        :commands pyim-basedict-enable
-        :config
-        (pyim-basedict-enable))
-      (setq default-input-method "pyim")
-      ;; 使用全拼
-      (setq pyim-default-scheme 'quanpin)
-      ;; ;; 开启拼音搜索功能
-      ;; (pyim-isearch-mode 1)
-      (setq pyim-page-tooltip 'posframe)
-      ;; (setq pyim-page-tooltip 'popup)
-      ;; 选词框显示5个候选词
-      (setq pyim-page-length 5)))
+      (pyim-basedict-enable))
+    (setq default-input-method "pyim")
+    ;; 使用全拼
+    (setq pyim-default-scheme 'quanpin)
+    ;; ;; 开启拼音搜索功能
+    ;; (pyim-isearch-mode 1)
+    (setq pyim-page-tooltip 'posframe)
+    ;; (setq pyim-page-tooltip 'popup)
+    ;; 选词框显示5个候选词
+    (setq pyim-page-length 5)))
 
 (load-theme 'spacemacs-dark t)
 
@@ -210,17 +216,3 @@
 
 (provide 'init)
 ;;; init.el ends here
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (yasnippet yaml-mode use-package spacemacs-theme python-mode pyim org markdown-mode magit lv helm-rtags helm-projectile helm-go-package helm-flycheck helm-company go-eldoc ggtags flycheck-yamllint flycheck-pyflakes flycheck-golangci-lint exec-path-from-shell dockerfile-mode company-rtags company-quickhelp company-jedi company-go company-flx c-eldoc))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
