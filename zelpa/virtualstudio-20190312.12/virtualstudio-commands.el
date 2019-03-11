@@ -3,6 +3,7 @@
 ;;; VirtualStudio
 
 ;;; Code:
+;;;###autoload
 (defun virtualstudio-comment-or-uncomment-region-or-line ()
   "Comments or uncomments the region or the current line if there's no active region."
   (interactive)
@@ -12,6 +13,7 @@
       (setq beg (line-beginning-position) end (line-end-position)))
     (comment-or-uncomment-region beg end)))
 
+;;;###autoload
 (defun virtualstudio-beautify ()
   "Beautify buffer by run tabify and follow by 'indent-region."
   (interactive)
@@ -27,6 +29,7 @@
 ;; Define a skip buffer list.
 (defconst virtualstudio-skip-buffers '("*Messages*" "*scratch*" "*Help*" "*Completions*"))
 
+;;;###autoload
 (defun virtualstudio-switch-to-next-active-buffer ()
   "Switch to next buffer but skipping scratch buffers."
   (interactive)
@@ -34,6 +37,7 @@
   (while (member (buffer-name) virtualstudio-skip-buffers)
     (next-buffer)))
 
+;;;###autoload
 (defun virtualstudio-switch-to-previous-active-buffer ()
   "Switch to previous buffer but skipping scratch buffers."
   (interactive)

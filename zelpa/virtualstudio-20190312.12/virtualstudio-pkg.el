@@ -1,4 +1,4 @@
-(define-package "virtualstudio" "20190311.7" "VirtualStudio Developer Environment"
+(define-package "virtualstudio" "20190312.12" "VirtualStudio Developer Environment"
   '((emacs "26.1"))
   :keywords
   '("ide")

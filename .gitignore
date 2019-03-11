@@ -10,3 +10,5 @@ transient
 .python-environments
 pyim
 zelpa/*.tar
+.abbrev_defs
+custom-local.el

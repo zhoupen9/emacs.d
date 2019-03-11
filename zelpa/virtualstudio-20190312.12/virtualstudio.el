@@ -3,41 +3,20 @@
 
 ;;; Code:
 
-(defun virtualstudio-setup-env ()
-  "Setup virtual studio environment."
-  ;; UTF-8 as default encoding
-  (set-language-environment "UTF-8")
-
-  ;; set backup dir
-  (setq backup-directory-alist '(("" . "~/.emacs.d/backup"))))
-
-;; ;; setup yasnippet
-;; (setq yas-snippet-dirs `("~/.emacs.d/snippets"))
-;; (eval-after-load "autopair-autoloads"
-;;   '(progn
-;; 	 (require 'yasnippet)
-;; 	 (yas-global-mode 1)
-;;      (define-key yas-minor-mode-map (kbd "<tab>") nil)
-;;      (define-key yas-minor-mode-map (kbd "TAB") nil)
-;;      (define-key yas-minor-mode-map (kbd "C-c C-o") 'yas-expand)))
-
-;; (add-hook 'prog-mode-hook 'yas-minor-mode)
+(require 'company)
+(require 'company-quickhelp)
+(require 'company-rtags)
+(require 'go-mode)
+(require 'go-eldoc)
+(require 'python-mode)
+(require 'flycheck-pyflakes)
+(require 'jedi-core)
+(require 'flycheck-yamllint)
 
 (defun virtualstudio-setup-helm ()
   "Setup Virtual Studio helm."
-  (require 'helm-config)
-  (require 'rtags)
-  (setq rtags-completions-enabled t)
-  (setq rtags-display-result-backend 'helm)
-
-  (require 'helm)
   (helm-mode t)
-
-  (require 'helm-projectile)
-  (helm-projectile-on)
-
-  (require 'helm-command)
-  (setq helm-M-x-fuzzy-match t))
+  (helm-projectile-on))
 
 (defun virtualstudio-setup-prog-mode-hooks ()
   "Setup virtual studio programming mode hooks."
@@ -48,49 +27,42 @@
 
 (defun virtualstudio-setup-prog-env ()
   "Setup virtual studio programming environtment."
-  (require 'projectile)
+  (virtualstudio-setup-prog-mode-hooks)
+  
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+
   (projectile-mode t)
 
   (add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
 
-  (require 'company)
-  (require 'company-rtags)
+
   (add-to-list 'company-backends 'company-rtags)
   (global-set-key (kbd "C-c c c") 'company-complete)
 
-  (require 'exec-path-from-shell)
+  ;;Initialize exec-path-from-shell
   (exec-path-from-shell-initialize)
 
-  (require 'flycheck)
-  (setq flycheck-emacs-lisp-load-path 'inherit)
-  (global-flycheck-mode)
+  (global-flycheck-mode t)
 
   (add-hook 'c-mode-hook 'c-turn-on-eldoc-mode)
 
-  (require 'go-mode)
   (add-hook 'go-mode-hook 'flycheck-mode)
   (add-hook 'flycheck-mode-hook 'flycheck-golangci-lint-setup)
 
-  (require 'go-eldoc)
   (add-hook 'go-mode-hook 'go-eldoc-setup)
   (add-hook 'go-mode-hook
             (lambda()
               (add-to-list 'company-backends 'company-go)))
 
-  ;; (require 'python-mode)
-  (require 'flycheck-pyflakes)
-  (require 'jedi-core)
   (add-hook 'python-mode-hook
             (lambda ()
-              (add-to-list 'company-backends 'company-jedi)
-              (setq jedi:complete-on-dot t)
-              (setq jedi:tooltip-method nil)
-              (setq jedi:get-in-function-call-delay 0)))
+              (add-to-list 'company-backends 'company-jedi)))
+  ;; (setq jedi:complete-on-dot t)
+  ;; (setq jedi:tooltip-method nil)
+  ;; (setq jedi:get-in-function-call-delay 0)))
   (add-hook 'python-mode-hook 'flycheck-mode)
   (put 'flycheck-clang-args 'safe-local-variable-values (lambda(xx) t))
 
-  (require 'flycheck-yamllint)
   (add-hook 'flycheck-mode-hook 'flycheck-yamllint-setup))
 
 (defun virtualstudio-setup-key-bindings ()
@@ -109,21 +81,18 @@
 ;; (global-set-key [remap next-buffer] 'switch-to-next-active-buffer)
 ;; (global-set-key [remap previous-buffer] 'switch-to-previous-active-buffer)
 
-
+;;;###autoload
 (defun virtualstudio-initialize ()
   "Initialize virtual studio."
-  (require 'virtualstudio-im)
-  (virtualstudio-setup-env)
+  (interactive)
 
   (virtualstudio-setup-key-bindings)
 
   (virtualstudio-setup-helm)
 
-  (virtualstudio-setup-prog-mode-hooks)
-
   (virtualstudio-setup-prog-env)
   
-  (require 'virtualstudio-gui)
+  ;;(require 'virtualstudio-gui)
   (virtualstudio-setup-gui)
 
   ;; load spacemacs dark theme

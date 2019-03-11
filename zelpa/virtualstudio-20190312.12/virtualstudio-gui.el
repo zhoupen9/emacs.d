@@ -3,13 +3,14 @@
 ;;; VirtualStudio
 
 ;;; Code:
+;;;###autoload
 (defun virtualstudio-setup-gui-defaults ()
   "Set graphic interface defaults."
   ;; change title bar display
   (setq frame-title-format '("" "[%b] %f - Emacs " emacs-version))
 
-  (require 'speedbar)
-  (add-to-list 'speedbar-mode-hook 'variable-pitch-mode)
+  ;;(require 'speedbar)
+  ;;(add-to-list 'speedbar-mode-hook 'variable-pitch-mode)
 
   ;; Set font color
   (global-font-lock-mode t)
@@ -20,17 +21,17 @@
   ;; time format
   (display-time)
   ;; (setq display-time-24hr-format t)
-  (setq display-time-day-and-date t)
+  ;;(setq display-time-day-and-date t)
 
   ;; set 'yes or no' to 'y or n'
   (fset 'yes-or-no-p 'y-or-n-p)
 
   ;; highlight marked block
-  (setq transient-mark-mode t)
+  (transient-mark-mode t)
 
   ;; display line and column number
-  (setq column-number-mode t)
-  (setq line-number-mode t)
+  (column-number-mode t)
+  (line-number-mode t)
 
   ;; show paren
   (show-paren-mode t)
@@ -41,16 +42,13 @@
   ;; set tab stop to 4.
   (setq-default indent-tabs-mode nil)
   (setq-default tab-width 4)
-  (setq tab-stop-list (number-sequence 4 120 4))
+  ;;(setq tab-stop-list (number-sequence 4 120 4))
 
   ;; set backup dir
-  (setq backup-directory-alist '(("" . "~/.emacs.d/backup")))
+  ;;(setq backup-directory-alist '(("" . "~/.emacs.d/backup")))
 
   ;; Enable electric minor mode
-  (electric-indent-mode)
-
-  ;; 去掉 Emacs 和 gnus 启动时的引导界面
-  (setq inhibit-startup-message t)
+  (electric-indent-mode t)
 
   ;; Add confirmation for quit emacs
   (setq confirm-kill-emacs 'yes-or-no-p))
@@ -65,6 +63,7 @@
           (shell-command
            (concat "xprop -id " id " -f _GTK_THEME_VARIANT 8u -set _GTK_THEME_VARIANT " variant)))))))
 
+;;;###autoload
 (defun virtualstudio-dark-idea ()
   "Change idea title bars theme to dark."
   (interactive)
@@ -75,6 +74,7 @@
           (shell-command
            (concat "xprop -id " id " -f _GTK_THEME_VARIANT 8u -set _GTK_THEME_VARIANT dark")))))))
 
+;;;###autoload
 (defun virtualstudio-dark-flatpak-intellij-idea ()
   "Change idea title bars theme to dark."
   (interactive)
@@ -100,6 +100,7 @@
   (variable-pitch-mode t)
   (set-face-attribute 'markdown-table-face nil :inherit 'fixed-pitch))
 
+;;;###autoload
 (defun virtualstudio-dark-titlebar ()
   "Change title bar to dark theme."
   (interactive)
@@ -109,6 +110,7 @@
   (when (eq system-type 'gnu/linux)
     (virtualstudio-set-window-titlebar-theme-variant "dark")))
 
+;;;###autoload
 (defun virtualstudio-setup-gui ()
   "Setup graphic interfaces."
   (virtualstudio-setup-gui-defaults)
@@ -122,13 +124,13 @@
 
   (when (display-graphic-p)
     ;; Turn off toolbar.
-    (tool-bar-mode 0)
+    (tool-bar-mode nil)
     ;; Turn off menubar.
-    (menu-bar-mode 0)
+    (menu-bar-mode nil)
     ;; Turn off scroll bar.
-    (scroll-bar-mode 0)
+    (scroll-bar-mode nil)
     ;; Turn on speed bar.
-    (speedbar-frame-mode)
+    (speedbar-frame-mode t)
   
     (when (eq system-type 'gnu/linux)
       ;; Chinese Font
