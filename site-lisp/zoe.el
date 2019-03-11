@@ -98,6 +98,14 @@
   (variable-pitch-mode t)
   (set-face-attribute 'markdown-table-face nil :inherit 'fixed-pitch))
 
+(defun dark-titlebar ()
+  "Change title bar to dark theme."
+  (when (eq system-type 'darwin)
+    (add-to-list 'default-frame-alist '(ns-appearance . dark)))
+
+  (when (eq system-type 'gnu/linux)
+    (set-window-titlebar-theme-variant "dark")))
+
 (provide 'zoe)
 ;;; zoe ends here
 

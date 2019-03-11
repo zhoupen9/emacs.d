@@ -161,11 +161,13 @@
 ;; Load macros defined in site directory.
 (require 'zoe)
 (add-hook 'org-mode-hook 'set-org-buffer-variable-pitch)
-(add-hook 'markdown-mode 'set-markdown-buffer-variable-pitch)
+(add-hook 'markdown-mode-hook 'set-markdown-buffer-variable-pitch)
 (global-set-key (kbd "C-c r f") 'rtags-find-symbol)
 (global-set-key (kbd "C-c r c") 'rtags-find-symbol-at-point)
 (global-set-key (kbd "C-c r p") 'rtags-print-symbol-info)
 (global-set-key (kbd "C-c r b") 'rtags-location-stack-back)
+
+(dark-titlebar)
 
 (require 'use-package)
 
@@ -191,7 +193,6 @@
       (setq pyim-page-length 5)))
 
 (load-theme 'spacemacs-dark t)
-(set-window-titlebar-theme-variant "dark")
 
 ;; ;; set up for web-beautify
 ;; ;; (require 'web-beautify) ;; Not necessary if using ELPA package
@@ -204,27 +205,22 @@
 ;; (eval-after-load 'css-mode
 ;;   '(define-key css-mode-map (kbd "C-c b") 'web-beautify-css))
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   (quote
-    ("bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" default)))
- '(package-selected-packages
-   (quote
-    (flycheck-yamllint yaml-mode c-eldoc dockerfile-mode cmake-mode helm-projectile posframe flycheck-gradle groovy-mode gradle-mode helm-rtags clang-format go-eldoc helm-company helm-flycheck helm-git helm-go-package helm-gtags company-jedi exec-path-from-shell company-quickhelp jedi-core pos-tip flycheck-pyflakes flycheck-golangci-lint flycheck company-flx flx markdown-mode spacemacs-theme pyim projectile magit ggtags company-rtags org company-go company go-mode python-mode use-package yasnippet))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(fixed-pitch ((t (:family "Liberation Mono"))))
- '(variable-pitch ((t (:height 1.11 :family "Roboto")))))
-
 ;; start emacs server
 (server-start)
 
 (provide 'init)
 ;;; init.el ends here
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (yasnippet yaml-mode use-package spacemacs-theme python-mode pyim org markdown-mode magit lv helm-rtags helm-projectile helm-go-package helm-flycheck helm-company go-eldoc ggtags flycheck-yamllint flycheck-pyflakes flycheck-golangci-lint exec-path-from-shell dockerfile-mode company-rtags company-quickhelp company-jedi company-go company-flx c-eldoc))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
