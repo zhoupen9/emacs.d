@@ -57,9 +57,6 @@
   (add-hook 'python-mode-hook
             (lambda ()
               (add-to-list 'company-backends 'company-jedi)))
-  ;; (setq jedi:complete-on-dot t)
-  ;; (setq jedi:tooltip-method nil)
-  ;; (setq jedi:get-in-function-call-delay 0)))
   (add-hook 'python-mode-hook 'flycheck-mode)
   (put 'flycheck-clang-args 'safe-local-variable-values (lambda(xx) t))
 
@@ -74,12 +71,9 @@
   (global-set-key (kbd "C-c r p") 'rtags-print-symbol-info)
   (global-set-key (kbd "C-c r b") 'rtags-location-stack-back)
   ;; binding key control-\ to comment/uncomment.
-  (global-set-key (kbd "C-;") 'virtualstudio-comment-or-uncomment-region-or-line)
+  (global-set-key (kbd "C-c l") 'virtualstudio-comment-or-uncomment-region-or-line)
   ;; binding key control-c control-e to beautify.
   (global-set-key (kbd "C-c b f") 'virtualstudio-beautify))
-;; remap next-buffer and previous buffer
-;; (global-set-key [remap next-buffer] 'switch-to-next-active-buffer)
-;; (global-set-key [remap previous-buffer] 'switch-to-previous-active-buffer)
 
 ;;;###autoload
 (defun virtualstudio-initialize ()
@@ -92,7 +86,6 @@
 
   (virtualstudio-setup-prog-env)
   
-  ;;(require 'virtualstudio-gui)
   (virtualstudio-setup-gui)
 
   ;; load spacemacs dark theme

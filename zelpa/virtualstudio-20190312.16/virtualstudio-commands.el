@@ -26,24 +26,5 @@
   ;; print message done.
   (message "Beautify buffer done."))
 
-;; Define a skip buffer list.
-(defconst virtualstudio-skip-buffers '("*Messages*" "*scratch*" "*Help*" "*Completions*"))
-
-;;;###autoload
-(defun virtualstudio-switch-to-next-active-buffer ()
-  "Switch to next buffer but skipping scratch buffers."
-  (interactive)
-  (next-buffer)
-  (while (member (buffer-name) virtualstudio-skip-buffers)
-    (next-buffer)))
-
-;;;###autoload
-(defun virtualstudio-switch-to-previous-active-buffer ()
-  "Switch to previous buffer but skipping scratch buffers."
-  (interactive)
-  (previous-buffer)
-  (while (member (buffer-name) virtualstudio-skip-buffers)
-    (previous-buffer)))
-
 (provide 'virtualstudio-commands)
 ;;; virtualstudio-commands.el ends here

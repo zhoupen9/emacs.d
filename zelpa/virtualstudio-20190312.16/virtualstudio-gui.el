@@ -116,8 +116,8 @@
   (virtualstudio-setup-gui-defaults)
   (virtualstudio-dark-titlebar)
 
-  (add-hook 'org-mode-hook 'set-org-buffer-variable-pitch)
-  (add-hook 'markdown-mode-hook 'set-markdown-buffer-variable-pitch)
+  (add-hook 'org-mode-hook 'virtualstudio-set-org-buffer-variable-pitch)
+  (add-hook 'markdown-mode-hook 'virtualstudio-set-markdown-buffer-variable-pitch)
 
   (when (display-graphic-p)
     ;; Turn off toolbar.
