@@ -6,7 +6,7 @@
 ;; set up package repositories.
 (require 'package)
 (setq package-archives '(("gnu-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-                         ("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa-stable/")
+                         ("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
                          ("zelpa" . "~/.emacs.d/zelpa")))
 ;; Initialize packages
 (package-initialize)

@@ -3,10 +3,11 @@
 ;;; VirtualStudio input method
 
 ;;; Code:
+(require 'use-package)
+
 ;;;###autoload
 (defun virtualstudio-load-pyim ()
   "Load pyim input methods if running in gnu/linux."
-  (require 'use-package)
   (use-package pyim
     :ensure nil
     :demand t

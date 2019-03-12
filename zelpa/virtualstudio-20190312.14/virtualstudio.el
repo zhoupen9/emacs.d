@@ -6,12 +6,12 @@
 (require 'company)
 (require 'company-quickhelp)
 (require 'company-rtags)
+(require 'flycheck-pyflakes)
+(require 'flycheck-yamllint)
 (require 'go-mode)
 (require 'go-eldoc)
-(require 'python-mode)
-(require 'flycheck-pyflakes)
 (require 'jedi-core)
-(require 'flycheck-yamllint)
+(require 'python-mode)
 
 (defun virtualstudio-setup-helm ()
   "Setup Virtual Studio helm."

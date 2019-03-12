@@ -3,14 +3,14 @@
 ;;; VirtualStudio
 
 ;;; Code:
+(require 'org)
+(require 'markdown-mode)
+
 ;;;###autoload
 (defun virtualstudio-setup-gui-defaults ()
   "Set graphic interface defaults."
   ;; change title bar display
   (setq frame-title-format '("" "[%b] %f - Emacs " emacs-version))
-
-  ;;(require 'speedbar)
-  ;;(add-to-list 'speedbar-mode-hook 'variable-pitch-mode)
 
   ;; Set font color
   (global-font-lock-mode t)
@@ -116,19 +116,16 @@
   (virtualstudio-setup-gui-defaults)
   (virtualstudio-dark-titlebar)
 
-  (require 'org)
   (add-hook 'org-mode-hook 'set-org-buffer-variable-pitch)
-
-  (require 'markdown-mode)
   (add-hook 'markdown-mode-hook 'set-markdown-buffer-variable-pitch)
 
   (when (display-graphic-p)
     ;; Turn off toolbar.
-    (tool-bar-mode nil)
+    (tool-bar-mode 0)
     ;; Turn off menubar.
-    (menu-bar-mode nil)
+    (menu-bar-mode 0)
     ;; Turn off scroll bar.
-    (scroll-bar-mode nil)
+    (scroll-bar-mode 0)
     ;; Turn on speed bar.
     (speedbar-frame-mode t)
   
