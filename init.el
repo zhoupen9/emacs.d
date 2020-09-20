@@ -18,9 +18,9 @@
 (add-to-list 'custom-theme-load-path (expand-file-name "~/.emacs.d/site-themes"))
 
 (customize-set-variable 'custom-file "~/.emacs.d/custom-local.el")
-(load "~/.emacs.d/custom.el" 'noerror)
 (load custom-file 'noerror)
 
+(load "ldap-mode")
 (load "site-start")
 
 (provide 'init)
