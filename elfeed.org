@@ -1,0 +1,8 @@
+* Sites                                                              :elfeed:
+** Software Development                                                 :dev:
+*** https://feeds.dzone.com/main
+*** https://feed.infoq.com
+** Technology                                                          :tech:
+** Open Source Community                                                 :os:
+*** https://www.kernel.org/feeds/kdist.xml
+*** https://www.osnews.com/feed

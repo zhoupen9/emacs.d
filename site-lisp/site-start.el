@@ -27,10 +27,10 @@
 ;; "Setup mu4e.
 ;;(setq mu4e-use-fancy-chars t)
 (setq mail-user-agent 'mu4e-user-agent)
-(setq mu4e-root-maildir (expand-file-name "~/Mail"))
 (setq mu4e-attachment-dir (expand-file-name "~/Mail/attachments"))
 (setq user-full-name "Zhou Peng")
 (setq user-mail-address "zhoupen9@sina.cn")
+;; (setq mu4e-root-maildir (expand-file-name "~/Mail"))
 (setq mu4e-get-mail-command "mbsync -aqq")
 (setq mu4e-update-interval 300)
 (mu4e-alert-set-default-style 'libnotify)
@@ -240,7 +240,7 @@
  ;; language-environtment "UTF-8"
  rtags-completions-enabled t
  rtags-display-result-backend (quote helm)
- speedbar-mode-hook (quote variable-pitch-mode)
+ ;; speedbar-mode-hook (quote variable-pitch-mode)
  tab-stop-list (number-sequence 4 120 4)
  flycheck-emacs-lisp-load-path (quote inherit))
  
@@ -297,6 +297,27 @@
 ;; configuration. If not set then the location below is used.
 ;; Note: The customize interface is also supported.
 (setq rmh-elfeed-org-files (list "~/.emacs.d/elfeed.org"))
+
+(require 'org)
+(require 'org-capture)
+(require 'org-bullets)
+(require 'org-re-reveal)
+;; setup org-mode
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+(setq org-directory (expand-file-name "~/Documents"))
+(setq org-default-notes-file (concat org-directory "/Notes/notes.org"))
+(setq org-agenda-files (list "~/Documents/Agenda"))
+(setq org-capture-templates
+      '(("t" "Todo" entry (file+headline "~/Documents/Planning/gtd.org" "Tasks")
+         "* TODO %?\n %i\n %a")
+        ("n" "Note" entry (file+headline "~/Documents/Notes/notes.org" "Notes")
+         "* NOTE %?\n %i\n %a")
+        ("r" "Reference" entry (file+headline "~/Documents/References/references.org" "References")
+         "* REFERENCE %?\n %i\n %a")
+        ("j" "Journal" entry (file+datetree "~/Documents/Journal/journal.org")
+         "* %?\nEntered on %U\n %i\n %a")))
+(setq org-re-reveal-root "file:///home/pengz/.local/lib/reveal.js")
+(setq org-re-reveal-revealjs-version "4.0.2")
 
 ;; key bindings
 ;; Bind key <F12> to open 'mu4e'

@@ -3,6 +3,8 @@
 
 ;;; Code:
 
+(setenv "XAPIAN_CJK_NGRAM" "1")
+
 ;; set up package repositories.
 (require 'package)
 (setq package-archives '(("gnu-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
