@@ -25,12 +25,13 @@
 (require 'smtpmail)
 
 ;; "Setup mu4e.
+;;(setq mu4e-use-fancy-chars t)
 (setq mail-user-agent 'mu4e-user-agent)
-(setq mu4e-maildir (expand-file-name "~/Mail"))
+(setq mu4e-root-maildir (expand-file-name "~/Mail"))
 (setq mu4e-attachment-dir (expand-file-name "~/Mail/attachments"))
 (setq user-full-name "Zhou Peng")
-(setq user-mail-address "zhoup@nroad.com.cn")
-(setq mu4e-get-mail-command "mbsync -a")
+(setq user-mail-address "zhoupen9@sina.cn")
+(setq mu4e-get-mail-command "mbsync -aqq")
 (setq mu4e-update-interval 300)
 (mu4e-alert-set-default-style 'libnotify)
 (add-hook 'after-init-hook #'mu4e-alert-enable-notifications)
@@ -135,9 +136,6 @@
 (setq-default tab-width 4)
 ;;(setq tab-stop-list (number-sequence 4 120 4))
 
-;; set backup dir
-;;(setq backup-directory-alist '(("" . "~/.emacs.d/backup")))
-
 ;; Enable electric minor mode
 (electric-indent-mode t)
 
@@ -153,8 +151,8 @@
   ;; (setq line-spacing 3)
   (set-face-attribute 'org-table nil :inherit 'fixed-pitch)
   (set-face-attribute 'org-code nil :inherit 'fixed-pitch)
-  (set-face-attribute 'org-block nil :inherit 'fixed-pitch)
-  (set-face-attribute 'org-block-background nil :inherit 'fixed-pitch))
+  (set-face-attribute 'org-block nil :inherit 'fixed-pitch))
+;;  (set-face-attribute 'org-block-background nil :inherit 'fixed-pitch))
 
 (defun set-markdown-buffer-variable-pitch ()
   "Set markdown buffer variable pitch."
@@ -262,7 +260,7 @@
 
 (add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
 
-(setq python-shell-interpreter "ipython3")
+;;(setq python-shell-interpreter "ipython3")
 
 (add-to-list 'company-backends 'company-rtags)
 (global-set-key (kbd "C-c c c") 'company-complete)
@@ -287,6 +285,18 @@
 
 (add-hook 'flycheck-mode-hook 'flycheck-yamllint-setup)
 
+;; Load elfeed-org
+(require 'elfeed-org)
+
+;; Initialize elfeed-org
+;; This hooks up elfeed-org to read the configuration when elfeed
+;; is started with =M-x elfeed=
+(elfeed-org)
+
+;; Optionally specify a number of files containing elfeed
+;; configuration. If not set then the location below is used.
+;; Note: The customize interface is also supported.
+(setq rmh-elfeed-org-files (list "~/.emacs.d/elfeed.org"))
 
 ;; key bindings
 ;; Bind key <F12> to open 'mu4e'

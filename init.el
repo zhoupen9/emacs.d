@@ -13,6 +13,7 @@
 
 ;; add site-lisp to load path
 (add-to-list 'load-path "~/.emacs.d/site-lisp")
+(add-to-list 'load-path "~/.emacs.d/site-lisp/mu4e")
 
 ;; add site-themes to theme load path
 (add-to-list 'custom-theme-load-path (expand-file-name "~/.emacs.d/site-themes"))
