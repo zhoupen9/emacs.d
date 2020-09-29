@@ -3,6 +3,8 @@
 
 ;;; Code:
 
+(setenv "XAPIAN_CJK_NGRAM" "1")
+
 ;; set up package repositories.
 (require 'package)
 (setq package-archives '(("gnu-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
@@ -13,6 +15,7 @@
 
 ;; add site-lisp to load path
 (add-to-list 'load-path "~/.emacs.d/site-lisp")
+(add-to-list 'load-path "~/.emacs.d/site-lisp/mu4e")
 
 ;; add site-themes to theme load path
 (add-to-list 'custom-theme-load-path (expand-file-name "~/.emacs.d/site-themes"))

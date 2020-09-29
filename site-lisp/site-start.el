@@ -26,11 +26,11 @@
 
 ;; "Setup mu4e.
 (setq mail-user-agent 'mu4e-user-agent)
-(setq mu4e-maildir (expand-file-name "~/Mail"))
+;; (setq mu4e-root-maildir (expand-file-name "~/Mail"))
 (setq mu4e-attachment-dir (expand-file-name "~/Mail/attachments"))
 (setq user-full-name "Zhou Peng")
 (setq user-mail-address "zhoup@nroad.com.cn")
-(setq mu4e-get-mail-command "mbsync -a")
+(setq mu4e-get-mail-command "mbsync -aqq")
 (setq mu4e-update-interval 300)
 (mu4e-alert-set-default-style 'libnotify)
 (add-hook 'after-init-hook #'mu4e-alert-enable-notifications)
@@ -153,8 +153,8 @@
   ;; (setq line-spacing 3)
   (set-face-attribute 'org-table nil :inherit 'fixed-pitch)
   (set-face-attribute 'org-code nil :inherit 'fixed-pitch)
-  (set-face-attribute 'org-block nil :inherit 'fixed-pitch)
-  (set-face-attribute 'org-block-background nil :inherit 'fixed-pitch))
+  (set-face-attribute 'org-block nil :inherit 'fixed-pitch))
+;;  (set-face-attribute 'org-block-background nil :inherit 'fixed-pitch))
 
 (defun set-markdown-buffer-variable-pitch ()
   "Set markdown buffer variable pitch."
@@ -242,7 +242,7 @@
  ;; language-environtment "UTF-8"
  rtags-completions-enabled t
  rtags-display-result-backend (quote helm)
- speedbar-mode-hook (quote variable-pitch-mode)
+ ;; speedbar-mode-hook (quote variable-pitch-mode)
  tab-stop-list (number-sequence 4 120 4)
  flycheck-emacs-lisp-load-path (quote inherit))
  
@@ -262,7 +262,7 @@
 
 (add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
 
-(setq python-shell-interpreter "ipython3")
+;;(setq python-shell-interpreter "ipython3")
 
 (add-to-list 'company-backends 'company-rtags)
 (global-set-key (kbd "C-c c c") 'company-complete)
@@ -287,6 +287,26 @@
 
 (add-hook 'flycheck-mode-hook 'flycheck-yamllint-setup)
 
+(require 'org)
+(require 'org-capture)
+(require 'org-bullets)
+(require 'org-re-reveal)
+;; setup org-mode
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+(setq org-directory (expand-file-name "~/Documents"))
+(setq org-default-notes-file (concat org-directory "/Notes/notes.org"))
+(setq org-agenda-files (list "~/Documents/Agenda"))
+(setq org-capture-templates
+      '(("t" "Todo" entry (file+headline "~/Documents/Planning/gtd.org" "Tasks")
+         "* TODO %?\n %i\n %a")
+        ("n" "Note" entry (file+headline "~/Documents/Notes/notes.org" "Notes")
+         "* NOTE %?\n %i\n %a")
+        ("r" "Reference" entry (file+headline "~/Documents/References/references.org" "References")
+         "* REFERENCE %?\n %i\n %a")
+        ("j" "Journal" entry (file+datetree "~/Documents/Journal/journal.org")
+         "* %?\nEntered on %U\n %i\n %a")))
+(setq org-re-reveal-root "file:///home/pengz/.local/lib/reveal.js")
+(setq org-re-reveal-revealjs-version "4.0.2")
 
 ;; key bindings
 ;; Bind key <F12> to open 'mu4e'
