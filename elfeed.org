@@ -2,6 +2,7 @@
 ** Software Development                                                 :dev:
 *** https://feeds.dzone.com/main
 *** https://feed.infoq.com
+*** https://www.infoq.cn/feed.xml
 ** Technology                                                          :tech:
 ** Open Source Community                                                 :os:
 *** https://www.kernel.org/feeds/kdist.xml
