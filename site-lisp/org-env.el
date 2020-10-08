@@ -28,7 +28,10 @@
   (setq org-re-reveal-revealjs-version "4.0.2"))
 
 (use-package org-bullets
-  :hook ((org-mode-hook . org-bullets-mode)))
+  :demand
+  :commands org-bullets-mode
+  :after (org)
+  :hook (org-mode . org-bullets-mode))
 
 (provide 'org-env)
 ;;; org-env.el ends here

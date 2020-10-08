@@ -77,7 +77,7 @@
   (when (eq system-type 'darwin)
     (add-to-list 'default-frame-alist '(ns-appearance . dark)))
   (when (eq system-type 'gnu/linux)
-    (set-window-titlebar-theme-variant "dark")))
+    (pui--set-window-titlebar-theme-variant "dark")))
 
 (use-package doom-modeline
   :config

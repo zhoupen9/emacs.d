@@ -1,7 +1,7 @@
 auto-save-list
-backup
+backup/
 bookmarks
-elpa
+elpa/
 eshell
 *.elc
 projectile*
@@ -14,3 +14,7 @@ zelpa/*.tar
 custom-local.el
 url
 helm-adaptive-history
+workspace/
+.cache/
+.dap-breakpoints
+tramp

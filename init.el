@@ -50,13 +50,13 @@
 (load "pui")
 (use-package pui
   :hook
-  ((org-mode-hook . set-org-buffer-variable-pitch)
-   (markdown-mode-hook . set-markdown-buffer-variable-pitch))
+  ((org-mode . set-org-buffer-variable-pitch)
+   (markdown-mode . set-markdown-buffer-variable-pitch))
   :config
   ;; binding key control-\ to comment/uncomment.
-  (global-set-key (kbd "C-c l") 'comment-or-uncomment-region-or-line)
+  (global-set-key (kbd "C-c l") 'pui-comment-or-uncomment-region-or-line)
   ;; binding key control-c control-e to beautify.
-  (global-set-key (kbd "C-c b f") 'beautify))
+  (global-set-key (kbd "C-c b f") 'pui-beautify))
 
 ;; load spacemacs dark theme
 (load-theme 'spacemacs-dark t)

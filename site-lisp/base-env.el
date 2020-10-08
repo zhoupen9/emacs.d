@@ -43,12 +43,20 @@
   ;; Turn on speed bar.
   (speedbar-frame-mode t)
 
+  ;; Make Noto CJK align with english characters horizontally
+  ;; (add-to-list 'face-font-rescale-alist
+  ;;               (cons (font-spec :family "Noto Sans CJK SC") 1.2) t)
+  ;; Make Noto CJK align with english characters vertically
+  ;; (add-to-list 'face-font-rescale-alist
+  ;;             (cons (font-spec :family "Noto Sans CJK SC") 0.8) t)
+
   (when (eq system-type 'gnu/linux)
     ;; Chinese Font
     (dolist (charset '(kana han symbol cjk-misc bopomofo))
       (set-fontset-font (frame-parameter nil 'font)
                         charset
-                        (font-spec :family "Noto Sans CJK SC")))))
+                        (font-spec :family "Noto Sans CJK SC"))))) ;; 中文支持
+                        ;;(font-spec :family "Noto Sans CJK SC"))));;abcdefghijk
 
 (use-package font-core
   :config
@@ -80,6 +88,13 @@
   (electric-indent-mode t))
 
 (use-package bind-key)
+
+(use-package helm
+  :demand
+  :config
+  (helm-mode t)
+  (helm-projectile-on)
+  :bind (("M-x" . helm-M-x)))
 
 (provide 'base-env)
 ;;; base-env.el ends here

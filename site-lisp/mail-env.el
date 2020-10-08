@@ -29,9 +29,9 @@
   ;; (setq mu4e-root-maildir (expand-file-name "~/Mail"))
   (setq mu4e-get-mail-command "mbsync -aqq")
   (setq mu4e-update-interval 300)
-  :hook
-  ((after-init-hook . mu4e-alert-enable-notifications)
-   (after-init-hook . mu4e-alert-enable-mode-line-display)))
+  :init
+  (add-hook 'after-init-hook 'mu4e-alert-enable-notifications t)
+  (add-hook 'after-init-hook 'mu4e-alert-enable-mode-line-display t))
 
 (use-package mu4e-alert
   :config
