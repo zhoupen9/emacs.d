@@ -25,7 +25,7 @@
   (setq mail-user-agent 'mu4e-user-agent)
   (setq mu4e-attachment-dir (expand-file-name "~/Mail/attachments"))
   (setq user-full-name "Zhou Peng")
-  (setq user-mail-address "zhoupen9@sina.cn")
+  (setq user-mail-address "zhoup@nroad.com.cn")
   ;; (setq mu4e-root-maildir (expand-file-name "~/Mail"))
   (setq mu4e-get-mail-command "mbsync -aqq")
   (setq mu4e-update-interval 300)

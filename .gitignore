@@ -18,3 +18,4 @@ workspace/
 .cache/
 .dap-breakpoints
 tramp
+.extension/

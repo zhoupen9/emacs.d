@@ -68,7 +68,11 @@
 (use-package lsp-treemacs
   :commands lsp-treemacs-errors-list)
 
-(use-package dap-mode)
+(use-package dap-mode
+  :bind ("C-c d" . dap-debug)
+  :config
+  (use-package dap-gdb-lldb)
+  (use-package dap-cpptools :demand))
 
 (use-package which-key
     :config
