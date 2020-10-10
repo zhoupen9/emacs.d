@@ -49,9 +49,9 @@
 
 (load "pui")
 (use-package pui
-  :hook
-  ((org-mode . set-org-buffer-variable-pitch)
-   (markdown-mode . set-markdown-buffer-variable-pitch))
+  ;; :hook
+  ;; ((org-mode . set-org-buffer-variable-pitch)
+  ;;  (markdown-mode . set-markdown-buffer-variable-pitch))
   :config
   ;; binding key control-\ to comment/uncomment.
   (global-set-key (kbd "C-c l") 'pui-comment-or-uncomment-region-or-line)

@@ -10,13 +10,13 @@
     :config
     (setq message-send-mail-function   'smtpmail-send-it))
   (setq
-   smtpmail-default-smtp-server "smtp.mxhichina.com"
-   smtpmail-smtp-server         "smtp.mxhichina.com"
+   smtpmail-default-smtp-server "smtp.sina.cn"
+   smtpmail-smtp-server         "smtp.sina.cn"
    smtpmail-smtp-service        465
    smtpmail-stream-type         'tls
-   smtpmail-mail-address        "zhoup@nroad.com.cn"
-   smtpmail-smtp-user           "zhoup@nroad.com.cn"
-   smtpmail-local-domain        "mxhichina.com"))
+   smtpmail-mail-address        "zhoupen9@sina.cn"
+   smtpmail-smtp-user           "zhoupen9@sina.cn"
+   smtpmail-local-domain        "sina.cn"))
 
 (use-package mu4e
   :config
@@ -25,7 +25,7 @@
   (setq mail-user-agent 'mu4e-user-agent)
   (setq mu4e-attachment-dir (expand-file-name "~/Mail/attachments"))
   (setq user-full-name "Zhou Peng")
-  (setq user-mail-address "zhoup@nroad.com.cn")
+  (setq user-mail-address "zhoupen9@sina.cn")
   ;; (setq mu4e-root-maildir (expand-file-name "~/Mail"))
   (setq mu4e-get-mail-command "mbsync -aqq")
   (setq mu4e-update-interval 300)
