@@ -4,6 +4,7 @@
 ;;; Code:
              
 (use-package org
+  :demand
   :config
   (setq org-directory (expand-file-name "~/Documents"))
   (setq org-default-notes-file (concat org-directory "/Notes/notes.org"))

@@ -3,6 +3,9 @@
 
 ;;; Code:
 
+(use-package magit
+  :bind ("C-c m g" . magit-status-here))
+
 (use-package prog-mode
   :defines c-basic-offset
   :config
@@ -69,9 +72,10 @@
   :commands lsp-treemacs-errors-list)
 
 (use-package dap-mode
-  :bind ("C-c d" . dap-debug)
   :config
-  (use-package dap-gdb-lldb)
+  (use-package dap-hydra
+    :bind ("C-c d h" . dap-hydra))
+  (use-package dap-lldb :demand)
   (use-package dap-cpptools :demand))
 
 (use-package which-key
