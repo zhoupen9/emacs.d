@@ -83,29 +83,46 @@
   :config
   (doom-modeline-mode t))
              
-;; Load pyim input methods if running in gnu/linux.
-(use-package pyim
-  :ensure nil
-  :demand t
+;; ;; Load pyim input methods if running in gnu/linux.
+;; (use-package pyim
+;;   :ensure nil
+;;   :demand t
+;;   :config
+;;   ;; use basedict
+;;   (use-package pyim-basedict
+;;     :ensure nil
+;;     :commands pyim-basedict-enable
+;;     :config
+;;     (pyim-basedict-enable))
+;;   (setq default-input-method "pyim")
+;;   ;; Enable "Quanpin"
+;;   (setq pyim-default-scheme 'quanpin)
+;;   ;; ;; Enable pinyin search
+;;   ;; (pyim-isearch-mode 1)
+;;   (setq pyim-page-tooltip 'posframe)
+;;   ;; (setq pyim-page-tooltip 'popup)
+;;   ;; set candicates size
+;;   (setq pyim-page-length 5)
+;;   (setq pyim-dicts
+;;    (quote
+;;     ((:name "bigdict" :file "~/.emacs.d/pyim/dicts/pyim-bigdict.pyim")))))
+
+(use-package all-the-icons-dired
+  :hook (dired-mode . all-the-icons-dired-mode))
+
+(use-package dashboard
   :config
-  ;; use basedict
-  (use-package pyim-basedict
-    :ensure nil
-    :commands pyim-basedict-enable
-    :config
-    (pyim-basedict-enable))
-  (setq default-input-method "pyim")
-  ;; Enable "Quanpin"
-  (setq pyim-default-scheme 'quanpin)
-  ;; ;; Enable pinyin search
-  ;; (pyim-isearch-mode 1)
-  (setq pyim-page-tooltip 'posframe)
-  ;; (setq pyim-page-tooltip 'popup)
-  ;; set candicates size
-  (setq pyim-page-length 5)
-  (setq pyim-dicts
-   (quote
-    ((:name "bigdict" :file "~/.emacs.d/pyim/dicts/pyim-bigdict.pyim")))))
+  (dashboard-setup-startup-hook))
+
+(use-package beacon
+  :custom
+  (beacon-push-mark 10)
+  (beacon-color "#cc342b")
+  (beacon-blink-delay 0.3)
+  (beacon-blink-duration 0.3)
+  :config
+  (beacon-mode)
+  (global-hl-line-mode 1))
 
 (provide 'pui)
 ;;; pui.el ends here

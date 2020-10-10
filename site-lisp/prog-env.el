@@ -84,7 +84,12 @@
 
 (use-package company
   :custom (company-tooltip-minimum-width 80)
-  :hook (prog-mode . company-mode)
+  :hook
+  ((prog-mode . company-mode)
+   (json-mode . company-mode)
+   (yaml-mode . company-mode)
+   (xml-mode . company-mode)
+   (js-mode . company-mode))
   :bind (("C-c c c" . company-complete)))
 
 (use-package company-box
