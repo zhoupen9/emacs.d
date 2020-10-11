@@ -59,8 +59,11 @@
   :commands lsp
   :bind ("C-c h a" . helm-lsp-code-actions)
   :config
+  (use-package lsp-diagnostics
+    :config
+    (setq lsp-diagnostics-provider :none))
   (setq gc-cons-threshold 100000000)
-  (setq read-process-output-max (* 4096 1024)))
+  (setq read-process-output-max (* 1024 1024)))
 
 (use-package lsp-ui
   :commands lsp-ui-mode)
@@ -107,19 +110,6 @@
   :hook ((go-mode .
           (lambda()
             (add-to-list 'company-backends 'company-go)))))
-
-(use-package company-jedi
-  :hook ((python-mode .
-          (lambda ()
-            (add-to-list 'company-backends 'company-jedi)))))
-
-(use-package jedi-core
-  :config
-  (setq
-   jedi:complete-on-dot t
-   jedi:get-in-function-call-delay 0
-   jedi:tooltip-method nil
-   python-shell-interpreter "python3"))
 
 (use-package eldoc
   :hook
