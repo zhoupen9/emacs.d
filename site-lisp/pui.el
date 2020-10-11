@@ -124,6 +124,8 @@
   (beacon-mode)
   (global-hl-line-mode 1))
 
+(set-cursor-color "#ff8822")
+
 (provide 'pui)
 ;;; pui.el ends here
 ;;; End:
