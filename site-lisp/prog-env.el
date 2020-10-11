@@ -56,7 +56,11 @@
    (yaml-mode . lsp)
    (shell-script-mode . lsp)
    (lsp-mode . lsp-enable-which-key-integration))
-  :commands lsp)
+  :commands lsp
+  :bind ("C-c h a" . helm-lsp-code-actions)
+  :config
+  (setq gc-cons-threshold 100000000)
+  (setq read-process-output-max (* 4096 1024)))
 
 (use-package lsp-ui
   :commands lsp-ui-mode)

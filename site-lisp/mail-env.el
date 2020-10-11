@@ -9,14 +9,24 @@
   (use-package message
     :config
     (setq message-send-mail-function   'smtpmail-send-it))
-  (setq
-   smtpmail-default-smtp-server "smtp.sina.cn"
-   smtpmail-smtp-server         "smtp.sina.cn"
+  (when (string= (system-name) "zrs-comp-gz97i7a")
+    (setq
+     smtpmail-default-smtp-server "smtp.sina.cn"
+     smtpmail-smtp-server         "smtp.sina.cn"
+     smtpmail-smtp-service        465
+     smtpmail-stream-type         'tls
+     smtpmail-mail-address        "zhoupen9@sina.cn"
+     smtpmail-smtp-user           "zhoupen9@sina.cn"
+     smtpmail-local-domain        "sina.cn"))
+  (when (string= (system-name) "xanr-dev-pri-wcmi")
+      (setq
+   smtpmail-default-smtp-server "smtp.mxhichina.com"
+   smtpmail-smtp-server         "smtp.mxhichina.com"
    smtpmail-smtp-service        465
    smtpmail-stream-type         'tls
-   smtpmail-mail-address        "zhoupen9@sina.cn"
-   smtpmail-smtp-user           "zhoupen9@sina.cn"
-   smtpmail-local-domain        "sina.cn"))
+   smtpmail-mail-address        "zhoup@nroad.com.cn"
+   smtpmail-smtp-user           "zhoup@nroad.com.cn"
+   smtpmail-local-domain        "mxhichina.com")))
 
 (use-package mu4e
   :config

@@ -121,10 +121,16 @@
   (beacon-blink-delay 0.3)
   (beacon-blink-duration 0.3)
   :config
-  (beacon-mode)
-  (global-hl-line-mode 1))
+  (beacon-mode))
 
-(set-cursor-color "#ff8822")
+(use-package frame
+  :config
+  (add-hook 'after-init-hook (lambda() (set-cursor-color "#fa6422"))))
+
+(use-package hl-line
+  :config
+  (add-hook 'after-init-hook (lambda() (set-face-background hl-line-face "#502040")))
+  (global-hl-line-mode 1))
 
 (provide 'pui)
 ;;; pui.el ends here

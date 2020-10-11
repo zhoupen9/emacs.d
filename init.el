@@ -47,7 +47,6 @@
 ;; (global-set-key (kbd "C-c r p") 'rtags-print-symbol-info)
 ;; (global-set-key (kbd "C-c r b") 'rtags-location-stack-back)
 
-(load "pui")
 (use-package pui
   ;; :hook
   ;; ((org-mode . set-org-buffer-variable-pitch)
