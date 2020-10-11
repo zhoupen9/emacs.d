@@ -79,10 +79,6 @@
   (when (eq system-type 'gnu/linux)
     (pui--set-window-titlebar-theme-variant "dark")))
 
-(use-package doom-modeline
-  :config
-  (doom-modeline-mode t))
-             
 ;; ;; Load pyim input methods if running in gnu/linux.
 ;; (use-package pyim
 ;;   :ensure nil
@@ -107,6 +103,10 @@
 ;;    (quote
 ;;     ((:name "bigdict" :file "~/.emacs.d/pyim/dicts/pyim-bigdict.pyim")))))
 
+(use-package doom-modeline
+  :config
+  (doom-modeline-mode t))
+
 (use-package all-the-icons-dired
   :hook (dired-mode . all-the-icons-dired-mode))
 
@@ -121,7 +121,15 @@
   (beacon-blink-delay 0.3)
   (beacon-blink-duration 0.3)
   :config
-  (beacon-mode)
+  (beacon-mode))
+
+(use-package frame
+  :config
+  (add-hook 'after-init-hook (lambda() (set-cursor-color "#fa6422"))))
+
+(use-package hl-line
+  :config
+  (add-hook 'after-init-hook (lambda() (set-face-background hl-line-face "#502040")))
   (global-hl-line-mode 1))
 
 (provide 'pui)

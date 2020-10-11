@@ -47,12 +47,14 @@
 ;; (global-set-key (kbd "C-c r p") 'rtags-print-symbol-info)
 ;; (global-set-key (kbd "C-c r b") 'rtags-location-stack-back)
 
-(load "pui")
+;;(load "pui")
 (use-package pui
-  :hook
-  ((org-mode . set-org-buffer-variable-pitch)
-   (markdown-mode . set-markdown-buffer-variable-pitch))
+  ;; :hook
+  ;; ((org-mode . set-org-buffer-variable-pitch)
+  ;;  (markdown-mode . set-markdown-buffer-variable-pitch))
   :config
+  (use-package eshell
+    :bind ("C-c s" . eshell))
   ;; binding key control-\ to comment/uncomment.
   (global-set-key (kbd "C-c l") 'pui-comment-or-uncomment-region-or-line)
   ;; binding key control-c control-e to beautify.
