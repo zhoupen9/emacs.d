@@ -31,7 +31,6 @@
   :demand
   :config
   (setq flycheck-emacs-lisp-load-path (quote inherit))
-  (use-package flycheck-pyflakes)
   (global-flycheck-mode t)
   :hook
   ((go-mode . flycheck-mode))
@@ -68,7 +67,14 @@
 (use-package lsp-ui
   :commands lsp-ui-mode)
 
-(use-package lsp-java)
+(use-package lsp-java
+  :config
+  (setq lsp-java-vmargs
+        (list
+         "-noverify"
+         "-Xmx2G"
+         "-XX:+UseG1GC"
+         "-XX:+UseStringDeduplication")))
 ;;  :custom (lsp-java-server-install-dir "~/.local/lib/eclipse.jdt.ls"))
 
 (use-package helm-lsp
