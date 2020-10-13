@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: print debug log
+# key: pdl
+# group: java
+# --
+if (logger.isDebugEnabled()) {
+   logger.debug($1);
+}
