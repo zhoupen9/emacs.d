@@ -60,7 +60,7 @@
   :config
   (use-package lsp-diagnostics
     :config
-    (setq lsp-diagnostics-provider :none))
+    (setq lsp-diagnostics-provider :auto))
   (setq gc-cons-threshold 100000000)
   (setq read-process-output-max (* 1024 1024)))
 
@@ -142,6 +142,10 @@
   ;;:config
   ;; (yas-reload-all)
   :hook ((prog-mode . yas-minor-mode)))
+
+(use-package nxml-mode
+  :config
+  (setq nxml-slash-auto-complete-flag t))
 
 (provide 'prog-env)
 ;;; prog-env.el ends here

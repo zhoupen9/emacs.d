@@ -96,6 +96,11 @@
   (helm-projectile-on)
   :bind (("M-x" . helm-M-x)))
 
+(use-package yasnippet
+  :config
+  (setq yas-snippet-dirs
+        '("~/.emacs.d/snippets")))
+
 (provide 'base-env)
 ;;; base-env.el ends here
 ;;; End:
