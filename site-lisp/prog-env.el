@@ -143,6 +143,10 @@
   ;; (yas-reload-all)
   :hook ((prog-mode . yas-minor-mode)))
 
+(use-package nxml-mode
+  :config
+  (setq nxml-slash-auto-complete-flag t))
+
 (provide 'prog-env)
 ;;; prog-env.el ends here
 ;;; End:
