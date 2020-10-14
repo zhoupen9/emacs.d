@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: assert not null with message
+# key: jan
+# group: java
+# --
+Assert.notNull($1, "$2 can not be null");

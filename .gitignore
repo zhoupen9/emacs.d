@@ -19,3 +19,5 @@ workspace/
 .dap-breakpoints
 tramp
 .extension/
+.yas-compiled-snippets.el
+.lsp-session-*
