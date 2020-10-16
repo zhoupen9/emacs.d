@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# name: asert non null
+# name: assert non null
 # key: nonnull
 # group: java
 # --

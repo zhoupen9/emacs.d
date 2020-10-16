@@ -21,3 +21,6 @@ tramp
 .extension/
 .yas-compiled-snippets.el
 .lsp-session-*
+request/
+recentf
+\#*

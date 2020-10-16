@@ -41,7 +41,7 @@
   ;; Turn off scroll bar.
   (scroll-bar-mode 0)
   ;; Turn on speed bar.
-  (speedbar-frame-mode t)
+  ;; (speedbar-frame-mode t)
 
   ;; Make Noto CJK align with english characters horizontally
   ;; (add-to-list 'face-font-rescale-alist
@@ -89,12 +89,17 @@
 
 (use-package bind-key)
 
+(use-package company
+  :config
+  (global-company-mode t))
+
 (use-package helm
   :demand
   :config
   (helm-mode t)
   (helm-projectile-on)
-  :bind (("M-x" . helm-M-x)))
+  :bind (("M-x" . helm-M-x)
+         ("C-c h b" . helm-buffers-list)))
 
 (use-package yasnippet
   :config

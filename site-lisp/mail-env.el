@@ -32,16 +32,25 @@
   :config
   ;; "Setup mu4e.
   ;;(setq mu4e-use-fancy-chars t)
-  (setq mail-user-agent 'mu4e-user-agent)
-  (setq mu4e-attachment-dir (expand-file-name "~/Mail/attachments"))
-  (setq user-full-name "Zhou Peng")
+  (setq
+   mail-user-agent 'mu4e-user-agent
+   mu4e-attachment-dir (expand-file-name "~/Mail/attachments")
+   user-full-name "Zhou Peng"
+   ;; mu4e-view-fields '(:date :flags :from :to :tags :subject)
+   mu4e-headers-fields
+   '((:human-date . 12)
+     (:flags . 6)
+     (:from-or-to . 25)
+     (:subject))
+   mu4e-get-mail-command "mbsync -aqq"
+   mu4e-update-interval 300)
+
   (when (string= (system-name) "zrs-comp-gz97i7a")
     (setq user-mail-address "zhoupen9@sina.cn"))
   (when (string= (system-name) "xanr-dev-pri-wcmi")
     (setq user-mail-address "zhoup@nroad.com.cn"))
+
   ;; (setq mu4e-root-maildir (expand-file-name "~/Mail"))
-  (setq mu4e-get-mail-command "mbsync -aqq")
-  (setq mu4e-update-interval 300)
   :init
   (add-hook 'after-init-hook 'mu4e-alert-enable-notifications t)
   (add-hook 'after-init-hook 'mu4e-alert-enable-mode-line-display t))
