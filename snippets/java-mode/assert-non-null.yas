@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: asert non null
-# key: jano
+# key: nonnull
 # group: java
 # --
 Objects.requireNonNull($1, "$2 can not be null");

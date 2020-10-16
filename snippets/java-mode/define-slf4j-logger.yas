@@ -1,4 +1,6 @@
-# key: dlj
+# -*- mode: snippet -*-
 # name: define log4j logger
+# key: logger
+# group: java
 # --
 private final Logger logger = LoggerFactory.getLogger(${1:`(file-name-nondirectory (file-name-sans-extension (buffer-file-name)))`}.class);
