@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: java main
-# key: psjm
+# key: main
 # group: java
 # --
 public static void main(String[] args) {
