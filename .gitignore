@@ -2,14 +2,13 @@ auto-save-list
 backup/
 bookmarks
 elpa/
-eshell
+eshell/
 *.elc
 projectile*
 session.*
 transient
-.python-environments
+.python-environments/
 pyim
-zelpa/*.tar
 .abbrev_defs
 custom-local.el
 url
@@ -24,3 +23,4 @@ tramp
 request/
 recentf
 \#*
+eclipse.jdt.ls/
