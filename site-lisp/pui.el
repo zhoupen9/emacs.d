@@ -124,6 +124,7 @@
   (beacon-mode))
 
 (use-package frame
+  :demand
   :config
   (add-hook 'after-init-hook (lambda() (set-cursor-color "#fa6422"))))
 
