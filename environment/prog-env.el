@@ -3,6 +3,8 @@
 
 ;;; Code:
 
+(defvar emacs-data-dir)
+
 (use-package magit
   :bind ("C-c m g" . magit-status-here))
 
@@ -24,7 +26,10 @@
 
 (use-package python
   :mode ("\\.py\\'" . python-mode)
-  :interpreter ("python3" . python-mode))
+  :interpreter ("python3" . python-mode)
+  :config
+  (setq python-shell-interpreter "ipython"
+        python-shell-interpreter-args "-i"))
 
 ;; flycheck
 (use-package flycheck
@@ -40,12 +45,24 @@
   :demand
   :bind-keymap
   ("C-c p" . projectile-command-map)
+  :custom
+  (projectile-known-projects-file (concat emacs-data-dir "projectile-bookmarks.eld"))
+  (projectile-cache-file (concat emacs-data-dir "projectile.cache"))
   :config
   (projectile-mode t))
 
+(use-package treemacs-customization
+  :custom
+  (treemacs-persist-file (concat emacs-data-dir "treemacs-persist")))
+
 (use-package lsp-mode
-  :init
-  (setq lsp-keymap-prefix "C-c C-l")
+  :custom
+  (lsp-keymap-prefix "C-c C-l")
+  (lsp-fsharp-server-install-dir (concat emacs-data-dir "lsp/fsautocomplete"))
+  (lsp-java-server-install-dir (concat emacs-data-dir "lsp/eclipse.jdt.ls"))
+  (lsp-xml-server-work-dir (concat emacs-data-dir "lsp/xml"))
+  (lsp-server-install-dir (concat emacs-data-dir "lsp"))
+  (lsp-session-file (concat emacs-data-dir "lsp/lsp-session-v1"))
   :hook
   ((c-mode . lsp)
    (java-mode . lsp)
@@ -59,23 +76,24 @@
   :bind ("C-c h a" . helm-lsp-code-actions)
   :config
   (use-package lsp-diagnostics
-    :config
-    (setq lsp-diagnostics-provider :auto))
-  (setq gc-cons-threshold 100000000)
-  (setq read-process-output-max (* 1024 1024)))
+    :custom
+    (lsp-diagnostics-provider :auto))
+  (setq gc-cons-threshold 100000000
+        read-process-output-max (* 1024 1024)))
 
 (use-package lsp-ui
   :commands lsp-ui-mode)
 
 (use-package lsp-java
-  :config
-  (setq lsp-java-vmargs
-        (list
-         "-noverify"
-         "-Xmx2G"
-         "-XX:+UseG1GC"
-         "-XX:+UseStringDeduplication")))
-;;  :custom (lsp-java-server-install-dir "~/.local/lib/eclipse.jdt.ls"))
+  :custom
+  (lsp-java-workspace-dir (concat emacs-data-dir "workspace"))
+  (lsp-java-workspace-cache-dir (concat emacs-data-dir "workspace/.cache"))
+  (lsp-java-vmargs (list
+                    "-noverify"
+                    "-Xmx2G"
+                    "-XX:+UseG1GC"
+                    "-XX:+UseStringDeduplication")))
+;; :custom (lsp-java-server-install-dir "~/.local/lib/eclipse.jdt.ls"))
 
 (use-package helm-lsp
   :after (helm)
@@ -85,7 +103,12 @@
   :commands lsp-treemacs-errors-list)
 
 (use-package dap-mode
+  :custom
+  (dap-breakpoints-file ".dap-breakpoints")
   :config
+  (use-package dap-utils
+    :custom
+    (dap-utils-extension-path (concat emacs-data-dir "lsp/extension")))
   (use-package dap-hydra
     :bind ("C-c d h" . dap-hydra))
   (use-package dap-lldb :demand)
@@ -108,9 +131,6 @@
 (use-package company-box
   :custom (company-box-tooltip-maximum-width 520)
   :hook (company-mode . company-box-mode))
-
-(use-package company-quickhelp
-  :hook (company-mode . company-quickhelp-mode))
 
 (use-package company-go
   :hook ((go-mode .
@@ -144,8 +164,8 @@
   :hook ((prog-mode . yas-minor-mode)))
 
 (use-package nxml-mode
-  :config
-  (setq nxml-slash-auto-complete-flag t))
+  :custom
+  (nxml-slash-auto-complete-flag t))
 
 (provide 'prog-env)
 ;;; prog-env.el ends here

@@ -5,10 +5,10 @@
              
 (use-package org
   :demand
-  :config
-  (setq org-directory (expand-file-name "~/Documents"))
-  (setq org-default-notes-file (concat org-directory "/Notes/notes.org"))
-  (setq org-agenda-files (list "~/Documents/Agenda")))
+  :custom
+  (org-directory (expand-file-name "~/Documents"))
+  (org-default-notes-file (concat org-directory "/Notes/notes.org"))
+  (org-agenda-files (list "~/Documents/Agenda")))
 
 (use-package org-capture
   :config
