@@ -130,7 +130,7 @@
 
 (use-package yasnippet
   :custom
-  (yas-snippet-dirs (list (concat emacs-data-dir "snippets"))))
+  (yas-snippet-dirs (list (concat user-emacs-directory "snippets"))))
 
 (use-package request
   :custom
