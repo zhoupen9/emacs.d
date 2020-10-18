@@ -81,7 +81,7 @@
 
 (use-package doom-modeline
   :config
-  (setq doom-modeline-buffer-file-name-style "truncate-upto-project")
+  (setq doom-modeline-buffer-file-name-style 'truncate-upto-project)
   (doom-modeline-mode t))
 
 (use-package all-the-icons-dired
