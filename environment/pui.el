@@ -79,32 +79,9 @@
   (when (eq system-type 'gnu/linux)
     (pui--set-window-titlebar-theme-variant "dark")))
 
-;; ;; Load pyim input methods if running in gnu/linux.
-;; (use-package pyim
-;;   :ensure nil
-;;   :demand t
-;;   :config
-;;   ;; use basedict
-;;   (use-package pyim-basedict
-;;     :ensure nil
-;;     :commands pyim-basedict-enable
-;;     :config
-;;     (pyim-basedict-enable))
-;;   (setq default-input-method "pyim")
-;;   ;; Enable "Quanpin"
-;;   (setq pyim-default-scheme 'quanpin)
-;;   ;; ;; Enable pinyin search
-;;   ;; (pyim-isearch-mode 1)
-;;   (setq pyim-page-tooltip 'posframe)
-;;   ;; (setq pyim-page-tooltip 'popup)
-;;   ;; set candicates size
-;;   (setq pyim-page-length 5)
-;;   (setq pyim-dicts
-;;    (quote
-;;     ((:name "bigdict" :file "~/.emacs.d/pyim/dicts/pyim-bigdict.pyim")))))
-
 (use-package doom-modeline
   :config
+  (setq doom-modeline-buffer-file-name-style "truncate-upto-project")
   (doom-modeline-mode t))
 
 (use-package all-the-icons-dired

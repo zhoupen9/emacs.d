@@ -3,12 +3,17 @@
 
 ;;; Code:
 
+(defvar emacs-data-dir)
+
 (setq
- abbrev-file-name "~/.emacs.d/.abbrev_defs"
+ abbrev-file-name (concat user-emacs-directory "abbrev_defs")
  backup-by-copying t
  backup-by-copying-when-linked t
- backup-directory-alist (quote (("" . "~/.emacs.d/backup")))
- custom-file "~/.emacs.d/custom-local.el"
+ backup-directory-alist `(("." . ,(concat emacs-data-dir "backup")))
+ auto-save-file-name-transforms `(("\\`/[^/]*:\\([^/]*/\\)*\\([^/]*\\)\\'"
+                                   ,(concat emacs-data-dir "auto-save-list/\\2") t))
+ auto-save-list-file-prefix (concat emacs-data-dir "auto-save-list/.saves-")
+ custom-file (concat user-emacs-directory "custom-local.el")
  display-time-day-and-date t
  ;; Remove bootstrap messages
  inhibit-startup-message t
@@ -58,6 +63,22 @@
                         (font-spec :family "Noto Sans CJK SC"))))) ;; 中文支持
                         ;;(font-spec :family "Noto Sans CJK SC"))));;abcdefghijk
 
+(use-package bookmark
+  :custom
+  (bookmark-default-file (concat emacs-data-dir "bookmarks")))
+
+(use-package recentf
+  :custom
+  (recentf-save-file (concat emacs-data-dir "recentf")))
+
+(use-package esh-mode
+  :custom
+  (eshell-directory-name (concat emacs-data-dir "eshell")))
+
+(use-package tramp-cache
+  :custom
+  (tramp-persistency-file-name (concat emacs-data-dir "tramp")))
+
 (use-package font-core
   :config
   ;; Set font color
@@ -96,15 +117,28 @@
 (use-package helm
   :demand
   :config
+  (use-package helm-adaptive
+    :custom
+    (helm-adaptive-history-file (concat emacs-data-dir "helm-adaptive-history")))
+  (use-package helm-net
+    :config
+    (setq helm-net-curl-log-file (concat emacs-data-dir "helm-curl.log")))
   (helm-mode t)
   (helm-projectile-on)
   :bind (("M-x" . helm-M-x)
          ("C-c h b" . helm-buffers-list)))
 
 (use-package yasnippet
-  :config
-  (setq yas-snippet-dirs
-        '("~/.emacs.d/snippets")))
+  :custom
+  (yas-snippet-dirs (list (concat emacs-data-dir "snippets"))))
+
+(use-package request
+  :custom
+  (request-storage-directory (concat emacs-data-dir "request")))
+
+(use-package transient
+  :custom
+  (transient-history-file (concat emacs-data-dir "transient/history.el")))
 
 (provide 'base-env)
 ;;; base-env.el ends here

@@ -5,22 +5,22 @@
 
 (setenv "XAPIAN_CJK_NGRAM" "1")
 
-;; set up package repositories.
-(require 'package)
+(setq user-full-name "Zhou Peng")
 (setq package-archives '(("gnu-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
                          ("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
 ;; Initialize packages
-(package-initialize)
+(when (< emacs-major-version 27)
+  (package-initialize))
 
 ;; add site-lisp to load path
-(add-to-list 'load-path "~/.emacs.d/site-lisp")
-(add-to-list 'load-path "~/.emacs.d/site-lisp/mu4e")
+(add-to-list 'load-path (concat user-emacs-directory "environment"))
+;;(add-to-list 'load-path (concat user-emacs-directory "site-lisp/mu4e"))
 
 ;; add site-themes to theme load path
-(add-to-list 'custom-theme-load-path (expand-file-name "~/.emacs.d/site-themes"))
+(add-to-list 'custom-theme-load-path (concat user-emacs-directory "themes"))
 
-(customize-set-variable 'custom-file "~/.emacs.d/custom-local.el")
-(load custom-file 'noerror)
+;;(customize-set-variable 'custom-file (concat user-emacs-directory "custom-local.el"))
+;;(load custom-file 'noerror)
 
 (require 'use-package)
 
@@ -39,12 +39,6 @@
 (use-package news-env)
 
 (use-package prog-env)
-
-;; (global-set-key (kbd "M-x") 'helm-M-x)
-;; (global-set-key (kbd "C-c r f") 'rtags-find-symbol)
-;; (global-set-key (kbd "C-c r c") 'rtags-find-symbol-at-point)
-;; (global-set-key (kbd "C-c r p") 'rtags-print-symbol-info)
-;; (global-set-key (kbd "C-c r b") 'rtags-location-stack-back)
 
 (use-package pui
   ;; :hook

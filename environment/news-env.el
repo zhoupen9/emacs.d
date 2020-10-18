@@ -4,6 +4,8 @@
 ;;; Code:
              
 (use-package elfeed-org
+  :custom
+  (rmh-elfeed-org-files (list (concat user-emacs-directory "elfeed.org")))
   :config
   ;; Initialize elfeed-org
   ;; This hooks up elfeed-org to read the configuration when elfeed
@@ -12,7 +14,6 @@
   ;; Optionally specify a number of files containing elfeed
   ;; configuration. If not set then the location below is used.
   ;; Note: The customize interface is also supported.
-  (setq rmh-elfeed-org-files (list "~/.emacs.d/elfeed.org"))
   :init
   (use-package elfeed))
 
