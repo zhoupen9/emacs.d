@@ -108,10 +108,14 @@
   :config
   (use-package dap-utils
     :custom
-    (dap-utils-extension-path (concat emacs-data-dir "lsp/extension")))
+    (dap-utils-extension-path (concat emacs-data-dir "lsp/extensions")))
   (use-package dap-hydra
     :bind ("C-c d h" . dap-hydra))
-  (use-package dap-lldb :demand)
+  (use-package dap-lldb :demand
+    :custom
+    (dap-lldb-debug-program
+     (concat emacs-data-dir
+             "lsp/extensions/vscode/llvm-org.lldb-vscode-0.1.0/bin/lldb-vscode")))
   (use-package dap-cpptools :demand))
 
 (use-package which-key
