@@ -2,6 +2,8 @@
 ;;; Commentary:
 
 ;;; Code:
+
+(defvar emacs-data-dir)
              
 (use-package org
   :demand
@@ -41,6 +43,15 @@
   :custom
   (org-journal-dir "~/Documents/Journal")
   (org-journal-date-format "%A, %d %B %Y"))
+
+(use-package org-roam
+  :after helm
+  :custom
+  (org-roam-directory "~/Documents/Notes")
+  (org-roam-completion-system 'helm)
+  (org-roam-db-location (concat emacs-data-dir "org-roam.db3"))
+  :config
+  (add-hook 'after-init-hook 'org-roam-mode))
 
 (provide 'org-env)
 ;;; org-env.el ends here
