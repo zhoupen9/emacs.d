@@ -34,6 +34,14 @@
   :after (org)
   :hook (org-mode . org-bullets-mode))
 
+(use-package org-journal
+  :init
+  ;; Change default prefix key; needs to be set before loading org-journal
+  (setq org-journal-prefix-key "C-c j ")
+  :custom
+  (org-journal-dir "~/Documents/Journal")
+  (org-journal-date-format "%A, %d %B %Y"))
+
 (provide 'org-env)
 ;;; org-env.el ends here
 ;;; End:

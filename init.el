@@ -3,6 +3,8 @@
 
 ;;; Code:
 
+(global-unset-key "\C-z")
+
 (setenv "XAPIAN_CJK_NGRAM" "1")
 
 (setq user-full-name "Zhou Peng")
