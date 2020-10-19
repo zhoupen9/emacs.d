@@ -8,8 +8,10 @@
 (setenv "XAPIAN_CJK_NGRAM" "1")
 
 (setq user-full-name "Zhou Peng")
-(setq package-archives '(("gnu-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-                         ("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
+(setq package-archives '(("gnu-cn"   . "http://mirrors.ustc.edu.cn/elpa/gnu/")
+                         ("melpa-cn" . "http://mirrors.ustc.edu.cn/elpa/melpa/")))
+;; (setq package-archives '(("gnu-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+;; ("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
 ;; Initialize packages
 (when (< emacs-major-version 27)
   (package-initialize))
