@@ -116,6 +116,9 @@
     (dap-lldb-debug-program
      (concat emacs-data-dir
              "lsp/extensions/vscode/llvm-org.lldb-vscode-0.1.0/bin/lldb-vscode")))
+  (use-package dap-java
+    :custom
+    (dap-java-test-runner (concat lsp-java-server-install-dir "/test-runner/junit-platform-console-standalone.jar")))
   (use-package dap-cpptools :demand))
 
 (use-package which-key

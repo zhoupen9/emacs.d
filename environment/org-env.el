@@ -42,6 +42,7 @@
   (setq org-journal-prefix-key "C-c j ")
   :custom
   (org-journal-dir "~/Documents/Journal")
+  (org-journal-file-format "%Y-%m-%d.org")
   (org-journal-date-format "%A, %d %B %Y"))
 
 (use-package org-roam
