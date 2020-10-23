@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: assert has text
+# key: hasText
+# group: java
+# --
+Assert.hasText($1, "$1 can not be blank");

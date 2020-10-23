@@ -52,6 +52,8 @@
   (use-package eshell
     :bind ("C-c s" . eshell))
   ;; binding key control-\ to comment/uncomment.
+  (global-set-key (kbd "C-z") 'previous-window-any-frame)
+  (global-set-key (kbd "M-3") 'other-window)
   (global-set-key (kbd "C-c l") 'pui-comment-or-uncomment-region-or-line)
   ;; binding key control-c control-e to beautify.
   (global-set-key (kbd "C-c b f") 'pui-beautify))

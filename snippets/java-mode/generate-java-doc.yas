@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: generate java doc
+# key: javadoc
+# group: java
+# --
+/** |$1 */

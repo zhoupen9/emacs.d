@@ -82,7 +82,10 @@
         read-process-output-max (* 1024 1024)))
 
 (use-package lsp-ui
-  :commands lsp-ui-mode)
+  :commands lsp-ui-mode
+  :config
+  (setq lsp-ui-doc-enable nil
+        lsp-ui-sideline-enable nil))
 
 (use-package lsp-java
   :custom
@@ -117,9 +120,15 @@
      (concat emacs-data-dir
              "lsp/extensions/vscode/llvm-org.lldb-vscode-0.1.0/bin/lldb-vscode")))
   (use-package dap-java
+    :bind
+    (("C-c t m" . dap-java-debug-test-method)
+     ("C-c t c" . dap-java-debug-test-class))
     :custom
     (dap-java-test-runner (concat lsp-java-server-install-dir "/test-runner/junit-platform-console-standalone.jar")))
-  (use-package dap-cpptools :demand))
+  (use-package dap-cpptools :demand)
+  (use-package dap-ui
+    :bind (("C-c d m" . dap-ui-show-many-windows)
+           ("C-c d n" . dap-ui-hide-many-windows))))
 
 (use-package which-key
     :config
@@ -173,6 +182,18 @@
 (use-package nxml-mode
   :custom
   (nxml-slash-auto-complete-flag t))
+
+(require 'ansi-color)
+(require 'files)
+(require 'compile)
+
+(defun ansi-color-apply-compilation-buffer ()
+  "Apply ansi color for compilation buffer."
+  (read-only-mode nil)
+  (ansi-color-apply-on-region compilation-filter-start (point))
+  (read-only-mode))
+
+(add-hook 'compilation-filter-hook 'ansi-color-apply-compilation-buffer)
 
 (provide 'prog-env)
 ;;; prog-env.el ends here
