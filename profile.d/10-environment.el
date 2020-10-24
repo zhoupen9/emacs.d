@@ -5,20 +5,21 @@
 
 (defvar emacs-data-dir)
 
-(customize-set-variable 'abbrev-file-name (concat user-emacs-directory "abbrev_defs"))
-(customize-set-variable 'backup-by-copying t)
-(customize-set-variable 'backup-by-copying-when-linked t)
-(customize-set-variable 'backup-directory-alist `(("." . ,(concat emacs-data-dir "backup/"))))
-(customize-set-variable 'auto-save-file-name-transforms
-                        `(("\\`/[^/]*:\\([^/]*/\\)*\\([^/]*\\)\\'"
-                           ,(concat emacs-data-dir "auto-save-list/\\2") t)))
-(customize-set-variable 'auto-save-list-file-prefix (concat emacs-data-dir "auto-save-list/.saves-"))
-(customize-set-variable 'custom-file (concat emacs-data-dir "custom-local.el"))
-(customize-set-variable 'display-time-day-and-date t)
-(customize-set-variable 'inhibit-startup-message t)
-(customize-set-variable 'frame-title-format '("" "[%b] %f - Emacs " emacs-version))
-(customize-set-variable 'visible-bell t)
-(customize-set-variable 'confirm-kill-emacs 'yes-or-no-p)
+(custom-set-variables
+ '(abbrev-file-name (concat user-emacs-directory "abbrev_defs"))
+ '(backup-by-copying t)
+ '(backup-by-copying-when-linked t)
+ '(backup-directory-alist `(("." . ,(concat emacs-data-dir "backup/"))))
+ '(auto-save-file-name-transforms
+   `(("\\`/[^/]*:\\([^/]*/\\)*\\([^/]*\\)\\'"
+      ,(concat emacs-data-dir "auto-save-list/\\2") t)))
+ '(auto-save-list-file-prefix (concat emacs-data-dir "auto-save-list/.saves-"))
+ '(custom-file (concat emacs-data-dir "custom-local.el"))
+ '(display-time-day-and-date t)
+ '(inhibit-startup-message t)
+ '(frame-title-format '("" "[%b] %f - Emacs " emacs-version))
+ '(visible-bell t)
+ '(confirm-kill-emacs 'yes-or-no-p))
 
 ;; set 'yes or no' to 'y or n'
 (fset 'yes-or-no-p 'y-or-n-p)
