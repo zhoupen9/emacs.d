@@ -3,67 +3,30 @@
 
 ;;; Code:
 
+;; Initialize packages
+(when (< emacs-major-version 27)
+  (load (concat user-emacs-directory "early-init"))
+  (package-initialize))
+
+(require 'use-package)
+
+(defconst emacs-profile-dir (concat user-emacs-directory "profile.d/"))
 (global-unset-key "\C-z")
 
 (setenv "XAPIAN_CJK_NGRAM" "1")
 
-(setq user-full-name "Zhou Peng")
-(setq package-archives '(("gnu-cn"   . "http://mirrors.ustc.edu.cn/elpa/gnu/")
-                         ("melpa-cn" . "http://mirrors.ustc.edu.cn/elpa/melpa/")))
-;; (setq package-archives '(("gnu-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-;; ("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
-;; Initialize packages
-(when (< emacs-major-version 27)
-  (package-initialize))
-
-;; add site-lisp to load path
-(add-to-list 'load-path (concat user-emacs-directory "environment"))
-;;(add-to-list 'load-path (concat user-emacs-directory "site-lisp/mu4e"))
-
 ;; add site-themes to theme load path
 (add-to-list 'custom-theme-load-path (concat user-emacs-directory "themes"))
 
-;;(customize-set-variable 'custom-file (concat user-emacs-directory "custom-local.el"))
-;;(load custom-file 'noerror)
+;; add profile directory to load path
+;(add-to-list 'load-path emacs-profile-dir)
 
-(require 'use-package)
+(defun emacs-profile--load (elisp-file)
+  "Load profile pacakge from ELISP-FILE."
+  (save-excursion
+    (load (file-name-sans-extension elisp-file))))
 
-(load "ldap-mode")
+(mapc 'emacs-profile--load
+      (directory-files emacs-profile-dir t ".el$"))
 
-(use-package base-env)
-
-(use-package org-env)
-
-(use-package mail-env
-    :config
-  ;; key bindings
-  ;; Bind key <F12> to open 'mu4e'
-  (global-set-key (quote [f12]) (quote mu4e)))
-
-(use-package news-env)
-
-(use-package prog-env)
-
-(use-package pui
-  ;; :hook
-  ;; ((org-mode . set-org-buffer-variable-pitch)
-  ;;  (markdown-mode . set-markdown-buffer-variable-pitch))
-  :config
-  (use-package eshell
-    :bind ("C-c s" . eshell))
-  ;; binding key control-\ to comment/uncomment.
-  (global-set-key (kbd "C-z") 'previous-window-any-frame)
-  (global-set-key (kbd "M-3") 'other-window)
-  (global-set-key (kbd "C-c l") 'pui-comment-or-uncomment-region-or-line)
-  ;; binding key control-c control-e to beautify.
-  (global-set-key (kbd "C-c b f") 'pui-beautify))
-
-;; load spacemacs dark theme
-(load-theme 'spacemacs-dark t)
-
-(server-start)
-
-;;(load "site-start")
-
-(provide 'init)
 ;;; init.el ends here

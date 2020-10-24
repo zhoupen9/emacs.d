@@ -1,4 +1,4 @@
-;;; prog-env.el --- Site start
+;;; 30-prog.el --- Site start
 ;;; Commentary:
 
 ;;; Code:
@@ -61,7 +61,7 @@
   (lsp-fsharp-server-install-dir (concat emacs-data-dir "lsp/fsautocomplete/"))
   (lsp-java-server-install-dir (concat emacs-data-dir "lsp/eclipse.jdt.ls/"))
   (lsp-xml-server-work-dir (concat emacs-data-dir "lsp/xml/"))
-  (lsp-server-install-dir (concat emacs-data-dir "lsp"))
+  (lsp-server-install-dir (concat emacs-data-dir "lsp/"))
   (lsp-session-file (concat emacs-data-dir "lsp/lsp-session-v1"))
   :hook
   ((c-mode . lsp)
@@ -111,7 +111,7 @@
   :config
   (use-package dap-utils
     :custom
-    (dap-utils-extension-path (concat emacs-data-dir "lsp/extensions")))
+    (dap-utils-extension-path (concat emacs-data-dir "lsp/extensions/")))
   (use-package dap-hydra
     :bind ("C-c d h" . dap-hydra))
   (use-package dap-lldb :demand
@@ -175,8 +175,6 @@
   ((flycheck-mode . flycheck-yamllint-setup)))
 
 (use-package yasnippet
-  ;;:config
-  ;; (yas-reload-all)
   :hook ((prog-mode . yas-minor-mode)))
 
 (use-package nxml-mode
@@ -195,6 +193,5 @@
 
 (add-hook 'compilation-filter-hook 'ansi-color-apply-compilation-buffer)
 
-(provide 'prog-env)
-;;; prog-env.el ends here
+;;; 30-prog.el ends here
 ;;; End:

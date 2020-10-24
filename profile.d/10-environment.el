@@ -1,29 +1,24 @@
-;;; base-env.el --- Basic EMACS Configurations
+;;; 10-environment.el --- Basic EMACS Configurations
 ;;; Commentary:
 
 ;;; Code:
 
 (defvar emacs-data-dir)
 
-(setq
- abbrev-file-name (concat user-emacs-directory "abbrev_defs")
- backup-by-copying t
- backup-by-copying-when-linked t
- backup-directory-alist `(("." . ,(concat emacs-data-dir "backup")))
- auto-save-file-name-transforms `(("\\`/[^/]*:\\([^/]*/\\)*\\([^/]*\\)\\'"
-                                   ,(concat emacs-data-dir "auto-save-list/\\2") t))
- auto-save-list-file-prefix (concat emacs-data-dir "auto-save-list/.saves-")
- custom-file (concat user-emacs-directory "custom-local.el")
- display-time-day-and-date t
- ;; Remove bootstrap messages
- inhibit-startup-message t
- ;; Set graphic interface defaults.
- ;; change title bar display
- frame-title-format '("" "[%b] %f - Emacs " emacs-version)
- ;; shutdown bell
- visible-bell t
- ;; Add confirmation for quit emacs
- confirm-kill-emacs 'yes-or-no-p)
+(customize-set-variable 'abbrev-file-name (concat user-emacs-directory "abbrev_defs"))
+(customize-set-variable 'backup-by-copying t)
+(customize-set-variable 'backup-by-copying-when-linked t)
+(customize-set-variable 'backup-directory-alist `(("." . ,(concat emacs-data-dir "backup/"))))
+(customize-set-variable 'auto-save-file-name-transforms
+                        `(("\\`/[^/]*:\\([^/]*/\\)*\\([^/]*\\)\\'"
+                           ,(concat emacs-data-dir "auto-save-list/\\2") t)))
+(customize-set-variable 'auto-save-list-file-prefix (concat emacs-data-dir "auto-save-list/.saves-"))
+(customize-set-variable 'custom-file (concat emacs-data-dir "custom-local.el"))
+(customize-set-variable 'display-time-day-and-date t)
+(customize-set-variable 'inhibit-startup-message t)
+(customize-set-variable 'frame-title-format '("" "[%b] %f - Emacs " emacs-version))
+(customize-set-variable 'visible-bell t)
+(customize-set-variable 'confirm-kill-emacs 'yes-or-no-p)
 
 ;; set 'yes or no' to 'y or n'
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -35,8 +30,6 @@
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 ;;(setq tab-stop-list (number-sequence 4 120 4))
-
-;; doom-modeline-mode t)
 
 (when (display-graphic-p)
   ;; Turn off toolbar.
@@ -73,7 +66,7 @@
 
 (use-package esh-mode
   :custom
-  (eshell-directory-name (concat emacs-data-dir "eshell")))
+  (eshell-directory-name (concat emacs-data-dir "eshell/")))
 
 (use-package tramp-cache
   :custom
@@ -129,17 +122,19 @@
          ("C-c h b" . helm-buffers-list)))
 
 (use-package yasnippet
+  :commands yas-reload-all
   :custom
-  (yas-snippet-dirs (list (concat user-emacs-directory "snippets"))))
+  (yas-snippet-dirs (list (concat user-emacs-directory "snippets")))
+  :config
+  (yas-reload-all))
 
 (use-package request
   :custom
-  (request-storage-directory (concat emacs-data-dir "request")))
+  (request-storage-directory (concat emacs-data-dir "request/")))
 
 (use-package transient
   :custom
   (transient-history-file (concat emacs-data-dir "transient/history.el")))
 
-(provide 'base-env)
-;;; base-env.el ends here
+;;; 10-environment.el ends here
 ;;; End:

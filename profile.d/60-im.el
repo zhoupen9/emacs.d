@@ -1,4 +1,4 @@
-;;; im-env.el --- summary input method configurations
+;;; 60-im.el --- summary input method configurations
 ;;; Commentary:
 
 ;;; Code:
@@ -27,4 +27,4 @@
 ;;    (quote
 ;;     ((:name "bigdict" :file "~/.emacs.d/pyim/dicts/pyim-bigdict.pyim")))))
 
-;;; im-env.el ends here
+;;; 60-im.el ends here

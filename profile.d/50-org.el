@@ -1,4 +1,4 @@
-;;; org-env.el --- org-mode related configurations
+;;; 50-org.el --- org-mode related configurations
 ;;; Commentary:
 
 ;;; Code:
@@ -54,6 +54,5 @@
   :config
   (add-hook 'after-init-hook 'org-roam-mode))
 
-(provide 'org-env)
-;;; org-env.el ends here
+;;; 50-org.el ends here
 ;;; End:

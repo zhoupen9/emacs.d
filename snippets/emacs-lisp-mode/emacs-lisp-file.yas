@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: emacs lisp file
+# key: emacs_lisp
+# group: emacs-lisp
+# --
+;;; $1.el --- $2
+;;; Commentary: $3
+
+;;; Code:
+$0
+;;; $1.el ends here
+;;; End:

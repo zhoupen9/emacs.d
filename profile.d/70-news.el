@@ -1,4 +1,4 @@
-;;; news-env.el --- org-mode related configurations
+;;; 70-news.el --- org-mode related configurations
 ;;; Commentary:
 
 ;;; Code:
@@ -17,6 +17,5 @@
   :init
   (use-package elfeed))
 
-(provide 'news-env)
-;;; news-env.el ends here
+;;; 70-news.el ends here
 ;;; End:
