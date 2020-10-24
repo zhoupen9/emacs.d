@@ -58,9 +58,9 @@
 (use-package lsp-mode
   :custom
   (lsp-keymap-prefix "C-c C-l")
-  (lsp-fsharp-server-install-dir (concat emacs-data-dir "lsp/fsautocomplete"))
-  (lsp-java-server-install-dir (concat emacs-data-dir "lsp/eclipse.jdt.ls"))
-  (lsp-xml-server-work-dir (concat emacs-data-dir "lsp/xml"))
+  (lsp-fsharp-server-install-dir (concat emacs-data-dir "lsp/fsautocomplete/"))
+  (lsp-java-server-install-dir (concat emacs-data-dir "lsp/eclipse.jdt.ls/"))
+  (lsp-xml-server-work-dir (concat emacs-data-dir "lsp/xml/"))
   (lsp-server-install-dir (concat emacs-data-dir "lsp"))
   (lsp-session-file (concat emacs-data-dir "lsp/lsp-session-v1"))
   :hook
@@ -89,8 +89,8 @@
 
 (use-package lsp-java
   :custom
-  (lsp-java-workspace-dir (concat emacs-data-dir "workspace"))
-  (lsp-java-workspace-cache-dir (concat emacs-data-dir "workspace/.cache"))
+  (lsp-java-workspace-dir (concat emacs-data-dir "workspace/"))
+  (lsp-java-workspace-cache-dir (concat emacs-data-dir "workspace/.cache/"))
   (lsp-java-vmargs (list
                     "-noverify"
                     "-Xmx2G"
