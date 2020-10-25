@@ -122,10 +122,10 @@
        "GitLab"
        "Browse GitLab Repositories"
        (lambda (&rest _) (browse-url "https://gitlab.nroad.com.cn")))
-      (,(all-the-icons-faicon "gitlab" :height 1.1 :v-adjust 0.0)
+      (,(all-the-icons-fileicon "npm" :height 1.1 :v-adjust 0.0)
        "Nexus"
        "Browse Nexus Repositories"
-       (lambda (&rest _) (browse-url "https://gitlab.nroad.com.cn")))
+       (lambda (&rest _) (browse-url "https://nexus.nroad.com.cn")))
       (,(all-the-icons-fileicon "jenkins" :height 1.1 :v-adjust 0.0)
        "Jenkins CI"
        "Browse Jenkins CI Jobs"
