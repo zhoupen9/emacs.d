@@ -112,6 +112,42 @@
   (add-hook 'after-init-hook (lambda() (set-face-background hl-line-face "#502040")))
   (global-hl-line-mode 1))
 
+(use-package dashboard
+  :commands all-the-icons-faicon all-the-icons-fileicon all-the-icons-octicon
+  :after all-the-icons
+  :custom
+  (dashboard-navigator-buttons
+   `(
+     ((,(all-the-icons-faicon "gitlab" :height 1.1 :v-adjust 0.0)
+       "GitLab"
+       "Browse GitLab Repositories"
+       (lambda (&rest _) (browse-url "https://gitlab.nroad.com.cn")))
+      (,(all-the-icons-faicon "gitlab" :height 1.1 :v-adjust 0.0)
+       "Nexus"
+       "Browse Nexus Repositories"
+       (lambda (&rest _) (browse-url "https://gitlab.nroad.com.cn")))
+      (,(all-the-icons-fileicon "jenkins" :height 1.1 :v-adjust 0.0)
+       "Jenkins CI"
+       "Browse Jenkins CI Jobs"
+       (lambda (&rest _) (browse-url "https://jenkins.nroad.com.cn"))))
+     ((,(all-the-icons-octicon "mark-github" :height 1.1 :v-adjust 0.0)
+       "Homepage"
+       "Browse homepage"
+       (lambda (&rest _) (browse-url "https://github.com/zhoupen9"))))))
+
+  (dashboard-center-content t)
+  (dashboard-items
+   '((recents  . 5)
+     (bookmarks . 5)
+     (projects . 5)
+     (agenda . 5)
+     (registers . 5)))
+  (dashboard-startup-banner (concat user-emacs-directory "themes/icons/spacemacs-app.png"))
+  (dashboard-set-heading-icons t)
+  (dashboard-set-file-icons t)
+  (dashboard-set-init-info t)
+  (dashboard-set-navigator t))
+
 (load-theme 'spacemacs-dark t)
 ;;; 80-ui.el ends here
 ;;; End:
