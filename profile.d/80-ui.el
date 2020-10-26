@@ -132,8 +132,12 @@
        (lambda (&rest _) (browse-url "https://jenkins.nroad.com.cn"))))
      ((,(all-the-icons-octicon "mark-github" :height 1.1 :v-adjust 0.0)
        "Homepage"
-       "Browse homepage"
-       (lambda (&rest _) (browse-url "https://github.com/zhoupen9"))))))
+       "Browse GitHub Homepage"
+       (lambda (&rest _) (browse-url "https://github.com/zhoupen9")))
+            (,(all-the-icons-octicon "bug" :height 1.1 :v-adjust 0.0)
+       "Jira"
+       "Browse JIRA"
+       (lambda (&rest _) (browse-url "https://jira2.nroad.com.cn"))))))
 
   (dashboard-center-content t)
   (dashboard-items
