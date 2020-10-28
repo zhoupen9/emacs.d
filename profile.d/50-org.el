@@ -10,7 +10,12 @@
   :custom
   (org-directory (expand-file-name "~/Documents"))
   (org-default-notes-file (concat org-directory "/Notes/notes.org"))
-  (org-agenda-files (list "~/Documents/Agenda")))
+  (org-agenda-files '("~/Documents/Planning/gtd.org"
+                      "~/Documents/Planning/someday.org"
+                      "~/Documents/Planning/tickler.org"))
+  (org-refile-targets '(("~/Documents/Planning/gtd.org" :maxlevel . 3)
+                      ("~/Documents/Planning/someday.org" :maxlevel . 2 )
+                      ("~/Documents/Planning/tickler.org" :maxlevel . 2))))
 
 (use-package org-capture
   :config
@@ -26,9 +31,9 @@
 
 (use-package org-re-reveal
   :defines org-re-reveal-root org-re-reveal-revealjs-version
-  :config
-  (setq org-re-reveal-root "file:///home/pengz/.local/lib/reveal.js")
-  (setq org-re-reveal-revealjs-version "4.0.2"))
+  :custom
+  (org-re-reveal-root "file:///home/pengz/.local/lib/reveal.js")
+  (org-re-reveal-revealjs-version "4.0.2"))
 
 (use-package org-bullets
   :demand

@@ -25,11 +25,10 @@
 (use-package go-eldoc)
 
 (use-package python
-  :mode ("\\.py\\'" . python-mode)
   :interpreter ("python3" . python-mode)
-  :config
-  (setq python-shell-interpreter "ipython"
-        python-shell-interpreter-args "-i"))
+  :custom
+  (python-shell-interpreter "ipython")
+  (python-shell-interpreter-args "-i"))
 
 ;; flycheck
 (use-package flycheck
