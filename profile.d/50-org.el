@@ -52,6 +52,10 @@
 
 (use-package org-roam
   :after helm
+  :bind (("C-c r o" . org-roam)
+         ("C-c r f" . org-roam-find-file)
+         ("C-c r r" . org-roam-find-ref)
+         ("C-c r i" . org-roam-insert))
   :custom
   (org-roam-directory "~/Documents/Notes")
   (org-roam-completion-system 'helm)
