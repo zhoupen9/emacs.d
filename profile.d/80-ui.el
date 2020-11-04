@@ -152,6 +152,9 @@
   (dashboard-set-init-info t)
   (dashboard-set-navigator t))
 
+(when (eq system-type 'darwin)
+  (add-to-list 'default-frame-alist '(ns-appearance . dark)))
+
 (load-theme 'spacemacs-dark t)
 ;;; 80-ui.el ends here
 ;;; End:
