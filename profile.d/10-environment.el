@@ -137,5 +137,9 @@
   :custom
   (transient-history-file (concat emacs-data-dir "transient/history.el")))
 
+(use-package url
+  :custom
+  (url-configuration-directory (concat emacs-data-dir "url")))
+
 ;;; 10-environment.el ends here
 ;;; End:
