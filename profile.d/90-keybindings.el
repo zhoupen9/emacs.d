@@ -7,6 +7,7 @@
 (global-set-key (kbd "C-c c l") 'ui-comment-or-uncomment-region-or-line)
 (global-set-key (kbd "C-c b f") 'ui-beautify)
 (global-set-key (kbd "C-c s") 'eshell)
+(global-set-key (kbd "<C-M-backspace>") 'delete-trailing-whitespace)
 
 ;;; 90-keybindings.el ends here
 ;;; End:
