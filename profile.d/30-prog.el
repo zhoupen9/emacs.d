@@ -125,6 +125,10 @@
     :custom
     (dap-java-test-runner (concat lsp-java-server-install-dir "/test-runner/junit-platform-console-standalone.jar")))
   (use-package dap-cpptools :demand)
+  (use-package dap-python :demand
+    :custom
+    (dap-python-terminal "gnome-terminal -- ")
+    (dap-python-executable "python3"))
   (use-package dap-ui
     :bind (("C-c d m" . dap-ui-show-many-windows)
            ("C-c d n" . dap-ui-hide-many-windows))))
