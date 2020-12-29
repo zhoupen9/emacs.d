@@ -87,11 +87,13 @@
         lsp-ui-sideline-enable nil))
 
 (use-package lsp-java
+  :init
+  (setenv "M2_REPO" "~/.var/lib/m2")
   :custom
   (lsp-java-workspace-dir (concat emacs-data-dir "workspace/"))
   (lsp-java-workspace-cache-dir (concat emacs-data-dir "workspace/.cache/"))
   (lsp-java-jdt-download-url "https://mirrors.ustc.edu.cn/eclipse/jdtls/snapshots/jdt-language-server-latest.tar.gz")
-  (lsp-java-configuration-maven-user-setting "~/.var/lib/m2/settings.xml")
+  (lsp-java-configuration-maven-user-settings "~/.var/lib/m2/settings.xml")
   (lsp-java-vmargs (list
                     "-noverify"
                     "-Xmx2G"
