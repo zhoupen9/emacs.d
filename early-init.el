@@ -11,10 +11,10 @@
 
 (customize-set-variable
  'package-archives
- '(("gnu-cn"   . "https://mirrors.ustc.edu.cn/elpa/gnu/")
-   ("melpa-cn" . "https://mirrors.ustc.edu.cn/elpa/melpa/")))
-;; '(("gnu-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-;;   ("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
+;; '(("gnu-cn"   . "https://mirrors.ustc.edu.cn/elpa/gnu/")
+;;   ("melpa-cn" . "https://mirrors.ustc.edu.cn/elpa/melpa/")))
+ '(("gnu-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+   ("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
 
 (defconst emacs-data-dir (expand-file-name (file-name-as-directory "~/.var/lib/emacs")) "Emacs data directory.")
 

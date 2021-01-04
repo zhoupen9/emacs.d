@@ -90,6 +90,7 @@
   :hook (dired-mode . all-the-icons-dired-mode))
 
 (use-package dashboard
+  :custom (dashboard-page-separator "\n\n")
   :config
   (dashboard-setup-startup-hook))
 
@@ -109,7 +110,6 @@
 
 (use-package hl-line
   :config
-  (add-hook 'after-init-hook (lambda() (set-face-background hl-line-face "#502040")))
   (global-hl-line-mode 1))
 
 (use-package dashboard
@@ -155,6 +155,30 @@
 (when (eq system-type 'darwin)
   (add-to-list 'default-frame-alist '(ns-appearance . dark)))
 
-(load-theme 'spacemacs-dark t)
+;; (load-theme 'spacemacs-dark t)
+(use-package spacemacs-common
+  :ensure spacemacs-theme
+  :config
+  (load-theme 'spacemacs-dark t)
+  (custom-set-faces
+   '(line-number-current-line ((t (:inherit line-number :background "#106040" :foreground "#b2b2b2")))))
+  (if (display-graphic-p)
+      (custom-set-faces
+       '(hl-line ((t (:background "#242628"))))
+       '(mode-line ((t (:background "#242628" :foreground "#b2b2b2" :box (:line-width 1 :color "#26282a")))))
+       '(mode-line-inactive ((t (:background "#1a1a1a" :foreground "#8a8a8a" :box (:line-width 1 :color "#1f1f1f")))))))
+  :custom
+  (spacemacs-theme-custom-colors
+   (if (display-graphic-p)
+       '((bg1 . "#171a1f")
+         (bg2 . "#14141a")
+         (comment . "#5a6a7a")
+         (comment-bg . "#171a1f")
+         (highlight . "#303038")
+         (cblk-ln-bg . "#21212a")
+         (cblk-bg . "#202028")
+         (border . "#282828"))
+     '((border . "#696969")))))
+
 ;;; 80-ui.el ends here
 ;;; End:
