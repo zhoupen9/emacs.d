@@ -164,15 +164,18 @@
    '(line-number-current-line ((t (:inherit line-number :background "#106040" :foreground "#b2b2b2")))))
   (if (display-graphic-p)
       (custom-set-faces
+       '(link ((t (:foreground "#2aa1ae"))))
+       '(org-link ((t (:underline t :foreground "#2aa1ae"))))
        '(hl-line ((t (:background "#242628"))))
        '(mode-line ((t (:background "#242628" :foreground "#b2b2b2" :box (:line-width 1 :color "#26282a")))))
        '(mode-line-inactive ((t (:background "#1a1a1a" :foreground "#8a8a8a" :box (:line-width 1 :color "#1f1f1f")))))))
   :custom
+  (spacemacs-theme-comment-bg nil)
   (spacemacs-theme-custom-colors
    (if (display-graphic-p)
        '((bg1 . "#171a1f")
          (bg2 . "#14141a")
-         (comment . "#5a6a7a")
+         (comment . "#6a6a70")
          (comment-bg . "#171a1f")
          (highlight . "#303038")
          (cblk-ln-bg . "#21212a")
