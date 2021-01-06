@@ -8,6 +8,7 @@
 (use-package org
   :demand
   :custom
+  (org-hide-emphasis-markers t)
   (org-directory (expand-file-name "~/Documents"))
   (org-default-notes-file (concat org-directory "/Notes/notes.org"))
   (org-agenda-files '("~/Documents/Planning/gtd.org"

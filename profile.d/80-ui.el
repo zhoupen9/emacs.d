@@ -28,22 +28,6 @@
   ;; print message done.
   (message "Beautify buffer done."))
 
-(defun ui--set-org-buffer-variable-pitch ()
-  "Set buffer variable pitch."
-  (interactive)
-  (variable-pitch-mode t)
-  ;; (setq line-spacing 3)
-  (set-face-attribute 'org-table nil :inherit 'fixed-pitch)
-  (set-face-attribute 'org-code nil :inherit 'fixed-pitch)
-  (set-face-attribute 'org-block nil :inherit 'fixed-pitch))
-;;  (set-face-attribute 'org-block-background nil :inherit 'fixed-pitch))
-
-(defun ui--set-markdown-buffer-variable-pitch ()
-  "Set markdown buffer variable pitch."
-  (interactive)
-  (variable-pitch-mode t)
-  (set-face-attribute 'markdown-table-face nil :inherit 'fixed-pitch))
-
 (defun ui--set-window-titlebar-theme-variant (variant)
   "Change emacs-gtk title bars theme VARIANT."
   (interactive "sTheme Variant Name: ")
@@ -155,22 +139,62 @@
 (when (eq system-type 'darwin)
   (add-to-list 'default-frame-alist '(ns-appearance . dark)))
 
+(use-package org
+  :custom-face
+  (org-link ((t (:underline t :foreground "#2aa1ae"))))
+  (org-table ((t (:inherit fixed-pitch :background "#182232"))))
+  (org-code ((t (:inherit fixed-pitch :foreground "#289ed0"))))
+  (org-meta-line ((t (:inherit variable-pitch))))
+  (org-document-info ((t (:inherit fixed-pitch))))
+  (org-document-info-keyword ((t (:inherit variable-pitch))))
+  (org-verbatim ((t (:inherit fixed-pitch :foreground "#bc6ec5"))))
+  (org-block ((t (:inherit fixed-pitch))))
+  (org-block-begin-line ((t (:inherit fixed-pitch))))
+  (org-block-end-line ((t (:inherit fixed-pitch)))))
+
+(defun ui-article-mode ()
+  "Define article mode."
+  (variable-pitch-mode t)
+  (setq-local line-spacing 0.15))
+
+(defun ui-prog-mode ()
+  "Prog mode ui."
+  (setq-local line-spacing 0.1))
+
+(use-package markdown-mode
+  :custom-face
+  (markdown-table-face ((t (:inherit fixed-pitch))))
+  :custom
+  (markdown-hide-markup t)
+  (markdown-fontify-code-blocks-natively t))
+
+(use-package face-remap
+  :hook
+  (org-mode . ui-article-mode)
+  (markdown-mode . ui-article-mode)
+  (prog-mode . ui-prog-mode)
+  :custom-face
+  (fixed-pitch ((t (:family "Liberation Mono" :height 0.9))))
+  (variable-pitch ((t (:family "Arial" :height 1.15)))))
+
 ;; (load-theme 'spacemacs-dark t)
 (use-package spacemacs-common
   :ensure spacemacs-theme
   :config
   (load-theme 'spacemacs-dark t)
-  (custom-set-faces
-   '(line-number-current-line ((t (:inherit line-number :background "#106040" :foreground "#b2b2b2")))))
-  (if (display-graphic-p)
-      (custom-set-faces
-       '(link ((t (:foreground "#2aa1ae"))))
-       '(org-link ((t (:underline t :foreground "#2aa1ae"))))
-       '(hl-line ((t (:background "#242628"))))
-       '(mode-line ((t (:background "#242628" :foreground "#b2b2b2" :box (:line-width 1 :color "#26282a")))))
-       '(mode-line-inactive ((t (:background "#1a1a1a" :foreground "#8a8a8a" :box (:line-width 1 :color "#1f1f1f")))))))
+  :custom-face
+  ;; line number
+  (line-number-current-line ((t (:inherit line-number :background "#106040" :foreground "#b2b2b2"))))
+  (link ((t (:foreground "#2aa1ae"))))
+  ;; hightlight line
+  (hl-line ((t (:background "#242628"))))
+  ;; mode line
+  (mode-line ((t (:background "#242628" :foreground "#b2b2b2" :box (:line-width 1 :color "#26282a")))))
+  (mode-line-inactive ((t (:background "#1a1a1a" :foreground "#8a8a8a" :box (:line-width 1 :color "#1f1f1f")))))
   :custom
+  ;; disable spacemacs comment background
   (spacemacs-theme-comment-bg nil)
+  ;; custom theme colors
   (spacemacs-theme-custom-colors
    (if (display-graphic-p)
        '((bg1 . "#171a1f")
