@@ -33,7 +33,7 @@
 (use-package org-re-reveal
   :defines org-re-reveal-root org-re-reveal-revealjs-version
   :custom
-  (org-re-reveal-root "file:///home/pengz/.local/lib/reveal.js")
+  (org-re-reveal-root (concat "file:///" (expand-file-name "~/.local/lib/reveal.js")))
   (org-re-reveal-revealjs-version "4.0.2"))
 
 (use-package org-bullets

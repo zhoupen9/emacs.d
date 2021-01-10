@@ -144,7 +144,7 @@
   (org-link ((t (:underline t :foreground "#2aa1ae"))))
   (org-table ((t (:inherit fixed-pitch :background "#182232"))))
   (org-code ((t (:inherit fixed-pitch :foreground "#289ed0"))))
-  (org-meta-line ((t (:inherit variable-pitch))))
+  (org-meta-line ((t (:inherit variable-pitch :height 0.9))))
   (org-document-info ((t (:inherit fixed-pitch))))
   (org-document-info-keyword ((t (:inherit variable-pitch))))
   (org-verbatim ((t (:inherit fixed-pitch :foreground "#bc6ec5"))))

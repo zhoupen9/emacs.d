@@ -3,11 +3,12 @@
 
 ;;; Code:
 
-(let (xdg-data-dir (getenv "XDG_DATA_HOME"))
-  (if (not xdg-data-dir)
-      (setq xdg-data-dir "~/.local/share/"))
-  (customize-set-variable 'package-user-dir (concat xdg-data-dir "emacs/elpa/"))
-  (customize-set-variable 'package-gnupghome-dir (concat xdg-data-dir "emacs/elpa/gnupg/")))
+(let* ((xdg-data-dir "~/.local/share")
+       (local-site-lisp (concat xdg-data-dir "/emacs/site-lisp")))
+  (customize-set-variable 'package-user-dir (concat xdg-data-dir "/emacs/elpa/"))
+  (customize-set-variable 'package-gnupghome-dir (concat xdg-data-dir "/emacs/elpa/gnupg/"))
+  (when (file-directory-p local-site-lisp)
+    (add-to-list 'load-path local-site-lisp)))
 
 (customize-set-variable
  'package-archives
