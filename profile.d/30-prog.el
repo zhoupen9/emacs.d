@@ -10,12 +10,11 @@
 
 (use-package prog-mode
   :defines c-basic-offset
-  :config
-  (setq
-   c-basic-offset 4
+  :custom
+  (c-basic-offset 4)
    ;; language-environtment "UTF-8"
    ;; speedbar-mode-hook (quote variable-pitch-mode)
-   tab-stop-list (number-sequence 4 120 4)))
+  (tab-stop-list (number-sequence 4 120 4)))
 
 (use-package display-line-numbers
   :demand
@@ -77,14 +76,15 @@
   (use-package lsp-diagnostics
     :custom
     (lsp-diagnostics-provider :auto))
-  (setq gc-cons-threshold 100000000
-        read-process-output-max (* 1024 1024)))
+  :custom
+  (gc-cons-threshold 100000000)
+  (read-process-output-max (* 1024 1024)))
 
 (use-package lsp-ui
   :commands lsp-ui-mode
-  :config
-  (setq lsp-ui-doc-enable nil
-        lsp-ui-sideline-enable nil))
+  :custom
+  (lsp-ui-doc-enable nil)
+  (lsp-ui-sideline-enable nil))
 
 (use-package lsp-java
   :init
@@ -99,6 +99,13 @@
                     "-Xmx2G"
                     "-XX:+UseG1GC"
                     "-XX:+UseStringDeduplication")))
+
+(use-package lsp-sonarlint
+  :demand
+  :config
+  (use-package lsp-sonarlint-java
+    :custom
+    (lsp-sonarlint-java-enabled t)))
 
 (use-package helm-lsp
   :after (helm)
