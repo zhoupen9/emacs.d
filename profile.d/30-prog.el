@@ -86,19 +86,33 @@
   (lsp-ui-doc-enable nil)
   (lsp-ui-sideline-enable nil))
 
+(defconst lombok-path
+  (expand-file-name (file-name-as-directory "~/.local/lib/lombok")))
+
 (use-package lsp-java
   :init
-  (setenv "M2_REPO" "~/.var/lib/m2")
+  (setenv "M2_REPO" (expand-file-name (file-name-as-directory "~/.var/lib/m2")))
   :custom
+  (lsp-java-imports-gradle-wrapper-checksums [(
+   :sha256 "e996d452d2645e70c01c11143ca2d3742734a28da2bf61f25c82bdc288c9e637"
+   :allowed t)])
   (lsp-java-workspace-dir (concat emacs-data-dir "workspace/"))
   (lsp-java-workspace-cache-dir (concat emacs-data-dir "workspace/.cache/"))
   (lsp-java-jdt-download-url "https://mirrors.ustc.edu.cn/eclipse/jdtls/snapshots/jdt-language-server-latest.tar.gz")
-  (lsp-java-configuration-maven-user-settings "~/.var/lib/m2/settings.xml")
+  (lsp-java-configuration-maven-user-settings
+   (expand-file-name "~/.var/lib/m2/settings.xml"))
   (lsp-java-vmargs (list
                     "-noverify"
                     "-Xmx2G"
                     "-XX:+UseG1GC"
-                    "-XX:+UseStringDeduplication")))
+                    "-XX:+UseStringDeduplication"
+                    (concat "-javaagent:" lombok-path "lombok.jar")
+                    (concat "-Xbootclasspath/a:" lombok-path "lombok.jar")
+                    "--add-modules=ALL-SYSTEM"
+                    "--add-opens"
+                    "java.base/java.util=ALL-UNNAMED"
+                    "--add-opens"
+                    "java.base/java.lang=ALL-UNNAMED")))
 
 (use-package lsp-sonarlint
   :demand
