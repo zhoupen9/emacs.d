@@ -53,10 +53,12 @@
 
 (use-package org-roam
   :after helm
+  :init
+  (setq org-roam-v2-ack t)
   :bind (("C-c r o" . org-roam)
-         ("C-c r f" . org-roam-find-file)
-         ("C-c r r" . org-roam-find-ref)
-         ("C-c r i" . org-roam-insert))
+         ("C-c r f" . org-roam-node-find)
+         ("C-c r r" . org-roam-ref-find)
+         ("C-c r i" . org-roam-node-insert))
   :custom
   (org-roam-directory "~/Documents/Notes")
   (org-roam-completion-system 'helm)

@@ -8,6 +8,8 @@
 (global-set-key (kbd "C-c b f") 'ui-beautify)
 (global-set-key (kbd "C-c s") 'eshell)
 (global-set-key (kbd "<C-M-backspace>") 'delete-trailing-whitespace)
+(global-set-key (kbd "C-c TAB") 'tabify)
+(global-set-key (kbd "C-c u TAB") 'untabify)
 
 ;;; 90-keybindings.el ends here
 ;;; End:
