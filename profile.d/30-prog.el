@@ -53,6 +53,19 @@
   :custom
   (treemacs-persist-file (concat emacs-data-dir "treemacs-persist")))
 
+(use-package web-mode
+  :config
+  (add-to-list 'auto-mode-alist '("\\.[tj]sx?\\'" . web-mode)))
+
+(use-package typescript-mode
+  :config
+  (add-to-list 'auto-mode-alist '("\\.[jt]sx?\\'" . typescript-mode)))
+
+(use-package prettier
+  :hook
+  ((js-mode . prettier-mode)
+   (typescript-mode . prettier-mode)))
+
 (use-package lsp-mode
   :custom
   (lsp-keymap-prefix "C-c C-l")
@@ -61,6 +74,14 @@
   (lsp-xml-server-work-dir (concat emacs-data-dir "lsp/xml"))
   (lsp-server-install-dir (concat emacs-data-dir "lsp"))
   (lsp-session-file (concat emacs-data-dir "lsp/lsp-session-v1"))
+  (lsp-clients-typescript-plugins
+   (vector (list :name "@vsintellicode/typescript-intellicode-plugin"
+                 :location "/home/pengz/.vscode/extensions/visualstudioexptteam.vscodeintellicode-1.2.14")
+           (list :name "vscode-chrome-debug-core"
+                 :location "/home/pengz/.vscode/extensions/msjsdiag.debugger-for-chrome-4.12.12")))
+  ;;(lsp-clients-typescript-server-args '("--stdio" "--tsserver-log-file" "/tmp/tss.log" "--log-level" "log" "--tsserver-log-verbosity" "verbose"))
+  ;;(lsp-clients-typescript-tls-path "/usr/local/bin/tsserver")
+  ;;(lsp-clients-typescript-server-args "--server")
   :hook
   ((c-mode . lsp)
    (java-mode . lsp)
@@ -69,6 +90,7 @@
    (json-mode . lsp)
    (yaml-mode . lsp)
    (shell-script-mode . lsp)
+   (typescript-mode . lsp)
    (lsp-mode . lsp-enable-which-key-integration))
   :commands lsp
   :bind ("C-c h a" . helm-lsp-code-actions)
@@ -153,6 +175,7 @@
     :custom
     (dap-python-terminal "gnome-terminal -- ")
     (dap-python-executable "python3"))
+  (use-package dap-chrome :demand)
   (use-package dap-ui
     :bind (("C-c d m" . dap-ui-show-many-windows)
            ("C-c d n" . dap-ui-hide-many-windows))))
