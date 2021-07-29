@@ -3,6 +3,7 @@
 
 ;;; Code:
 
+(defvar home-directory)
 (defvar emacs-data-dir)
 
 (use-package magit
@@ -89,9 +90,9 @@
   (lsp-session-file (concat emacs-data-dir "lsp/lsp-session-v1"))
   (lsp-clients-typescript-plugins
    (vector (list :name "@vsintellicode/typescript-intellicode-plugin"
-                 :location "/home/pengz/.vscode/extensions/visualstudioexptteam.vscodeintellicode-1.2.14")
+                 :location (concat home-directory ".vscode/extensions/visualstudioexptteam.vscodeintellicode-1.2.14"))
            (list :name "vscode-chrome-debug-core"
-                 :location "/home/pengz/.vscode/extensions/msjsdiag.debugger-for-chrome-4.12.12")))
+                 :location (concat home-directory ".vscode/extensions/msjsdiag.debugger-for-chrome-4.12.12"))))
   ;;(lsp-clients-typescript-server-args '("--stdio" "--tsserver-log-file" "/tmp/tss.log" "--log-level" "log" "--tsserver-log-verbosity" "verbose"))
   ;;(lsp-clients-typescript-tls-path "/usr/local/bin/tsserver")
   ;;(lsp-clients-typescript-server-args "--server")

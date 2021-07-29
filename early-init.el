@@ -19,4 +19,7 @@
 
 (defconst emacs-data-dir (expand-file-name (file-name-as-directory "~/.var/lib/emacs")) "Emacs data directory.")
 
+;; Defines home-directory
+(defconst home-directory (expand-file-name (file-name-as-directory "~")) "User home direcotry")
+
 ;;; early-init.el ends here
