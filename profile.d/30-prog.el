@@ -53,18 +53,31 @@
   :custom
   (treemacs-persist-file (concat emacs-data-dir "treemacs-persist")))
 
-(use-package web-mode
-  :config
-  (add-to-list 'auto-mode-alist '("\\.[tj]sx?\\'" . web-mode)))
+;;(use-package web-mode
+;;  :config
+;;  (add-to-list 'auto-mode-alist '("\\.[tj]sx?\\'" . web-mode))
 
 (use-package typescript-mode
+  :init
+  (define-derived-mode typescript-tsx-mode typescript-mode "TypeScript")
   :config
-  (add-to-list 'auto-mode-alist '("\\.[jt]sx?\\'" . typescript-mode)))
+  (add-to-list 'auto-mode-alist '("\\.[jt]sx?\\'" . typescript-tsx-mode)))
 
 (use-package prettier
   :hook
   ((js-mode . prettier-mode)
    (typescript-mode . prettier-mode)))
+
+(use-package tree-sitter
+  :hook
+  ((typescript-mode . tree-sitter-hl-mode)
+   (typescript-tsx-mode . tree-sitter-hl-mode)))
+
+(use-package tree-sitter-langs
+  :after tree-sitter
+  :config
+  (tree-sitter-require 'tsx)
+  (add-to-list 'tree-sitter-major-mode-language-alist '(typescript-tsx-mode . tsx)))
 
 (use-package lsp-mode
   :custom
@@ -82,6 +95,9 @@
   ;;(lsp-clients-typescript-server-args '("--stdio" "--tsserver-log-file" "/tmp/tss.log" "--log-level" "log" "--tsserver-log-verbosity" "verbose"))
   ;;(lsp-clients-typescript-tls-path "/usr/local/bin/tsserver")
   ;;(lsp-clients-typescript-server-args "--server")
+  ;;(lsp-headerline-breadcrumb-mode nil)
+  (gc-cons-threshold (* 32 1024 1024))
+  (read-process-output-max (* 1024 1024))
   :hook
   ((c-mode . lsp)
    (java-mode . lsp)
@@ -97,15 +113,18 @@
   :config
   (use-package lsp-diagnostics
     :custom
-    (lsp-diagnostics-provider :auto))
-  :custom
-  (gc-cons-threshold 100000000)
-  (read-process-output-max (* 1024 1024)))
+    (lsp-diagnostics-provider :auto)))
 
 (use-package lsp-ui
   :commands lsp-ui-mode
   :custom
+  (lsp-ui-sideline-show-diagnosqtics nil)
+  (lsp-ui-sideline-show-hover nil)
+  (lsp-ui-sideline-show-code-actions nil)
+  (lsp-ui-sideline-update-mode nil)
   (lsp-ui-doc-enable nil)
+  (lsp-ui-peek-enable nil)
+  (lsp-ui-peek-show-directory nil)
   (lsp-ui-sideline-enable nil))
 
 (defconst lombok-path
