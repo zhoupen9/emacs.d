@@ -30,6 +30,7 @@
 ;; set tab stop to 4.
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
+(setq-default desktop-path (concat emacs-data-dir "desktop"))
 ;;(setq tab-stop-list (number-sequence 4 120 4))
 
 (when (display-graphic-p)

@@ -63,6 +63,7 @@
   (org-roam-directory "~/Documents/Notes")
   (org-roam-completion-system 'helm)
   (org-roam-db-location (concat emacs-data-dir "org-roam.db3"))
+  (org-id-locations-file (concat emacs-data-dir "org-id-locations"))
   :config
   (add-hook 'after-init-hook 'org-roam-mode))
 
