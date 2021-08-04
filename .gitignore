@@ -1,3 +1,5 @@
+eln-cache/
 *.elc
 custom-local.el
 .yas-compiled-snippets.el
+

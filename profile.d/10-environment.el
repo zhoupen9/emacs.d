@@ -19,6 +19,7 @@
  '(inhibit-startup-message t)
  '(frame-title-format '("" "[%b] %f - Emacs " emacs-version))
  '(visible-bell t)
+ '(native-comp-async-report-warnings-errors nil)
  '(confirm-kill-emacs 'yes-or-no-p))
 
 ;; set 'yes or no' to 'y or n'
