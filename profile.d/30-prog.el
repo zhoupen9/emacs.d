@@ -13,8 +13,8 @@
   :defines c-basic-offset
   :custom
   (c-basic-offset 4)
-   ;; language-environtment "UTF-8"
-   ;; speedbar-mode-hook (quote variable-pitch-mode)
+  ;; language-environtment "UTF-8"
+  ;; speedbar-mode-hook (quote variable-pitch-mode)
   (tab-stop-list (number-sequence 4 120 4)))
 
 (use-package display-line-numbers
@@ -80,7 +80,10 @@
   (tree-sitter-require 'tsx)
   (add-to-list 'tree-sitter-major-mode-language-alist '(typescript-tsx-mode . tsx)))
 
+(use-package docker-compose-mode)
+
 (use-package lsp-mode
+  :commands lsp-register-client make-lsp-client lsp-stdio-connection lsp-yaml-server-command lsp-activate-on executable-find lsp-package-path
   :custom
   (lsp-keymap-prefix "C-c C-l")
   (lsp-fsharp-server-install-dir (concat emacs-data-dir "lsp/fsautocomplete"))
@@ -99,7 +102,7 @@
   (lsp-enable-snippet nil)
   ;;(lsp-enable-symbol-highlighting nil)
   (lsp-log-io nil)
-    ;;(lsp-headerline-breadcrumb-mode nil)
+  ;;(lsp-headerline-breadcrumb-mode nil)
   (gc-cons-threshold (* 64 1024 1024))
   (read-process-output-max (* 32 1024 1024))
   :hook
@@ -111,10 +114,26 @@
    (yaml-mode . lsp)
    (shell-script-mode . lsp)
    (typescript-mode . lsp)
+   (docker-compose-mode . lsp)
    (lsp-mode . lsp-enable-which-key-integration))
   :commands lsp
   :bind ("C-c h a" . helm-lsp-code-actions)
+  :init
+  (use-package lsp-yaml
+    :config
+    (lsp-register-client
+     (make-lsp-client
+      :new-connection (lsp-stdio-connection
+                       (lambda ()
+                         `(,(or (executable-find (cl-first lsp-yaml-server-command))
+                                (lsp-package-path 'yaml-language-server))
+                           ,@(cl-rest lsp-yaml-server-command))))
+      :major-modes '(docker-compose-mode)
+      :server-id 'docker-compose-yamlls
+      :activation-fn (lsp-activate-on "docker-compose"))))
   :config
+  (add-to-list 'lsp-language-id-configuration
+               '(docker-compose-mode . "docker-compose"))
   (use-package lsp-diagnostics
     :custom
     (lsp-diagnostics-provider :auto)))
@@ -139,8 +158,8 @@
   (setenv "M2_REPO" (expand-file-name (file-name-as-directory "~/.var/lib/m2")))
   :custom
   (lsp-java-imports-gradle-wrapper-checksums [(
-   :sha256 "e996d452d2645e70c01c11143ca2d3742734a28da2bf61f25c82bdc288c9e637"
-   :allowed t)])
+                                               :sha256 "e996d452d2645e70c01c11143ca2d3742734a28da2bf61f25c82bdc288c9e637"
+                                               :allowed t)])
   (lsp-java-workspace-dir (concat emacs-data-dir "workspace/"))
   (lsp-java-workspace-cache-dir (concat emacs-data-dir "workspace/.cache/"))
   (lsp-java-jdt-download-url "https://mirrors.ustc.edu.cn/eclipse/jdtls/snapshots/jdt-language-server-latest.tar.gz")
@@ -204,8 +223,8 @@
            ("C-c d n" . dap-ui-hide-many-windows))))
 
 (use-package which-key
-    :config
-    (which-key-mode))
+  :config
+  (which-key-mode))
 
 (use-package company
   :custom (company-tooltip-minimum-width 80)
@@ -223,8 +242,8 @@
 
 (use-package company-go
   :hook ((go-mode .
-          (lambda()
-            (add-to-list 'company-backends 'company-go)))))
+                  (lambda()
+                    (add-to-list 'company-backends 'company-go)))))
 
 (use-package eldoc
   :hook
