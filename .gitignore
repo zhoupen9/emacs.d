@@ -1,7 +1,9 @@
 eln-cache/
+eln-cache
 eshell/
 transient/
+.cache/
 *.elc
 custom-local.el
 .yas-compiled-snippets.el
-
+projects

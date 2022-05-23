@@ -5,6 +5,7 @@
 
 (defvar emacs-data-dir)
 
+;; Customize variables
 (custom-set-variables
  '(abbrev-file-name (concat user-emacs-directory "abbrev_defs"))
  '(backup-by-copying t)
@@ -19,6 +20,7 @@
  '(inhibit-startup-message t)
  '(frame-title-format '("" "[%b] %f - Emacs " emacs-version))
  '(visible-bell t)
+ '(tramp-persistency-file-name (concat emacs-data-dir "tramp"))
  '(native-comp-async-report-warnings-errors nil)
  '(confirm-kill-emacs 'yes-or-no-p))
 
@@ -72,6 +74,7 @@
   (eshell-directory-name (concat emacs-data-dir "eshell/")))
 
 (use-package tramp-cache
+  :demand
   :custom
   (tramp-persistency-file-name (concat emacs-data-dir "tramp")))
 
@@ -106,9 +109,9 @@
 
 (use-package bind-key)
 
-(use-package company
-  :config
-  (global-company-mode t))
+;; (use-package company
+;;   :config
+;;  (global-company-mode t))
 
 (use-package helm
   :demand
@@ -142,6 +145,51 @@
 (use-package url
   :custom
   (url-configuration-directory (concat emacs-data-dir "url")))
+
+;; (defun corfu-enable-always-in-minibuffer ()
+;;   "Enable Corfu in the minibuffer if Vertico/Mct are not active."
+;;   (unless (or (bound-and-true-p mct--active)
+;;               (bound-and-true-p vertico--input))
+;;     ;; (setq-local corfu-auto nil) Enable/disable auto completion
+;;     (corfu-mode 1)))
+
+;; (defun corfu-enable-in-minibuffer ()
+;;   "Enable Corfu in the minibuffer if `completion-at-point' is bound."
+;;   (when (where-is-internal #'completion-at-point (list (current-local-map)))
+;;     ;; (setq-local corfu-auto nil) Enable/disable auto completion
+;;     (corfu-mode 1)))
+
+(use-package corfu
+  :init
+  (global-corfu-mode)
+  :bind ("C-." . completion-at-point)
+  :custom
+  ;;(corfu-auto t)
+  (tab-always-indent 'complete))
+  ;; :config
+  ;; (add-hook 'minibuffer-setup-hook #'corfu-enable-in-minibuffer))
+
+(use-package corfu-doc
+  :after corfu
+  :custom
+  (corfu-doc-auto nil)
+  :hook
+  (corfu-mode . corfu-doc-mode)
+  :bind
+  ("C-c c d" . corfu-doc-toggle))
+
+(use-package kind-icon
+  :after corfu
+  ;;:commands kind-icon-enhance-completion kind-icon-margin-formatter
+  :custom
+  (kind-icon-default-face 'corfu-default)
+  :config
+  (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter)
+  (add-hook 'my-completion-ui-mode-hook
+   	    (lambda ()
+   	      (setq completion-in-region-function
+   		    (kind-icon-enhance-completion
+   		     completion-in-region-function)))))
 
 ;;; 10-environment.el ends here
 ;;; End:

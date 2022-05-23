@@ -4,7 +4,8 @@
 ;;; Code:
 
 (when (eq system-type 'darwin)
-  (add-to-list 'load-path "/usr/local/Cellar/mu/1.4.13/share/emacs/site-lisp/mu/mu4e")
+  ;; (add-to-list 'load-path "/usr/local/Cellar/mu/1.4.13/share/emacs/site-lisp/mu/mu4e")
+  (add-to-list 'load-path "/usr/share/emacs/site-lisp/mu4e")
   (add-to-list 'load-path "~/.local/share/emacs/site-lisp"))
 
 ;; Initialize packages

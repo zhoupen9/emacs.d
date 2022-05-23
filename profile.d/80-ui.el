@@ -7,7 +7,8 @@
 
 ;;;###autoload
 (defun ui-comment-or-uncomment-region-or-line ()
-  "Comments or uncomments the region or the current line if there's no active region."
+  "Comments or uncomments the region or the current line.
+if there's no active region."
   (interactive)
   (let (beg end)
     (if (region-active-p)
@@ -65,9 +66,40 @@
   (when (eq system-type 'gnu/linux)
     (ui--set-window-titlebar-theme-variant "dark")))
 
+;; (load-theme 'spacemacs-dark t)
+(use-package spacemacs-common
+  ;;:ensure spacemacs-theme
+  :config
+  (load-theme 'spacemacs-dark t)
+  :custom-face
+  ;; line number
+  (line-number-current-line ((t (:inherit line-number :background "#106040" :foreground "#b2b2b2"))))
+  (link ((t (:foreground "#2aa1ae"))))
+  ;; hightlight line
+  (hl-line ((t (:background "#242628"))))
+  ;; mode line
+  (mode-line ((t (:background "#242628" :foreground "#b2b2b2" :box (:line-width 1 :color "#26282a")))))
+  (mode-line-inactive ((t (:background "#1a1a1a" :foreground "#8a8a8a" :box (:line-width 1 :color "#1f1f1f")))))
+  :custom
+  ;; disable spacemacs comment background
+  (spacemacs-theme-comment-bg nil)
+  ;; custom theme colors
+  (spacemacs-theme-custom-colors
+   (if (display-graphic-p)
+       '((bg1 . "#171a1f")
+         (bg2 . "#14141a")
+         (comment . "#6a6a70")
+         (comment-bg . "#171a1f")
+         (highlight . "#303038")
+         (cblk-ln-bg . "#21212a")
+         (cblk-bg . "#202028")
+         (border . "#282828"))
+     '((border . "#696969")))))
+
 (use-package doom-modeline
   :config
   (setq doom-modeline-buffer-file-name-style 'truncate-upto-project)
+  :init
   (doom-modeline-mode t))
 
 (use-package all-the-icons-dired
@@ -176,36 +208,6 @@
   :custom-face
   (fixed-pitch ((t (:family "Liberation Mono" :height 0.9))))
   (variable-pitch ((t (:family "Arial" :height 1.15)))))
-
-;; (load-theme 'spacemacs-dark t)
-(use-package spacemacs-common
-  :ensure spacemacs-theme
-  :config
-  (load-theme 'spacemacs-dark t)
-  :custom-face
-  ;; line number
-  (line-number-current-line ((t (:inherit line-number :background "#106040" :foreground "#b2b2b2"))))
-  (link ((t (:foreground "#2aa1ae"))))
-  ;; hightlight line
-  (hl-line ((t (:background "#242628"))))
-  ;; mode line
-  (mode-line ((t (:background "#242628" :foreground "#b2b2b2" :box (:line-width 1 :color "#26282a")))))
-  (mode-line-inactive ((t (:background "#1a1a1a" :foreground "#8a8a8a" :box (:line-width 1 :color "#1f1f1f")))))
-  :custom
-  ;; disable spacemacs comment background
-  (spacemacs-theme-comment-bg nil)
-  ;; custom theme colors
-  (spacemacs-theme-custom-colors
-   (if (display-graphic-p)
-       '((bg1 . "#171a1f")
-         (bg2 . "#14141a")
-         (comment . "#6a6a70")
-         (comment-bg . "#171a1f")
-         (highlight . "#303038")
-         (cblk-ln-bg . "#21212a")
-         (cblk-bg . "#202028")
-         (border . "#282828"))
-     '((border . "#696969")))))
 
 ;;; 80-ui.el ends here
 ;;; End:

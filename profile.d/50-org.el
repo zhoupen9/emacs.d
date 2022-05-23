@@ -34,7 +34,7 @@
   :defines org-re-reveal-root org-re-reveal-revealjs-version
   :custom
   (org-re-reveal-root (concat "file:///" (expand-file-name "~/.local/lib/reveal.js")))
-  (org-re-reveal-revealjs-version "4.0.2"))
+  (org-re-reveal-revealjs-version "4.2.1"))
 
 (use-package org-bullets
   :demand
@@ -52,6 +52,7 @@
   (org-journal-date-format "%A, %d %B %Y"))
 
 (use-package org-roam
+  :defines org-roam-v2-ack
   :after helm
   :init
   (setq org-roam-v2-ack t)
@@ -62,6 +63,7 @@
   :custom
   (org-roam-directory "~/Documents/Notes")
   (org-roam-completion-system 'helm)
+  (org-roam-node-display-template "${title:*} ${tags:50}")
   (org-roam-db-location (concat emacs-data-dir "org-roam.db3"))
   (org-id-locations-file (concat emacs-data-dir "org-id-locations"))
   :config

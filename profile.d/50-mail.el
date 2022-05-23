@@ -27,7 +27,8 @@
   (mu4e-update-interval 300)
   :init
   (add-hook 'after-init-hook 'mu4e-alert-enable-notifications t)
-  (add-hook 'after-init-hook 'mu4e-alert-enable-mode-line-display t))
+  :config
+  (mu4e-alert-enable-mode-line-display))
 
 (use-package mu4e-alert
   :config

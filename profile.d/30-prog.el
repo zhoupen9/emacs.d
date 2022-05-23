@@ -11,6 +11,7 @@
 
 (use-package prog-mode
   :defines c-basic-offset
+  ;; :hook (prog-mode . company-mode)
   :custom
   (c-basic-offset 4)
   ;; language-environtment "UTF-8"
@@ -95,7 +96,7 @@
    (vector (list :name "@vsintellicode/typescript-intellicode-plugin"
                  :location (concat home-directory ".vscode/extensions/visualstudioexptteam.vscodeintellicode-1.2.14"))
            (list :name "vscode-chrome-debug-core"
-                 :location (concat home-directory ".vscode/extensions/msjsdiag.debugger-for-chrome-4.12.12"))))
+                 :location (concat home-directory ".vscode/extensions/msjsdiag.debugger-for-chrome-4.13.0"))))
   ;;(lsp-clients-typescript-server-args '("--stdio" "--tsserver-log-file" "/tmp/tss.log" "--log-level" "log" "--tsserver-log-verbosity" "verbose"))
   ;;(lsp-clients-typescript-tls-path "/usr/local/bin/tsserver")
   ;;(lsp-clients-typescript-server-args "--server")
@@ -104,9 +105,10 @@
   (lsp-log-io nil)
   ;;(lsp-headerline-breadcrumb-mode nil)
   (gc-cons-threshold (* 64 1024 1024))
-  (read-process-output-max (* 32 1024 1024))
+  (read-process-output-max (* 2 1024 1024))
   :hook
   ((c-mode . lsp)
+   (c++-mode . lsp)
    (java-mode . lsp)
    (python-mode . lsp)
    (go-mode . lsp)
@@ -138,52 +140,60 @@
     :custom
     (lsp-diagnostics-provider :auto)))
 
-(use-package lsp-ui
-  :commands lsp-ui-mode
-  :custom
-  (lsp-ui-sideline-show-diagnosqtics nil)
-  (lsp-ui-sideline-show-hover nil)
-  (lsp-ui-sideline-show-code-actions nil)
-  (lsp-ui-sideline-update-mode nil)
-  (lsp-ui-doc-enable nil)
-  (lsp-ui-peek-enable nil)
-  (lsp-ui-peek-show-directory nil)
-  (lsp-ui-sideline-enable nil))
+;; (use-package lsp-ui
+;;   :commands lsp-ui-mode
+;;   :custom
+;;   (lsp-ui-sideline-show-diagnosqtics nil)
+;;   (lsp-ui-sideline-show-hover nil)
+;;   (lsp-ui-sideline-show-code-actions nil)
+;;   (lsp-ui-sideline-update-mode nil)
+;;   (lsp-ui-doc-enable nil)
+;;   (lsp-ui-peek-enable nil)
+;;   (lsp-ui-peek-show-directory nil)
+;;   (lsp-ui-sideline-enable nil))
 
 (defconst lombok-path
   (expand-file-name (file-name-as-directory "~/.local/lib/lombok")))
 
 (use-package lsp-java
+  :defines lsp-java-vmargs
   :init
   (setenv "M2_REPO" (expand-file-name (file-name-as-directory "~/.var/lib/m2")))
+  :config
+  (add-to-list 'lsp-java-vmargs
+               (concat "-javaagent:" lombok-path "lombok.jar"))
+  (add-to-list 'lsp-java-vmargs
+               (concat "-Xbootclasspath/a:" lombok-path "lombok.jar"))
   :custom
   (lsp-java-imports-gradle-wrapper-checksums [(
                                                :sha256 "e996d452d2645e70c01c11143ca2d3742734a28da2bf61f25c82bdc288c9e637"
                                                :allowed t)])
   (lsp-java-workspace-dir (concat emacs-data-dir "workspace/"))
   (lsp-java-workspace-cache-dir (concat emacs-data-dir "workspace/.cache/"))
-  (lsp-java-jdt-download-url "https://mirrors.ustc.edu.cn/eclipse/jdtls/snapshots/jdt-language-server-latest.tar.gz")
+  ;;(lsp-java-jdt-download-url "https://mirrors.ustc.edu.cn/eclipse/jdtls/snapshots/jdt-language-server-latest.tar.gz")
+  ;;(lsp-java-jdt-download-url "https://download.eclipse.org/jdtls/snapshots/jdt-language-server-latest.tar.gz")
+  (lsp-java-jdt-download-url "https://nexus.nroad.com.cn/repository/maven-releases/org/eclipse/jdt/ls/language-server/latest/language-server-latest.tar.gz")
   (lsp-java-configuration-maven-user-settings
-   (expand-file-name "~/.var/lib/m2/settings.xml"))
-  (lsp-java-vmargs (list
-                    "-noverify"
-                    "-Xmx2G"
-                    "-XX:+UseG1GC"
-                    "-XX:+UseStringDeduplication"
-                    (concat "-javaagent:" lombok-path "lombok.jar")
-                    (concat "-Xbootclasspath/a:" lombok-path "lombok.jar")
-                    "--add-modules=ALL-SYSTEM"
-                    "--add-opens"
-                    "java.base/java.util=ALL-UNNAMED"
-                    "--add-opens"
-                    "java.base/java.lang=ALL-UNNAMED")))
+   (expand-file-name "~/.var/lib/m2/settings.xml")))
+  ;; (lsp-java-vmargs (list
+  ;;                   "-noverify"
+  ;;                   "-Xmx2G"
+  ;;                   "-XX:+UseG1GC"
+  ;;                   "-XX:+UseStringDeduplication"
+  ;;                   (concat "-javaagent:" lombok-path "lombok.jar")
+  ;;                   (concat "-Xbootclasspath/a:" lombok-path "lombok.jar")
+  ;;                   "--add-modules=ALL-SYSTEM"
+  ;;                   "--add-opens"
+  ;;                   "java.base/java.util=ALL-UNNAMED"
+  ;;                   "--add-opens"
+  ;;                   "java.base/java.lang=ALL-UNNAMED")))
 
-(use-package lsp-sonarlint
-  :demand
-  :config
-  (use-package lsp-sonarlint-java
-    :custom
-    (lsp-sonarlint-java-enabled t)))
+;; (use-package lsp-sonarlint
+;;   :demand
+;;   :config
+;;   (use-package lsp-sonarlint-java
+;;     :custom
+;;     (lsp-sonarlint-java-enabled t)))
 
 (use-package helm-lsp
   :after (helm)
@@ -226,24 +236,26 @@
   :config
   (which-key-mode))
 
-(use-package company
-  :custom (company-tooltip-minimum-width 80)
-  :hook
-  ((prog-mode . company-mode)
-   (json-mode . company-mode)
-   (yaml-mode . company-mode)
-   (xml-mode . company-mode)
-   (js-mode . company-mode))
-  :bind (("C-c c c" . company-complete)))
+;; (use-package company
+;;   :custom
+;;   (company-tooltip-minimum-width 80)
+;;   (company-idle-delay 0.01)
+;;   :hook
+;;   ((prog-mode . company-mode)
+;;    (json-mode . company-mode)
+;;    (yaml-mode . company-mode)
+;;    (xml-mode . company-mode)
+;;    (js-mode . company-mode))
+;;   :bind (("C-c c c" . company-complete)))
 
-(use-package company-box
-  :custom (company-box-tooltip-maximum-width 520)
-  :hook (company-mode . company-box-mode))
+;; (use-package company-box
+;;   :custom (company-box-tooltip-maximum-width 520)
+;;   :hook (company-mode . company-box-mode))
 
-(use-package company-go
-  :hook ((go-mode .
-                  (lambda()
-                    (add-to-list 'company-backends 'company-go)))))
+;; (use-package company-go
+;;   :hook ((go-mode .
+;;                   (lambda()
+;;                     (add-to-list 'company-backends 'company-go)))))
 
 (use-package eldoc
   :hook
