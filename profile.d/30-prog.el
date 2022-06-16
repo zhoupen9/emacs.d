@@ -11,7 +11,6 @@
 
 (use-package prog-mode
   :defines c-basic-offset
-  ;; :hook (prog-mode . company-mode)
   :custom
   (c-basic-offset 4)
   ;; language-environtment "UTF-8"
@@ -21,6 +20,10 @@
 (use-package display-line-numbers
   :demand
   :hook (prog-mode . display-line-numbers-mode))
+
+(use-package rainbow-delimiters
+  :demand
+  :hook (prog-mode . rainbow-delimiters-mode))
 
 (use-package go-mode)
 (use-package go-eldoc)
@@ -55,10 +58,6 @@
   :custom
   (treemacs-persist-file (concat emacs-data-dir "treemacs-persist")))
 
-;;(use-package web-mode
-;;  :config
-;;  (add-to-list 'auto-mode-alist '("\\.[tj]sx?\\'" . web-mode))
-
 (use-package typescript-mode
   :init
   (define-derived-mode typescript-tsx-mode typescript-mode "TypeScript")
@@ -72,13 +71,15 @@
 
 (use-package tree-sitter
   :hook
-  ((typescript-mode . tree-sitter-hl-mode)
+  ((go-mode . tree-sitter-hl-mode)
+   (typescript-mode . tree-sitter-hl-mode)
    (typescript-tsx-mode . tree-sitter-hl-mode)))
 
 (use-package tree-sitter-langs
   :after tree-sitter
   :config
   (tree-sitter-require 'tsx)
+  (tree-sitter-require 'go)
   (add-to-list 'tree-sitter-major-mode-language-alist '(typescript-tsx-mode . tsx)))
 
 (use-package docker-compose-mode)
@@ -119,7 +120,6 @@
    (docker-compose-mode . lsp)
    (lsp-mode . lsp-enable-which-key-integration))
   :commands lsp
-  :bind ("C-c h a" . helm-lsp-code-actions)
   :init
   (use-package lsp-yaml
     :config
@@ -188,17 +188,6 @@
   ;;                   "--add-opens"
   ;;                   "java.base/java.lang=ALL-UNNAMED")))
 
-;; (use-package lsp-sonarlint
-;;   :demand
-;;   :config
-;;   (use-package lsp-sonarlint-java
-;;     :custom
-;;     (lsp-sonarlint-java-enabled t)))
-
-(use-package helm-lsp
-  :after (helm)
-  :commands helm-lsp-workspace-symbol)
-
 (use-package lsp-treemacs
   :commands lsp-treemacs-errors-list)
 
@@ -228,6 +217,7 @@
     (dap-python-terminal "gnome-terminal -- ")
     (dap-python-executable "python3"))
   (use-package dap-chrome :demand)
+  (use-package dap-dlv-go :demand)
   (use-package dap-ui
     :bind (("C-c d m" . dap-ui-show-many-windows)
            ("C-c d n" . dap-ui-hide-many-windows))))
@@ -235,27 +225,6 @@
 (use-package which-key
   :config
   (which-key-mode))
-
-;; (use-package company
-;;   :custom
-;;   (company-tooltip-minimum-width 80)
-;;   (company-idle-delay 0.01)
-;;   :hook
-;;   ((prog-mode . company-mode)
-;;    (json-mode . company-mode)
-;;    (yaml-mode . company-mode)
-;;    (xml-mode . company-mode)
-;;    (js-mode . company-mode))
-;;   :bind (("C-c c c" . company-complete)))
-
-;; (use-package company-box
-;;   :custom (company-box-tooltip-maximum-width 520)
-;;   :hook (company-mode . company-box-mode))
-
-;; (use-package company-go
-;;   :hook ((go-mode .
-;;                   (lambda()
-;;                     (add-to-list 'company-backends 'company-go)))))
 
 (use-package eldoc
   :hook

@@ -18,7 +18,7 @@ if there's no active region."
 
 ;;;###autoload
 (defun ui-beautify ()
-  "Beautify buffer by run tabify and follow by 'indent-region."
+  "Beautify buffer by run tabify and follow by ''indent-region' ."
   (interactive)
   ;; remove all trialing whitespaces.
   (whitespace-cleanup-region (point-min) (point-max))
@@ -101,6 +101,11 @@ if there's no active region."
   (setq doom-modeline-buffer-file-name-style 'truncate-upto-project)
   :init
   (doom-modeline-mode t))
+
+(use-package all-the-icons-completion
+  :demand
+  :init
+  (all-the-icons-completion-mode))
 
 (use-package all-the-icons-dired
   :hook (dired-mode . all-the-icons-dired-mode))
@@ -206,7 +211,7 @@ if there's no active region."
   (markdown-mode . ui-article-mode)
   (prog-mode . ui-prog-mode)
   :custom-face
-  (fixed-pitch ((t (:family "Liberation Mono" :height 0.9))))
+  ;;(fixed-pitch ((t (:family "Liberation Mono" :height 0.9))))
   (variable-pitch ((t (:family "Arial" :height 1.15)))))
 
 ;;; 80-ui.el ends here

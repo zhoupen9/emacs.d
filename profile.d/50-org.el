@@ -53,7 +53,6 @@
 
 (use-package org-roam
   :defines org-roam-v2-ack
-  :after helm
   :init
   (setq org-roam-v2-ack t)
   :bind (("C-c r o" . org-roam)
@@ -62,7 +61,6 @@
          ("C-c r i" . org-roam-node-insert))
   :custom
   (org-roam-directory "~/Documents/Notes")
-  (org-roam-completion-system 'helm)
   (org-roam-node-display-template "${title:*} ${tags:50}")
   (org-roam-db-location (concat emacs-data-dir "org-roam.db3"))
   (org-id-locations-file (concat emacs-data-dir "org-id-locations"))

@@ -16,7 +16,6 @@
       ,(concat emacs-data-dir "auto-save-list/\\2") t)))
  '(auto-save-list-file-prefix (concat emacs-data-dir "auto-save-list/.saves-"))
  '(custom-file (concat emacs-data-dir "custom-local.el"))
- '(display-time-day-and-date t)
  '(inhibit-startup-message t)
  '(frame-title-format '("" "[%b] %f - Emacs " emacs-version))
  '(visible-bell t)
@@ -29,6 +28,9 @@
 
 ;; highlight marked block
 (transient-mark-mode t)
+
+;; turon-off display time
+(display-time-mode 0)
 
 ;; set tab stop to 4.
 (setq-default indent-tabs-mode nil)
@@ -83,14 +85,6 @@
   ;; Set font color
   (global-font-lock-mode t))
 
-(use-package time
-  ;; :config
-  ;; (setq display-time-24hr-format t)
-  ;;(setq display-time-day-and-date t)
-  :config
-  ;; time format
-  (display-time))
-
 (use-package simple
   :config
   ;; display line and column number
@@ -109,23 +103,20 @@
 
 (use-package bind-key)
 
-;; (use-package company
-;;   :config
-;;  (global-company-mode t))
+(use-package savehist
+  :init
+  (savehist-mode))
 
-(use-package helm
+(use-package vertico
   :demand
-  :config
-  (use-package helm-adaptive
-    :custom
-    (helm-adaptive-history-file (concat emacs-data-dir "helm-adaptive-history")))
-  (use-package helm-net
-    :config
-    (setq helm-net-curl-log-file (concat emacs-data-dir "helm-curl.log")))
-  (helm-mode t)
-  (helm-projectile-on)
-  :bind (("M-x" . helm-M-x)
-         ("C-c h b" . helm-buffers-list)))
+  :init
+  (vertico-mode))
+
+(use-package orderless
+  :init
+  (setq completion-styles '(orderless basic)
+        completion-category-defaults nil
+        completion-category-overrides '((file (styles partial-completion)))))
 
 (use-package yasnippet
   :commands yas-reload-all
