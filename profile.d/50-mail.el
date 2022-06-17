@@ -26,12 +26,14 @@
   (mu4e-get-mail-command "mbsync -aqq")
   (mu4e-update-interval 300)
   :init
-  (add-hook 'after-init-hook 'mu4e-alert-enable-notifications t)
-  :config
-  (mu4e-alert-enable-mode-line-display))
+  (add-hook 'after-init-hook 'mu4e-alert-enable-notifications t))
 
 (use-package mu4e-alert
   :config
+  (use-package doom-modeline
+    :config
+    (setq doom-modeline-mu4e t))
+  (mu4e-alert-enable-mode-line-display)
   (mu4e-alert-set-default-style 'libnotify))
 
 (defconst mail-custom-file (concat emacs-data-dir "mail.el"))
