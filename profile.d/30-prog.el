@@ -7,7 +7,7 @@
 (defvar emacs-data-dir)
 
 (use-package magit
-  :bind ("C-c m g" . magit-status-here))
+  :bind ("C-c g" . magit-status-here))
 
 (use-package prog-mode
   :defines c-basic-offset
@@ -52,6 +52,11 @@
   (projectile-known-projects-file (concat emacs-data-dir "projectile-bookmarks.eld"))
   (projectile-cache-file (concat emacs-data-dir "projectile.cache"))
   :config
+  (use-package consult-projectile
+    :bind
+    ("C-c c f" . consult-projectile-find-file)
+    ("C-c c e" . consult-projectile-recentf)
+    ("C-c c p" . consult-projectile-switch-project))
   (projectile-mode t))
 
 (use-package treemacs-customization

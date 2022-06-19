@@ -205,7 +205,19 @@
         xref-show-definitions-function #'consult-xref)
   ;; Optionally configure the narrowing key.
   ;; Both < and C-+ work reasonably well.
-  (setq consult-narrow-key "<")) ;; (kbd "C-+")
+  (setq consult-narrow-key "<") ;; (kbd "C-+")
+  :bind
+  (("C-c h" . consult-history)
+   ("C-c m" . consult-mode-command)
+   ("C-x b" . consult-buffer)
+   ("C-x r b" . consult-bookmark)
+   ("C-x p b" . consult-project-buffer)
+   ("M-g g" . consult-goto-line)             ;; orig. goto-line
+   ("M-g M-g" . consult-goto-line)           ;; orig. goto-line
+   ("M-g o" . consult-outline)
+   ("C-c c s" . consult-find)
+   ("C-c l" . consult-line)
+   ("C-c r g" . consult-ripgrep)))
 
 (use-package marginalia
   :config
