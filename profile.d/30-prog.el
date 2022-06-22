@@ -54,9 +54,9 @@
   :config
   (use-package consult-projectile
     :bind
-    ("C-c c f" . consult-projectile-find-file)
-    ("C-c c e" . consult-projectile-recentf)
-    ("C-c c p" . consult-projectile-switch-project))
+    ("C-c f" . consult-projectile-find-file)
+    ("C-c e" . consult-projectile-recentf)
+    ("C-c o" . consult-projectile-switch-project))
   (projectile-mode t))
 
 (use-package treemacs-customization
