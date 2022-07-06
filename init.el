@@ -4,7 +4,6 @@
 ;;; Code:
 
 (when (eq system-type 'darwin)
-  ;; (add-to-list 'load-path "/usr/local/Cellar/mu/1.4.13/share/emacs/site-lisp/mu/mu4e")
   (add-to-list 'load-path "/usr/share/emacs/site-lisp/mu4e")
   (add-to-list 'load-path "~/.local/share/emacs/site-lisp"))
 
@@ -28,10 +27,10 @@
 
 (defun emacs-profile--load (elisp-file)
   "Load profile pacakge from ELISP-FILE."
-  (save-excursion
-    (load (file-name-sans-extension elisp-file))))
+  (load (file-name-sans-extension elisp-file)))
 
 (mapc 'emacs-profile--load
       (directory-files emacs-profile-dir t ".el$"))
 
 ;;; init.el ends here
+

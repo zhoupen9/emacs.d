@@ -102,18 +102,8 @@ if there's no active region."
   :init
   (doom-modeline-mode t))
 
-(use-package all-the-icons-completion
-  :demand
-  :init
-  (all-the-icons-completion-mode))
-
 (use-package all-the-icons-dired
   :hook (dired-mode . all-the-icons-dired-mode))
-
-(use-package dashboard
-  :custom (dashboard-page-separator "\n\n")
-  :config
-  (dashboard-setup-startup-hook))
 
 (use-package beacon
   :custom
@@ -134,9 +124,13 @@ if there's no active region."
   (global-hl-line-mode 1))
 
 (use-package dashboard
+  :demand
   :commands all-the-icons-faicon all-the-icons-fileicon all-the-icons-octicon
   :after all-the-icons
+  :config
+  (dashboard-setup-startup-hook)
   :custom
+  (dashboard-page-separator "\n\n")
   (dashboard-navigator-buttons
    `(
      ((,(all-the-icons-faicon "gitlab" :height 1.1 :v-adjust 0.0)
@@ -197,13 +191,6 @@ if there's no active region."
 (defun ui-prog-mode ()
   "Prog mode ui."
   (setq-local line-spacing 0.1))
-
-(use-package markdown-mode
-  :custom-face
-  (markdown-table-face ((t (:inherit fixed-pitch))))
-  :custom
-  (markdown-hide-markup t)
-  (markdown-fontify-code-blocks-natively t))
 
 (use-package face-remap
   :hook
