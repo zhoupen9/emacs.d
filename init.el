@@ -14,7 +14,8 @@
 
 (require 'use-package)
 
-(defconst emacs-profile-dir (concat user-emacs-directory "profile.d/"))
+(defconst emacs-profile-dir (concat user-emacs-directory "profile.d/") "Emacs Profile directory.")
+
 (global-unset-key "\C-z")
 
 (setenv "XAPIAN_CJK_NGRAM" "1")
@@ -23,7 +24,7 @@
 (add-to-list 'custom-theme-load-path (concat user-emacs-directory "themes"))
 
 ;; add profile directory to load path
-;(add-to-list 'load-path emacs-profile-dir)
+;; (add-to-list 'load-path emacs-profile-dir)
 
 (defun emacs-profile--load (elisp-file)
   "Load profile pacakge from ELISP-FILE."

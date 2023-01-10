@@ -174,12 +174,12 @@
   :config
   (marginalia-mode))
 
-(use-package markdown-mode
-  :custom-face
-  (markdown-table-face ((t (:inherit fixed-pitch))))
-  :custom
-  (markdown-hide-markup t)
-  (markdown-fontify-code-blocks-natively t))
+;; (use-package markdown-mode
+;;   :custom-face
+;;   (markdown-table-face ((t (:inherit fixed-pitch))))
+;;   :custom
+;;   (markdown-hide-markup t)
+;;   (markdown-fontify-code-blocks-natively t))
 
 ;;; 10-environment.el ends here
 ;;; End:

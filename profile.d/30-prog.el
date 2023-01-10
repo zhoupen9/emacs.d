@@ -35,7 +35,7 @@
   :commands global-lsp-bridge-mode
   :bind
   (("M-." . lsp-bridge-find-def)
-   ("M-," . lsp-bridge-return-from-def)
+   ("M-," . lsp-bridge-find-def-return)
    ("C-c M-." . lsp-bridge-find-def-other-window)
    ("C-c M-," . lsp-bridge-find-references)
    ("M-[" . lsp-bridge-find-impl)
@@ -48,15 +48,23 @@
     (acm-enable-yas nil)
     (acm-enable-path nil)
     (acm-enable-tempel nil))
-  (global-lsp-bridge-mode)
+  :hook
+  ((prog-mode . lsp-bridge-mode))
   :custom
   (gc-cons-threshold (* 64 1024 1024))
   (read-process-output-max (* 2 1024 1024))
   (lsp-bridge-enable-candidate-doc-preview nil)
   (lsp-bridge-enable-search-words nil)
   (lsp-bridge-enable-debug nil)
-  (lsp-bridge-enable-log nil))
-
+  (lsp-bridge-enable-log nil)
+  (lsp-bridge-get-project-path-by-filepath
+   (lambda (filepath)
+     (let ((vcdir (vc-call-backend (vc-responsible-backend filepath) 'root filepath)))
+       (if (not (string-empty-p vcdir))
+           (if (file-exists-p (concat vcdir "src/go.mod"))
+               (expand-file-name (concat vcdir "src"))
+             vcdir)
+         filepath)))))
 
 (use-package python
   :interpreter ("python3" . python-mode)
@@ -116,6 +124,10 @@
   (tree-sitter-require 'tsx)
   (tree-sitter-require 'go)
   (add-to-list 'tree-sitter-major-mode-language-alist '(typescript-tsx-mode . tsx)))
+
+(use-package treesit
+  :config
+  (add-to-list 'treesit-extra-load-path (concat emacs-data-dir "treesit/")))
 
 (use-package docker-compose-mode)
 

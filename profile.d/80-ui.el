@@ -66,9 +66,9 @@ if there's no active region."
   (when (eq system-type 'gnu/linux)
     (ui--set-window-titlebar-theme-variant "dark")))
 
-;; (load-theme 'spacemacs-dark t)
+;; spacemacs
 (use-package spacemacs-common
-  ;;:ensure spacemacs-theme
+  :ensure spacemacs-theme
   :config
   (load-theme 'spacemacs-dark t)
   :custom-face
@@ -178,10 +178,16 @@ if there's no active region."
   (org-meta-line ((t (:inherit variable-pitch :height 0.9))))
   (org-document-info ((t (:inherit fixed-pitch))))
   (org-document-info-keyword ((t (:inherit variable-pitch))))
-  (org-verbatim ((t (:inherit fixed-pitch :foreground "#bc6ec5"))))
-  (org-block ((t (:inherit fixed-pitch))))
-  (org-block-begin-line ((t (:inherit fixed-pitch))))
-  (org-block-end-line ((t (:inherit fixed-pitch)))))
+  (org-verbatim ((t (:inherit fixed-pitch :foreground "#bc6ec5" :height 0.94))))
+  (org-block ((t (:inherit fixed-pitch :height 0.94))))
+  (org-block-begin-line ((t (:inherit fixed-pitch :height 0.94))))
+  (org-block-end-line ((t (:inherit fixed-pitch :height 0.94)))))
+
+(use-package markdown-mode
+  :custom-face
+  (markdown-table-face ((t (:inherit fixed-pitch :background "#182232"))))
+  (markdown-code-face ((t (:height 0.94))))
+  (markdown-inline-code-face ((t (:height 0.94)))))
 
 (defun ui-article-mode ()
   "Define article mode."
