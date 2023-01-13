@@ -60,8 +60,8 @@
     (dolist (charset '(kana han symbol cjk-misc bopomofo))
       (set-fontset-font (frame-parameter nil 'font)
                         charset
-                        (font-spec :family "Noto Sans CJK SC"))))) ;; 中文支持
-                        ;;(font-spec :family "Noto Sans CJK SC"))));;abcdefghijk
+                        (font-spec :family "Noto Sans CJK SC")))))  ;; 中文宽度
+                        ;;(font-spec :family "Noto Sans CJK SC")))) ;; 12345678
 
 (use-package bookmark
   :custom
@@ -173,13 +173,6 @@
 (use-package marginalia
   :config
   (marginalia-mode))
-
-;; (use-package markdown-mode
-;;   :custom-face
-;;   (markdown-table-face ((t (:inherit fixed-pitch))))
-;;   :custom
-;;   (markdown-hide-markup t)
-;;   (markdown-fontify-code-blocks-natively t))
 
 ;;; 10-environment.el ends here
 ;;; End:

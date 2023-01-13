@@ -175,37 +175,44 @@ if there's no active region."
   (org-link ((t (:underline t :foreground "#2aa1ae"))))
   (org-table ((t (:inherit fixed-pitch :background "#182232"))))
   (org-code ((t (:inherit fixed-pitch :foreground "#289ed0"))))
-  (org-meta-line ((t (:inherit variable-pitch :height 0.9))))
+  ;(org-meta-line ((t (:inherit variable-pitch :height 0.9))))
+  (org-meta-line ((t (:inherit variable-pitch))))
   (org-document-info ((t (:inherit fixed-pitch))))
   (org-document-info-keyword ((t (:inherit variable-pitch))))
-  (org-verbatim ((t (:inherit fixed-pitch :foreground "#bc6ec5" :height 0.94))))
-  (org-block ((t (:inherit fixed-pitch :height 0.94))))
-  (org-block-begin-line ((t (:inherit fixed-pitch :height 0.94))))
-  (org-block-end-line ((t (:inherit fixed-pitch :height 0.94)))))
+  ;; (org-verbatim ((t (:inherit fixed-pitch :foreground "#bc6ec5" :height 0.94))))
+  ;; (org-block ((t (:inherit fixed-pitch :height 0.94))))
+  ;; (org-block-begin-line ((t (:inherit fixed-pitch :height 0.94))))
+  ;; (org-block-end-line ((t (:inherit fixed-pitch :height 0.94)))))
+  (org-verbatim ((t (:inherit fixed-pitch :foreground "#bc6ec5"))))
+  (org-block ((t (:inherit fixed-pitch))))
+  (org-block-begin-line ((t (:inherit fixed-pitch))))
+  (org-block-end-line ((t (:inherit fixed-pitch)))))
 
 (use-package markdown-mode
   :custom-face
-  (markdown-table-face ((t (:inherit fixed-pitch :background "#182232"))))
-  (markdown-code-face ((t (:height 0.94))))
-  (markdown-inline-code-face ((t (:height 0.94)))))
+  (markdown-table-face ((t (:inherit fixed-pitch :background "#182232")))))
 
 (defun ui-article-mode ()
   "Define article mode."
   (variable-pitch-mode t)
-  (setq-local line-spacing 0.15))
+  (setq-local line-spacing 0.11)
+  (face-remap-add-relative 'fixed-pitch :height 0.85)
+  (face-remap-add-relative 'variable-pitch :height 1.2))
 
 (defun ui-prog-mode ()
   "Prog mode ui."
-  (setq-local line-spacing 0.1))
+  (setq-local line-spacing 0.1)
+  (face-remap-add-relative 'font-lock-keyword-face :weight 'normal)
+  (face-remap-add-relative 'font-lock-function-name-face :slant 'italic :weight 'normal))
 
 (use-package face-remap
   :hook
   (org-mode . ui-article-mode)
   (markdown-mode . ui-article-mode)
   (prog-mode . ui-prog-mode)
+  (go-ts-mode . ui-prog-mode)
   :custom-face
-  ;;(fixed-pitch ((t (:family "Liberation Mono" :height 0.9))))
-  (variable-pitch ((t (:family "Arial" :height 1.15)))))
+  (variable-pitch ((t :family "Roboto"))))
 
 ;;; 80-ui.el ends here
 ;;; End:

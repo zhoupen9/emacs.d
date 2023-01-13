@@ -112,22 +112,66 @@
   ((js-mode . prettier-mode)
    (typescript-mode . prettier-mode)))
 
-(use-package tree-sitter
-  :hook
-  ((go-mode . tree-sitter-hl-mode)
-   (typescript-mode . tree-sitter-hl-mode)
-   (typescript-tsx-mode . tree-sitter-hl-mode)))
-
-(use-package tree-sitter-langs
-  :after tree-sitter
-  :config
-  (tree-sitter-require 'tsx)
-  (tree-sitter-require 'go)
-  (add-to-list 'tree-sitter-major-mode-language-alist '(typescript-tsx-mode . tsx)))
-
 (use-package treesit
+  :commands treesit-font-lock-rules treesit-font-lock-recompute-features
   :config
-  (add-to-list 'treesit-extra-load-path (concat emacs-data-dir "treesit/")))
+  (add-to-list 'treesit-extra-load-path (concat emacs-data-dir "treesit/"))
+  :hook
+  (go-ts-mode
+   .
+   (lambda()
+     (setq-local treesit-font-lock-level 4)
+     (treesit-font-lock-recompute-features '(attribute import func))
+     (setq-local
+      treesit-font-lock-settings
+      (append
+       treesit-font-lock-settings
+       (treesit-font-lock-rules
+        :language 'go
+        :feature 'import
+        :override t
+        '((import_declaration (import_spec_list (import_spec path: (interpreted_string_literal) @font-lock-constant-face))))
+
+        :language 'go
+        :feature 'variable
+        :override t
+        '((identifier) @font-lock-number-face)
+
+        :language 'go
+        :feature 'func
+        :override t
+        "[(function_declaration name: (identifier) @font-lock-function-name-face)
+          (call_expression
+            function:
+            (selector_expression
+             field: (field_identifier) @font-lock-function-name-face .))
+           (method_declaration
+             name: (field_identifier) @font-lock-function-name-face)]"
+
+        :language 'go
+        :feature 'variable
+        :override t
+        '((const_declaration
+         (const_spec name: (identifier) @font-lock-constant-face)))
+
+        :language 'go
+        :feature 'attribute
+        :override t
+        "(composite_literal body: (literal_value (keyed_element . (literal_element (identifier) @font-lock-property-face))))")))))
+  :custom
+  (major-mode-remap-alist
+   '((c-mode . c-ts-mode)
+     (c++-mode . c++-ts-mode)
+     (cmake-mode . cmake-ts-mode)
+     (dockerfile-mode . dockerfile-ts-mode)
+     (go-mode . go-ts-mode)
+     (json-mode . json-ts-mode)
+     (java-mode . java-ts-mode)
+     (rust-mode . rust-ts-mode)
+     (ruby-mode . ruby-ts-mode)
+     (typescript-mode . typescript-ts-mode)
+     (conf-toml-mode . toml-ts-mode)
+     (yaml-mode . yaml-ts-mode))))
 
 (use-package docker-compose-mode)
 

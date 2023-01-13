@@ -67,5 +67,9 @@
   :config
   (add-hook 'after-init-hook 'org-roam-mode))
 
+(use-package markdown-mode
+  :custom
+  (markdown-fontify-code-blocks-natively t))
+
 ;;; 50-org.el ends here
 ;;; End:
