@@ -60,6 +60,7 @@
          ("C-c r r" . org-roam-ref-find)
          ("C-c r i" . org-roam-node-insert))
   :custom
+  (org-roam-database-connector 'sqlite-builtin)
   (org-roam-directory "~/Documents/Notes")
   (org-roam-node-display-template "${title:*} ${tags:50}")
   (org-roam-db-location (concat emacs-data-dir "org-roam.db3"))
