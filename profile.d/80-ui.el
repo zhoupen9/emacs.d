@@ -202,7 +202,11 @@ if there's no active region."
 (defun ui-prog-mode ()
   "Prog mode ui."
   (setq-local line-spacing 0.1)
+  (face-remap-add-relative 'font-lock-variable-name-face :foreground "#c2c2c2")
+  (face-remap-add-relative 'font-lock-string-face :foreground "#77aa99")
+  (face-remap-add-relative 'font-lock-type-face :weight 'normal :foreground "#4f97d7")
   (face-remap-add-relative 'font-lock-keyword-face :weight 'normal)
+  (face-remap-add-relative 'font-lock-property-face :foreground "#7590db")
   (face-remap-add-relative 'font-lock-function-name-face :slant 'italic :weight 'normal))
 
 (use-package face-remap
@@ -212,7 +216,7 @@ if there's no active region."
   (prog-mode . ui-prog-mode)
   (go-ts-mode . ui-prog-mode)
   :custom-face
-  (variable-pitch ((t :family "Roboto"))))
+  (variable-pitch ((t :family "Source Serif Pro"))))
 
 ;;; 80-ui.el ends here
 ;;; End:

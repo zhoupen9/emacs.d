@@ -117,6 +117,21 @@
   :config
   (add-to-list 'treesit-extra-load-path (concat emacs-data-dir "treesit/"))
   :hook
+  (c-ts-mode
+   .
+   (lambda()
+     (setq-local treesit-font-lock-level 4)
+     (setq-local
+      treesit-font-lock-settings
+      (append
+       treesit-font-lock-settings
+       (treesit-font-lock-rules
+        :language 'c
+        :feature 'func
+        '((call_expression
+           function:
+           (identifier) @font-lock-property-face
+           arguments: (_))))))))
   (go-ts-mode
    .
    (lambda()
@@ -133,20 +148,19 @@
         '((import_declaration (import_spec_list (import_spec path: (interpreted_string_literal) @font-lock-constant-face))))
 
         :language 'go
-        :feature 'variable
-        :override t
-        '((identifier) @font-lock-number-face)
-
-        :language 'go
         :feature 'func
         :override t
         "[(function_declaration name: (identifier) @font-lock-function-name-face)
           (call_expression
             function:
             (selector_expression
-             field: (field_identifier) @font-lock-function-name-face .))
-           (method_declaration
-             name: (field_identifier) @font-lock-function-name-face)]"
+             field: (field_identifier) @font-lock-property-face .))
+          (call_expression
+            function:
+            (identifier) @font-lock-property-face
+            arguments: (_))
+          (method_declaration
+            name: (field_identifier) @font-lock-function-name-face)]"
 
         :language 'go
         :feature 'variable
