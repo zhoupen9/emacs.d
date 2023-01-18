@@ -149,7 +149,7 @@ if there's no active region."
        "Homepage"
        "Browse GitHub Homepage"
        (lambda (&rest _) (browse-url "https://github.com/zhoupen9")))
-            (,(all-the-icons-octicon "bug" :height 1.1 :v-adjust 0.0)
+      (,(all-the-icons-octicon "bug" :height 1.1 :v-adjust 0.0)
        "Jira"
        "Browse JIRA"
        (lambda (&rest _) (browse-url "https://jira2.nroad.com.cn"))))))
@@ -175,7 +175,7 @@ if there's no active region."
   (org-link ((t (:underline t :foreground "#2aa1ae"))))
   (org-table ((t (:inherit fixed-pitch :background "#182232"))))
   (org-code ((t (:inherit fixed-pitch :foreground "#289ed0"))))
-  ;(org-meta-line ((t (:inherit variable-pitch :height 0.9))))
+                                        ;(org-meta-line ((t (:inherit variable-pitch :height 0.9))))
   (org-meta-line ((t (:inherit variable-pitch))))
   (org-document-info ((t (:inherit fixed-pitch))))
   (org-document-info-keyword ((t (:inherit variable-pitch))))
@@ -215,6 +215,7 @@ if there's no active region."
   (markdown-mode . ui-article-mode)
   (prog-mode . ui-prog-mode)
   (go-ts-mode . ui-prog-mode)
+  (java-ts-mode . ui-prog-mode)
   :custom-face
   (variable-pitch ((t :family "Source Serif Pro"))))
 

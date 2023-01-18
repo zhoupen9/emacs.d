@@ -132,6 +132,19 @@
            function:
            (identifier) @font-lock-property-face
            arguments: (_))))))))
+  (java-ts-mode
+   .
+   (lambda()
+     (setq-local
+      treesit-font-lock-settings
+      (append
+       treesit-font-lock-settings
+       (treesit-font-lock-rules
+        :language 'java
+        :feature 'expression
+        :override t
+        '((method_invocation
+           name: (identifier) @font-lock-property-face)))))))
   (go-ts-mode
    .
    (lambda()
