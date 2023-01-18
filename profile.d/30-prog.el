@@ -29,10 +29,17 @@
   :config
   (global-eldoc-mode -1))
 
+(use-package lsp-bridge-jdtls
+  :hook
+  (java-ts-mode
+   .
+   (lambda()
+     (setq-local lsp-bridge-get-single-lang-server-by-project 'lsp-bridge-get-jdtls-server-by-project))))
+
 ;; lsp-bridge
 (use-package lsp-bridge
   :demand
-  :commands global-lsp-bridge-mode
+  :commands global-lsp-bridge-mode lsp-bridge-mode
   :bind
   (("M-." . lsp-bridge-find-def)
    ("M-," . lsp-bridge-find-def-return)
@@ -49,7 +56,8 @@
     (acm-enable-path nil)
     (acm-enable-tempel nil))
   :hook
-  ((prog-mode . lsp-bridge-mode))
+  (java-ts-mode . lsp-bridge-mode)
+  (go-ts-mode . lsp-bridge-mode)
   :custom
   (gc-cons-threshold (* 64 1024 1024))
   (read-process-output-max (* 2 1024 1024))
@@ -63,8 +71,8 @@
        (if (not (string-empty-p vcdir))
            (if (file-exists-p (concat vcdir "src/go.mod"))
                (expand-file-name (concat vcdir "src"))
-             vcdir)
-         filepath)))))
+             (expand-file-name vcdir))
+         (expand-file-name filepath))))))
 
 (use-package python
   :interpreter ("python3" . python-mode)
