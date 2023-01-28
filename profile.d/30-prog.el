@@ -36,10 +36,14 @@
    (lambda()
      (setq-local lsp-bridge-get-single-lang-server-by-project 'lsp-bridge-get-jdtls-server-by-project))))
 
+(use-package xref
+  :bind
+  (("C-c M-[" . xref-find-definitions)
+   ("C-c M-]" . xref-go-back)))
+
 ;; lsp-bridge
 (use-package lsp-bridge
   :demand
-  :commands global-lsp-bridge-mode lsp-bridge-mode
   :bind
   (("M-." . lsp-bridge-find-def)
    ("M-," . lsp-bridge-find-def-return)
@@ -58,6 +62,8 @@
   :hook
   (java-ts-mode . lsp-bridge-mode)
   (go-ts-mode . lsp-bridge-mode)
+  (lisp-interactive-mode . lsp-bridge-mode)
+  (emacs-lisp-mode . lsp-bridge-mode)
   :custom
   (gc-cons-threshold (* 64 1024 1024))
   (read-process-output-max (* 2 1024 1024))
