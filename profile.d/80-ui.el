@@ -66,9 +66,9 @@ if there's no active region."
   (when (eq system-type 'gnu/linux)
     (ui--set-window-titlebar-theme-variant "dark")))
 
-;; (load-theme 'spacemacs-dark t)
+;; spacemacs
 (use-package spacemacs-common
-  ;;:ensure spacemacs-theme
+  :ensure spacemacs-theme
   :config
   (load-theme 'spacemacs-dark t)
   :custom-face
@@ -102,18 +102,8 @@ if there's no active region."
   :init
   (doom-modeline-mode t))
 
-(use-package all-the-icons-completion
-  :demand
-  :init
-  (all-the-icons-completion-mode))
-
 (use-package all-the-icons-dired
   :hook (dired-mode . all-the-icons-dired-mode))
-
-(use-package dashboard
-  :custom (dashboard-page-separator "\n\n")
-  :config
-  (dashboard-setup-startup-hook))
 
 (use-package beacon
   :custom
@@ -134,9 +124,13 @@ if there's no active region."
   (global-hl-line-mode 1))
 
 (use-package dashboard
+  :demand
   :commands all-the-icons-faicon all-the-icons-fileicon all-the-icons-octicon
   :after all-the-icons
+  :config
+  (dashboard-setup-startup-hook)
   :custom
+  (dashboard-page-separator "\n\n")
   (dashboard-navigator-buttons
    `(
      ((,(all-the-icons-faicon "gitlab" :height 1.1 :v-adjust 0.0)
@@ -155,7 +149,7 @@ if there's no active region."
        "Homepage"
        "Browse GitHub Homepage"
        (lambda (&rest _) (browse-url "https://github.com/zhoupen9")))
-            (,(all-the-icons-octicon "bug" :height 1.1 :v-adjust 0.0)
+      (,(all-the-icons-octicon "bug" :height 1.1 :v-adjust 0.0)
        "Jira"
        "Browse JIRA"
        (lambda (&rest _) (browse-url "https://jira2.nroad.com.cn"))))))
@@ -181,38 +175,49 @@ if there's no active region."
   (org-link ((t (:underline t :foreground "#2aa1ae"))))
   (org-table ((t (:inherit fixed-pitch :background "#182232"))))
   (org-code ((t (:inherit fixed-pitch :foreground "#289ed0"))))
-  (org-meta-line ((t (:inherit variable-pitch :height 0.9))))
+                                        ;(org-meta-line ((t (:inherit variable-pitch :height 0.9))))
+  (org-meta-line ((t (:inherit variable-pitch))))
   (org-document-info ((t (:inherit fixed-pitch))))
   (org-document-info-keyword ((t (:inherit variable-pitch))))
+  ;; (org-verbatim ((t (:inherit fixed-pitch :foreground "#bc6ec5" :height 0.94))))
+  ;; (org-block ((t (:inherit fixed-pitch :height 0.94))))
+  ;; (org-block-begin-line ((t (:inherit fixed-pitch :height 0.94))))
+  ;; (org-block-end-line ((t (:inherit fixed-pitch :height 0.94)))))
   (org-verbatim ((t (:inherit fixed-pitch :foreground "#bc6ec5"))))
   (org-block ((t (:inherit fixed-pitch))))
   (org-block-begin-line ((t (:inherit fixed-pitch))))
   (org-block-end-line ((t (:inherit fixed-pitch)))))
 
+(use-package markdown-mode
+  :custom-face
+  (markdown-table-face ((t (:inherit fixed-pitch :background "#182232")))))
+
 (defun ui-article-mode ()
   "Define article mode."
   (variable-pitch-mode t)
-  (setq-local line-spacing 0.15))
+  (setq-local line-spacing 0.11)
+  (face-remap-add-relative 'fixed-pitch :height 0.85)
+  (face-remap-add-relative 'variable-pitch :height 1.2))
 
 (defun ui-prog-mode ()
   "Prog mode ui."
-  (setq-local line-spacing 0.1))
-
-(use-package markdown-mode
-  :custom-face
-  (markdown-table-face ((t (:inherit fixed-pitch))))
-  :custom
-  (markdown-hide-markup t)
-  (markdown-fontify-code-blocks-natively t))
+  (setq-local line-spacing 0.1)
+  (face-remap-add-relative 'font-lock-variable-name-face :foreground "#c2c2c2")
+  (face-remap-add-relative 'font-lock-string-face :foreground "#77aa99")
+  (face-remap-add-relative 'font-lock-type-face :weight 'normal :foreground "#4f97d7")
+  (face-remap-add-relative 'font-lock-keyword-face :weight 'normal)
+  (face-remap-add-relative 'font-lock-property-face :foreground "#7590db")
+  (face-remap-add-relative 'font-lock-function-name-face :slant 'italic :weight 'normal))
 
 (use-package face-remap
   :hook
   (org-mode . ui-article-mode)
   (markdown-mode . ui-article-mode)
   (prog-mode . ui-prog-mode)
+  (go-ts-mode . ui-prog-mode)
+  (java-ts-mode . ui-prog-mode)
   :custom-face
-  ;;(fixed-pitch ((t (:family "Liberation Mono" :height 0.9))))
-  (variable-pitch ((t (:family "Arial" :height 1.15)))))
+  (variable-pitch ((t :family "Source Serif Pro"))))
 
 ;;; 80-ui.el ends here
 ;;; End:

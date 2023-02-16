@@ -25,8 +25,60 @@
   :demand
   :hook (prog-mode . rainbow-delimiters-mode))
 
-(use-package go-mode)
-(use-package go-eldoc)
+(use-package eldoc
+  :config
+  (global-eldoc-mode -1))
+
+(use-package lsp-bridge-jdtls
+  :hook
+  (java-ts-mode
+   .
+   (lambda()
+     (setq-local lsp-bridge-get-single-lang-server-by-project 'lsp-bridge-get-jdtls-server-by-project))))
+
+(use-package xref
+  :bind
+  (("C-c M-[" . xref-find-definitions)
+   ("C-c M-]" . xref-go-back)))
+
+;; lsp-bridge
+(use-package lsp-bridge
+  :demand
+  :bind
+  (("M-." . lsp-bridge-find-def)
+   ("M-," . lsp-bridge-find-def-return)
+   ("C-c M-." . lsp-bridge-find-def-other-window)
+   ("C-c M-," . lsp-bridge-find-references)
+   ("M-[" . lsp-bridge-find-impl)
+   ("M-]" . lsp-bridge-find-impl-other-window))
+  :config
+  (use-package acm
+    :custom
+    (acm-enable-search-words nil)
+    (acm-enable-doc nil)
+    (acm-enable-yas nil)
+    (acm-enable-path nil)
+    (acm-enable-tempel nil))
+  :hook
+  (java-ts-mode . lsp-bridge-mode)
+  (go-ts-mode . lsp-bridge-mode)
+  (lisp-interactive-mode . lsp-bridge-mode)
+  (emacs-lisp-mode . lsp-bridge-mode)
+  :custom
+  (gc-cons-threshold (* 64 1024 1024))
+  (read-process-output-max (* 2 1024 1024))
+  (lsp-bridge-enable-candidate-doc-preview nil)
+  (lsp-bridge-enable-search-words nil)
+  (lsp-bridge-enable-debug nil)
+  (lsp-bridge-enable-log nil)
+  (lsp-bridge-get-project-path-by-filepath
+   (lambda (filepath)
+     (let ((vcdir (vc-call-backend (vc-responsible-backend filepath) 'root filepath)))
+       (if (not (string-empty-p vcdir))
+           (if (file-exists-p (concat vcdir "src/go.mod"))
+               (expand-file-name (concat vcdir "src"))
+             (expand-file-name vcdir))
+         (expand-file-name filepath))))))
 
 (use-package python
   :interpreter ("python3" . python-mode)
@@ -74,179 +126,102 @@
   ((js-mode . prettier-mode)
    (typescript-mode . prettier-mode)))
 
-(use-package tree-sitter
-  :hook
-  ((go-mode . tree-sitter-hl-mode)
-   (typescript-mode . tree-sitter-hl-mode)
-   (typescript-tsx-mode . tree-sitter-hl-mode)))
-
-(use-package tree-sitter-langs
-  :after tree-sitter
+(use-package treesit
+  :commands treesit-font-lock-rules treesit-font-lock-recompute-features
   :config
-  (tree-sitter-require 'tsx)
-  (tree-sitter-require 'go)
-  (add-to-list 'tree-sitter-major-mode-language-alist '(typescript-tsx-mode . tsx)))
+  (add-to-list 'treesit-extra-load-path (concat emacs-data-dir "treesit/"))
+  :hook
+  (c-ts-mode
+   .
+   (lambda()
+     (setq-local treesit-font-lock-level 4)
+     (setq-local
+      treesit-font-lock-settings
+      (append
+       treesit-font-lock-settings
+       (treesit-font-lock-rules
+        :language 'c
+        :feature 'func
+        '((call_expression
+           function:
+           (identifier) @font-lock-property-face
+           arguments: (_))))))))
+  (java-ts-mode
+   .
+   (lambda()
+     (setq-local
+      treesit-font-lock-settings
+      (append
+       treesit-font-lock-settings
+       (treesit-font-lock-rules
+        :language 'java
+        :feature 'expression
+        :override t
+        '((method_invocation
+           name: (identifier) @font-lock-property-face)))))))
+  (go-ts-mode
+   .
+   (lambda()
+     (setq-local treesit-font-lock-level 4)
+     (treesit-font-lock-recompute-features '(attribute import func))
+     (setq-local
+      treesit-font-lock-settings
+      (append
+       treesit-font-lock-settings
+       (treesit-font-lock-rules
+        :language 'go
+        :feature 'import
+        :override t
+        '((import_declaration (import_spec_list (import_spec path: (interpreted_string_literal) @font-lock-constant-face))))
+
+        :language 'go
+        :feature 'func
+        :override t
+        "[(function_declaration name: (identifier) @font-lock-function-name-face)
+          (call_expression
+            function:
+            (selector_expression
+             field: (field_identifier) @font-lock-property-face .))
+          (call_expression
+            function:
+            (identifier) @font-lock-property-face
+            arguments: (_))
+          (method_declaration
+            name: (field_identifier) @font-lock-function-name-face)]"
+
+        :language 'go
+        :feature 'variable
+        :override t
+        '((const_declaration
+         (const_spec name: (identifier) @font-lock-constant-face)))
+
+        :language 'go
+        :feature 'attribute
+        :override t
+        "(composite_literal body: (literal_value (keyed_element . (literal_element (identifier) @font-lock-property-face))))")))))
+  :custom
+  (major-mode-remap-alist
+   '((c-mode . c-ts-mode)
+     (c++-mode . c++-ts-mode)
+     (cmake-mode . cmake-ts-mode)
+     (dockerfile-mode . dockerfile-ts-mode)
+     (go-mode . go-ts-mode)
+     (json-mode . json-ts-mode)
+     (java-mode . java-ts-mode)
+     (rust-mode . rust-ts-mode)
+     (ruby-mode . ruby-ts-mode)
+     (typescript-mode . typescript-ts-mode)
+     (conf-toml-mode . toml-ts-mode)
+     (yaml-mode . yaml-ts-mode))))
 
 (use-package docker-compose-mode)
-
-(use-package lsp-mode
-  :commands lsp-register-client make-lsp-client lsp-stdio-connection lsp-yaml-server-command lsp-activate-on executable-find lsp-package-path
-  :custom
-  (lsp-keymap-prefix "C-c C-l")
-  (lsp-fsharp-server-install-dir (concat emacs-data-dir "lsp/fsautocomplete"))
-  (lsp-java-server-install-dir (concat emacs-data-dir "lsp/eclipse.jdt.ls"))
-  (lsp-xml-server-work-dir (concat emacs-data-dir "lsp/xml"))
-  (lsp-server-install-dir (concat emacs-data-dir "lsp"))
-  (lsp-session-file (concat emacs-data-dir "lsp/lsp-session-v1"))
-  (lsp-clients-typescript-plugins
-   (vector (list :name "@vsintellicode/typescript-intellicode-plugin"
-                 :location (concat home-directory ".vscode/extensions/visualstudioexptteam.vscodeintellicode-1.2.14"))
-           (list :name "vscode-chrome-debug-core"
-                 :location (concat home-directory ".vscode/extensions/msjsdiag.debugger-for-chrome-4.13.0"))))
-  ;;(lsp-clients-typescript-server-args '("--stdio" "--tsserver-log-file" "/tmp/tss.log" "--log-level" "log" "--tsserver-log-verbosity" "verbose"))
-  ;;(lsp-clients-typescript-tls-path "/usr/local/bin/tsserver")
-  ;;(lsp-clients-typescript-server-args "--server")
-  (lsp-enable-snippet nil)
-  ;;(lsp-enable-symbol-highlighting nil)
-  (lsp-log-io nil)
-  ;;(lsp-headerline-breadcrumb-mode nil)
-  (gc-cons-threshold (* 64 1024 1024))
-  (read-process-output-max (* 2 1024 1024))
-  :hook
-  ((c-mode . lsp)
-   (c++-mode . lsp)
-   (java-mode . lsp)
-   (python-mode . lsp)
-   (go-mode . lsp)
-   (json-mode . lsp)
-   (yaml-mode . lsp)
-   (shell-script-mode . lsp)
-   (typescript-mode . lsp)
-   (docker-compose-mode . lsp)
-   (lsp-mode . lsp-enable-which-key-integration))
-  :commands lsp
-  :init
-  (use-package lsp-yaml
-    :config
-    (lsp-register-client
-     (make-lsp-client
-      :new-connection (lsp-stdio-connection
-                       (lambda ()
-                         `(,(or (executable-find (cl-first lsp-yaml-server-command))
-                                (lsp-package-path 'yaml-language-server))
-                           ,@(cl-rest lsp-yaml-server-command))))
-      :major-modes '(docker-compose-mode)
-      :server-id 'docker-compose-yamlls
-      :activation-fn (lsp-activate-on "docker-compose"))))
-  :config
-  (add-to-list 'lsp-language-id-configuration
-               '(docker-compose-mode . "docker-compose"))
-  (use-package lsp-diagnostics
-    :custom
-    (lsp-diagnostics-provider :auto)))
-
-;; (use-package lsp-ui
-;;   :commands lsp-ui-mode
-;;   :custom
-;;   (lsp-ui-sideline-show-diagnosqtics nil)
-;;   (lsp-ui-sideline-show-hover nil)
-;;   (lsp-ui-sideline-show-code-actions nil)
-;;   (lsp-ui-sideline-update-mode nil)
-;;   (lsp-ui-doc-enable nil)
-;;   (lsp-ui-peek-enable nil)
-;;   (lsp-ui-peek-show-directory nil)
-;;   (lsp-ui-sideline-enable nil))
 
 (defconst lombok-path
   (expand-file-name (file-name-as-directory "~/.local/lib/lombok")))
 
-(use-package lsp-java
-  :defines lsp-java-vmargs
-  :init
-  (setenv "M2_REPO" (expand-file-name (file-name-as-directory "~/.var/lib/m2")))
-  :config
-  (add-to-list 'lsp-java-vmargs
-               (concat "-javaagent:" lombok-path "lombok.jar"))
-  (add-to-list 'lsp-java-vmargs
-               (concat "-Xbootclasspath/a:" lombok-path "lombok.jar"))
-  :custom
-  (lsp-java-imports-gradle-wrapper-checksums [(
-                                               :sha256 "e996d452d2645e70c01c11143ca2d3742734a28da2bf61f25c82bdc288c9e637"
-                                               :allowed t)])
-  (lsp-java-workspace-dir (concat emacs-data-dir "workspace/"))
-  (lsp-java-workspace-cache-dir (concat emacs-data-dir "workspace/.cache/"))
-  ;;(lsp-java-jdt-download-url "https://mirrors.ustc.edu.cn/eclipse/jdtls/snapshots/jdt-language-server-latest.tar.gz")
-  ;;(lsp-java-jdt-download-url "https://download.eclipse.org/jdtls/snapshots/jdt-language-server-latest.tar.gz")
-  (lsp-java-jdt-download-url "https://nexus.nroad.com.cn/repository/maven-releases/org/eclipse/jdt/ls/language-server/latest/language-server-latest.tar.gz")
-  (lsp-java-configuration-maven-user-settings
-   (expand-file-name "~/.var/lib/m2/settings.xml")))
-  ;; (lsp-java-vmargs (list
-  ;;                   "-noverify"
-  ;;                   "-Xmx2G"
-  ;;                   "-XX:+UseG1GC"
-  ;;                   "-XX:+UseStringDeduplication"
-  ;;                   (concat "-javaagent:" lombok-path "lombok.jar")
-  ;;                   (concat "-Xbootclasspath/a:" lombok-path "lombok.jar")
-  ;;                   "--add-modules=ALL-SYSTEM"
-  ;;                   "--add-opens"
-  ;;                   "java.base/java.util=ALL-UNNAMED"
-  ;;                   "--add-opens"
-  ;;                   "java.base/java.lang=ALL-UNNAMED")))
-
-(use-package lsp-treemacs
-  :commands lsp-treemacs-errors-list)
-
-(use-package dap-mode
-  :custom
-  (dap-breakpoints-file (concat emacs-data-dir ".dap-breakpoints"))
-  :config
-  (use-package dap-utils
-    :custom
-    (dap-utils-extension-path (concat emacs-data-dir "lsp/extensions/")))
-  (use-package dap-hydra
-    :bind ("C-c d h" . dap-hydra))
-  (use-package dap-lldb :demand
-    :custom
-    (dap-lldb-debug-program
-     (concat emacs-data-dir
-             "lsp/extensions/vscode/llvm-org.lldb-vscode-0.1.0/bin/lldb-vscode")))
-  (use-package dap-java
-    :bind
-    (("C-c t m" . dap-java-debug-test-method)
-     ("C-c t c" . dap-java-debug-test-class))
-    :custom
-    (dap-java-test-runner (concat lsp-java-server-install-dir "/test-runner/junit-platform-console-standalone.jar")))
-  (use-package dap-cpptools :demand)
-  (use-package dap-python :demand
-    :custom
-    (dap-python-terminal "gnome-terminal -- ")
-    (dap-python-executable "python3"))
-  (use-package dap-chrome :demand)
-  (use-package dap-dlv-go :demand)
-  (use-package dap-ui
-    :bind (("C-c d m" . dap-ui-show-many-windows)
-           ("C-c d n" . dap-ui-hide-many-windows))))
-
 (use-package which-key
   :config
   (which-key-mode))
-
-(use-package eldoc
-  :hook
-  ((emacs-lisp-mode . eldoc-mode)))
-
-(use-package c-eldoc
-  :hook
-  ((c-mode . c-turn-on-eldoc-mode)))
-
-(use-package go-eldoc
-  :hook
-  ((go-mode . go-eldoc-setup)))
-
-(use-package flycheck-golangci-lint
-  :hook
-  ((flycheck-mode . flycheck-golangci-lint-setup)))
-
 
 (use-package flycheck-yamllint
   :hook

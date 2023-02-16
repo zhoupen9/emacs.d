@@ -60,8 +60,8 @@
     (dolist (charset '(kana han symbol cjk-misc bopomofo))
       (set-fontset-font (frame-parameter nil 'font)
                         charset
-                        (font-spec :family "Noto Sans CJK SC"))))) ;; 中文支持
-                        ;;(font-spec :family "Noto Sans CJK SC"))));;abcdefghijk
+                        (font-spec :family "Noto Sans CJK SC")))))  ;; 中文宽度
+                        ;;(font-spec :family "Noto Sans CJK SC")))) ;; 12345678
 
 (use-package bookmark
   :custom
@@ -79,11 +79,6 @@
   :demand
   :custom
   (tramp-persistency-file-name (concat emacs-data-dir "tramp")))
-
-(use-package font-core
-  :config
-  ;; Set font color
-  (global-font-lock-mode t))
 
 (use-package simple
   :config
@@ -119,6 +114,7 @@
         completion-category-overrides '((file (styles partial-completion)))))
 
 (use-package yasnippet
+  :demand
   :commands yas-reload-all
   :custom
   (yas-snippet-dirs (list (concat user-emacs-directory "snippets")))
@@ -136,51 +132,6 @@
 (use-package url
   :custom
   (url-configuration-directory (concat emacs-data-dir "url")))
-
-;; (defun corfu-enable-always-in-minibuffer ()
-;;   "Enable Corfu in the minibuffer if Vertico/Mct are not active."
-;;   (unless (or (bound-and-true-p mct--active)
-;;               (bound-and-true-p vertico--input))
-;;     ;; (setq-local corfu-auto nil) Enable/disable auto completion
-;;     (corfu-mode 1)))
-
-;; (defun corfu-enable-in-minibuffer ()
-;;   "Enable Corfu in the minibuffer if `completion-at-point' is bound."
-;;   (when (where-is-internal #'completion-at-point (list (current-local-map)))
-;;     ;; (setq-local corfu-auto nil) Enable/disable auto completion
-;;     (corfu-mode 1)))
-
-(use-package corfu
-  :init
-  (global-corfu-mode)
-  :bind ("C-." . completion-at-point)
-  :custom
-  ;;(corfu-auto t)
-  (tab-always-indent 'complete))
-  ;; :config
-  ;; (add-hook 'minibuffer-setup-hook #'corfu-enable-in-minibuffer))
-
-(use-package corfu-doc
-  :after corfu
-  :custom
-  (corfu-doc-auto nil)
-  :hook
-  (corfu-mode . corfu-doc-mode)
-  :bind
-  ("C-c c d" . corfu-doc-toggle))
-
-(use-package kind-icon
-  :after corfu
-  ;;:commands kind-icon-enhance-completion kind-icon-margin-formatter
-  :custom
-  (kind-icon-default-face 'corfu-default)
-  :config
-  (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter)
-  (add-hook 'my-completion-ui-mode-hook
-   	    (lambda ()
-   	      (setq completion-in-region-function
-   		    (kind-icon-enhance-completion
-   		     completion-in-region-function)))))
 
 (use-package consult
   ;; Enable automatic preview at point in the *Completions* buffer. This is
@@ -222,30 +173,6 @@
 (use-package marginalia
   :config
   (marginalia-mode))
-
-(use-package embark
-
-  :init
-
-  ;; Optionally replace the key help with a completing-read interface
-  (setq prefix-help-command #'embark-prefix-help-command)
-
-  :config
-
-  ;; Hide the mode line of the Embark live/completions buffers
-  (add-to-list 'display-buffer-alist
-               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
-                 nil
-                 (window-parameters (mode-line-format . none)))))
-
-;; Consult users will also want the embark-consult package.
-(use-package embark-consult
-  :after (embark consult)
-  :demand t ; only necessary if you have the hook below
-  ;; if you want to have consult previews as you move around an
-  ;; auto-updating embark collect buffer
-  :hook
-  (embark-collect-mode . consult-preview-at-point-mode))
 
 ;;; 10-environment.el ends here
 ;;; End:

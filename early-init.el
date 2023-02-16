@@ -37,6 +37,6 @@
 ;; Defines cache directory
 (defconst emacs-cache-dir (expand-file-name (file-name-as-directory "~/.cache/emacs")) "Emacs cache directory.")
 
-(add-to-list 'native-comp-eln-load-path (concat emacs-cache-dir "eln-cache"))
+(setq native-comp-eln-load-path (list (concat emacs-cache-dir "eln-cache")))
 
 ;;; early-init.el ends here
