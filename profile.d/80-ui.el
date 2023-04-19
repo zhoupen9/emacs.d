@@ -67,7 +67,7 @@ if there's no active region."
     (ui--set-window-titlebar-theme-variant "dark")))
 
 ;; spacemacs
-(use-package spacemacs-common
+(use-package spacemacs-theme
   :ensure spacemacs-theme
   :config
   (load-theme 'spacemacs-dark t)
@@ -105,14 +105,14 @@ if there's no active region."
 (use-package all-the-icons-dired
   :hook (dired-mode . all-the-icons-dired-mode))
 
-(use-package beacon
-  :custom
-  (beacon-push-mark 10)
-  (beacon-color "#cc342b")
-  (beacon-blink-delay 0.3)
-  (beacon-blink-duration 0.3)
-  :config
-  (beacon-mode))
+;; (use-package beacon
+;;   :custom
+;;   (beacon-push-mark 10)
+;;   (beacon-color "#cc342b")
+;;   (beacon-blink-delay 0.3)
+;;   (beacon-blink-duration 0.3)
+;;   :config
+;;   (beacon-mode))
 
 (use-package frame
   :demand

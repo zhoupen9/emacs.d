@@ -47,6 +47,7 @@
   (scroll-bar-mode 0)
   ;; Turn on speed bar.
   ;; (speedbar-frame-mode t)
+  (pixel-scroll-precision-mode)
 
   ;; Make Noto CJK align with english characters horizontally
   ;; (add-to-list 'face-font-rescale-alist

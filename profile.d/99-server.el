@@ -3,7 +3,7 @@
 
 ;;; Code:
 
-(server-start)
+;;(server-start)
 
 ;;; 99-server.el ends here
 ;;; End:

@@ -44,6 +44,7 @@
 ;; lsp-bridge
 (use-package lsp-bridge
   :demand
+  :commands global-lsp-bridge-mode
   :bind
   (("M-." . lsp-bridge-find-def)
    ("M-," . lsp-bridge-find-def-return)
@@ -54,17 +55,23 @@
   :config
   (use-package acm
     :custom
+    (acm-enable-tabnine t)
     (acm-enable-search-words nil)
     (acm-enable-doc nil)
     (acm-enable-yas nil)
     (acm-enable-path nil)
-    (acm-enable-tempel nil))
+    (acm-enable-tempel nil)
+    (lsp-bridge-enable-org-babel t)
+    (lsp-bridge-org-babel-lang-list '("bash" "elisp" "go")))
+  (global-lsp-bridge-mode)
   :hook
-  (java-ts-mode . lsp-bridge-mode)
+  ;; (java-ts-mode . lsp-bridge-mode)
   (go-ts-mode . lsp-bridge-mode)
-  (lisp-interactive-mode . lsp-bridge-mode)
-  (emacs-lisp-mode . lsp-bridge-mode)
+  ;; (python-ts-mode . lsp-bridge-mode)
+  ;; (lisp-interactive-mode . lsp-bridge-mode)
+  ;; (emacs-lisp-mode . lsp-bridge-mode)
   :custom
+  (tabnine-bridge-binaries-folder (concat emacs-data-dir "TabNine"))
   (gc-cons-threshold (* 64 1024 1024))
   (read-process-output-max (* 2 1024 1024))
   (lsp-bridge-enable-candidate-doc-preview nil)
@@ -115,16 +122,17 @@
   :custom
   (treemacs-persist-file (concat emacs-data-dir "treemacs-persist")))
 
-(use-package typescript-mode
-  :init
-  (define-derived-mode typescript-tsx-mode typescript-mode "TypeScript")
-  :config
-  (add-to-list 'auto-mode-alist '("\\.[jt]sx?\\'" . typescript-tsx-mode)))
+(use-package go-ts-mode
+  :custom
+  (go-ts-mode-indent-offset 4))
+;;  :config
+;;  (add-to-list 'auto-mode-alist '("\\.go\\'" . go-ts-mode)))
 
 (use-package prettier
   :hook
   ((js-mode . prettier-mode)
-   (typescript-mode . prettier-mode)))
+   (typescript-ts-mode . prettier-mode)
+   (tsx-ts-mode . prettier-mode)))
 
 (use-package treesit
   :commands treesit-font-lock-rules treesit-font-lock-recompute-features
@@ -206,11 +214,11 @@
      (cmake-mode . cmake-ts-mode)
      (dockerfile-mode . dockerfile-ts-mode)
      (go-mode . go-ts-mode)
+     (python-mode . python-ts-mode)
      (json-mode . json-ts-mode)
      (java-mode . java-ts-mode)
      (rust-mode . rust-ts-mode)
      (ruby-mode . ruby-ts-mode)
-     (typescript-mode . typescript-ts-mode)
      (conf-toml-mode . toml-ts-mode)
      (yaml-mode . yaml-ts-mode))))
 
