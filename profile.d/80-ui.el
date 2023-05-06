@@ -99,6 +99,8 @@ if there's no active region."
 (use-package doom-modeline
   :config
   (setq doom-modeline-buffer-file-name-style 'truncate-upto-project)
+  :custom
+  (doom-modeline-height 45)
   :init
   (doom-modeline-mode t))
 
@@ -122,6 +124,8 @@ if there's no active region."
 (use-package hl-line
   :config
   (global-hl-line-mode 1))
+
+(use-package all-the-icons)
 
 (use-package dashboard
   :demand
@@ -175,7 +179,7 @@ if there's no active region."
   (org-link ((t (:underline t :foreground "#2aa1ae"))))
   (org-table ((t (:inherit fixed-pitch :background "#182232"))))
   (org-code ((t (:inherit fixed-pitch :foreground "#289ed0"))))
-                                        ;(org-meta-line ((t (:inherit variable-pitch :height 0.9))))
+  ;; (org-meta-line ((t (:inherit variable-pitch :height 0.9))))
   (org-meta-line ((t (:inherit variable-pitch))))
   (org-document-info ((t (:inherit fixed-pitch))))
   (org-document-info-keyword ((t (:inherit variable-pitch))))

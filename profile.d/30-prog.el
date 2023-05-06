@@ -50,19 +50,19 @@
    ("M-," . lsp-bridge-find-def-return)
    ("C-c M-." . lsp-bridge-find-def-other-window)
    ("C-c M-," . lsp-bridge-find-references)
+   ("C-c M-p" . lsp-bridge-popup-documentation)
    ("M-[" . lsp-bridge-find-impl)
    ("M-]" . lsp-bridge-find-impl-other-window))
   :config
   (use-package acm
     :custom
-    (acm-enable-tabnine t)
-    (acm-enable-search-words nil)
+    ;; (acm-enable-tabnine t)
+    (acm-enable-tabnine nil)
+    (acm-enable-search-file-words nil)
     (acm-enable-doc nil)
     (acm-enable-yas nil)
     (acm-enable-path nil)
-    (acm-enable-tempel nil)
-    (lsp-bridge-enable-org-babel t)
-    (lsp-bridge-org-babel-lang-list '("bash" "elisp" "go")))
+    (acm-enable-tempel nil))
   (global-lsp-bridge-mode)
   :hook
   ;; (java-ts-mode . lsp-bridge-mode)
@@ -78,6 +78,8 @@
   (lsp-bridge-enable-search-words nil)
   (lsp-bridge-enable-debug nil)
   (lsp-bridge-enable-log nil)
+  (lsp-bridge-enable-org-babel t)
+  (lsp-bridge-org-babel-lang-list '("bash" "elisp" "go"))
   (lsp-bridge-get-project-path-by-filepath
    (lambda (filepath)
      (let ((vcdir (vc-call-backend (vc-responsible-backend filepath) 'root filepath)))
@@ -98,9 +100,9 @@
   :demand
   :config
   (setq flycheck-emacs-lisp-load-path (quote inherit))
-  (global-flycheck-mode t)
+  ;;(global-flycheck-mode t)
   :hook
-  ((go-mode . flycheck-mode))
+  ;;((go-mode . flycheck-mode))
   (python-mode . flycheck-mode))
 
 (use-package projectile
@@ -110,6 +112,8 @@
   :custom
   (projectile-known-projects-file (concat emacs-data-dir "projectile-bookmarks.eld"))
   (projectile-cache-file (concat emacs-data-dir "projectile.cache"))
+  (projectile-git-use-fd nil)
+  (projectile-git-submodule-command nil)
   :config
   (use-package consult-projectile
     :bind
@@ -167,46 +171,46 @@
         :override t
         '((method_invocation
            name: (identifier) @font-lock-property-face)))))))
-  (go-ts-mode
-   .
-   (lambda()
-     (setq-local treesit-font-lock-level 4)
-     (treesit-font-lock-recompute-features '(attribute import func))
-     (setq-local
-      treesit-font-lock-settings
-      (append
-       treesit-font-lock-settings
-       (treesit-font-lock-rules
-        :language 'go
-        :feature 'import
-        :override t
-        '((import_declaration (import_spec_list (import_spec path: (interpreted_string_literal) @font-lock-constant-face))))
+  ;; (go-ts-mode
+  ;;  .
+  ;;  (lambda()
+  ;;    (setq-local treesit-font-lock-level 4)
+  ;;    (treesit-font-lock-recompute-features '(attribute import func))
+  ;;    (setq-local
+  ;;     treesit-font-lock-settings
+  ;;     (append
+  ;;      treesit-font-lock-settings
+  ;;      (treesit-font-lock-rules
+  ;;       :language 'go
+  ;;       :feature 'import
+  ;;       :override t
+  ;;       '((import_declaration (import_spec_list (import_spec path: (interpreted_string_literal) @font-lock-constant-face))))
 
-        :language 'go
-        :feature 'func
-        :override t
-        "[(function_declaration name: (identifier) @font-lock-function-name-face)
-          (call_expression
-            function:
-            (selector_expression
-             field: (field_identifier) @font-lock-property-face .))
-          (call_expression
-            function:
-            (identifier) @font-lock-property-face
-            arguments: (_))
-          (method_declaration
-            name: (field_identifier) @font-lock-function-name-face)]"
+  ;;       :language 'go
+  ;;       :feature 'func
+  ;;       :override t
+  ;;       "[(function_declaration name: (identifier) @font-lock-function-name-face)
+  ;;         (call_expression
+  ;;           function:
+  ;;           (selector_expression
+  ;;            field: (field_identifier) @font-lock-property-face .))
+  ;;         (call_expression
+  ;;           function:
+  ;;           (identifier) @font-lock-property-face
+  ;;           arguments: (_))
+  ;;         (method_declaration
+  ;;           name: (field_identifier) @font-lock-function-name-face)]"
 
-        :language 'go
-        :feature 'variable
-        :override t
-        '((const_declaration
-         (const_spec name: (identifier) @font-lock-constant-face)))
+  ;;       :language 'go
+  ;;       :feature 'variable
+  ;;       :override t
+  ;;       '((const_declaration
+  ;;        (const_spec name: (identifier) @font-lock-constant-face)))
 
-        :language 'go
-        :feature 'attribute
-        :override t
-        "(composite_literal body: (literal_value (keyed_element . (literal_element (identifier) @font-lock-property-face))))")))))
+  ;;       :language 'go
+  ;;       :feature 'attribute
+  ;;       :override t
+  ;;       "(composite_literal body: (literal_value (keyed_element . (literal_element (identifier) @font-lock-property-face))))")))))
   :custom
   (major-mode-remap-alist
    '((c-mode . c-ts-mode)
