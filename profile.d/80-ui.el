@@ -127,33 +127,41 @@ if there's no active region."
 
 (use-package all-the-icons)
 
+(use-package nerd-icons)
+
 (use-package dashboard
   :demand
-  :commands all-the-icons-faicon all-the-icons-fileicon all-the-icons-octicon
-  :after all-the-icons
+  ;; :commands all-the-icons-faicon all-the-icons-fileicon all-the-icons-octicon
+  ;; :after all-the-icons
+  :commands nerd-icons-faicon nerd-icons-fileicon nerd-icons-octicon
+  :after nerd-icons
   :config
   (dashboard-setup-startup-hook)
   :custom
   (dashboard-page-separator "\n\n")
+  (dashboard-display-icons-p t)
+  (dashboard-icon-type 'nerd-icons)
+  (dashboard-agenda-item-icon nil)
+
   (dashboard-navigator-buttons
    `(
-     ((,(all-the-icons-faicon "gitlab" :height 1.1 :v-adjust 0.0)
+     ((,(nerd-icons-faicon "nf-fa-gitlab" :height 1.1 :v-adjust 0.0)
        "GitLab"
        "Browse GitLab Repositories"
        (lambda (&rest _) (browse-url "https://gitlab.nroad.com.cn")))
-      (,(all-the-icons-fileicon "npm" :height 1.1 :v-adjust 0.0)
+      (,(nerd-icons-codicon "nf-cod-repo" :height 1.1 :v-adjust 0.0)
        "Nexus"
        "Browse Nexus Repositories"
        (lambda (&rest _) (browse-url "https://nexus.nroad.com.cn")))
-      (,(all-the-icons-fileicon "jenkins" :height 1.1 :v-adjust 0.0)
+      (,(nerd-icons-devicon "nf-dev-jenkins" :height 1.1 :v-adjust 0.0)
        "Jenkins CI"
        "Browse Jenkins CI Jobs"
        (lambda (&rest _) (browse-url "https://jenkins.nroad.com.cn"))))
-     ((,(all-the-icons-octicon "mark-github" :height 1.1 :v-adjust 0.0)
+     ((,(nerd-icons-faicon "nf-fa-github" :height 1.1 :v-adjust 0.0)
        "Homepage"
        "Browse GitHub Homepage"
        (lambda (&rest _) (browse-url "https://github.com/zhoupen9")))
-      (,(all-the-icons-octicon "bug" :height 1.1 :v-adjust 0.0)
+      (,(nerd-icons-faicon "nf-fa-bug" :height 1.1 :v-adjust 0.0)
        "Jira"
        "Browse JIRA"
        (lambda (&rest _) (browse-url "https://jira2.nroad.com.cn"))))))

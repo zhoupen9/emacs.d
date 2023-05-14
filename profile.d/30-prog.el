@@ -60,7 +60,7 @@
     (acm-enable-tabnine nil)
     (acm-enable-search-file-words nil)
     (acm-enable-doc nil)
-    (acm-enable-yas nil)
+    (acm-enable-yas t)
     (acm-enable-path nil)
     (acm-enable-tempel nil))
   (global-lsp-bridge-mode)
@@ -79,15 +79,7 @@
   (lsp-bridge-enable-debug nil)
   (lsp-bridge-enable-log nil)
   (lsp-bridge-enable-org-babel t)
-  (lsp-bridge-org-babel-lang-list '("bash" "elisp" "go"))
-  (lsp-bridge-get-project-path-by-filepath
-   (lambda (filepath)
-     (let ((vcdir (vc-call-backend (vc-responsible-backend filepath) 'root filepath)))
-       (if (not (string-empty-p vcdir))
-           (if (file-exists-p (concat vcdir "src/go.mod"))
-               (expand-file-name (concat vcdir "src"))
-             (expand-file-name vcdir))
-         (expand-file-name filepath))))))
+  (lsp-bridge-org-babel-lang-list '("bash" "elisp" "go")))
 
 (use-package python
   :interpreter ("python3" . python-mode)
