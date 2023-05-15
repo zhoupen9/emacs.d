@@ -14,6 +14,11 @@
 
 (require 'use-package)
 
+(use-package package
+  :custom
+  (package-pinned-packages
+   '((yasnippet . "elpa"))))
+
 (defconst emacs-profile-dir (concat user-emacs-directory "profile.d/") "Emacs Profile directory.")
 
 (global-unset-key "\C-z")

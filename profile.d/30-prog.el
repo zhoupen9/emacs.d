@@ -119,6 +119,8 @@
   (treemacs-persist-file (concat emacs-data-dir "treemacs-persist")))
 
 (use-package go-ts-mode
+  :config
+  (use-package cc-vars)
   :custom
   (go-ts-mode-indent-offset 4))
 ;;  :config

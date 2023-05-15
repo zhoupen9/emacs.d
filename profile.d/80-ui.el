@@ -141,7 +141,6 @@ if there's no active region."
   (dashboard-page-separator "\n\n")
   (dashboard-display-icons-p t)
   (dashboard-icon-type 'nerd-icons)
-  (dashboard-agenda-item-icon nil)
 
   (dashboard-navigator-buttons
    `(
