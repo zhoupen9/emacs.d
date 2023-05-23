@@ -14,7 +14,7 @@
 
 (use-package mu4e
   :custom
-  ;; (mu4e-use-fancy-chars t)
+  (mu4e-use-fancy-chars t)
   (mail-user-agent 'mu4e-user-agent)
   (mu4e-attachment-dir (expand-file-name "~/Mail/attachments"))
   ;; (mu4e-view-fields '(:date :flags :from :to :tags :subject))

@@ -51,6 +51,10 @@
    ("C-c M-." . lsp-bridge-find-def-other-window)
    ("C-c M-," . lsp-bridge-find-references)
    ("C-c M-p" . lsp-bridge-popup-documentation)
+   ("C-c c a" . lsp-bridge-code-action)
+   ("C-c c d" . lsp-bridge-diagnostic-list)
+   ("C-c c f" . lsp-bridge-code-format)
+   ("C-c c r" . lsp-bridge-rename)
    ("M-[" . lsp-bridge-find-impl)
    ("M-]" . lsp-bridge-find-impl-other-window))
   :config
