@@ -175,5 +175,17 @@
   :config
   (marginalia-mode))
 
+(use-package rime
+  :bind
+  (:map rime-mode-map
+        ("C-`" . 'rime-send-keybinding))
+  :custom
+  (rime-librime-root (expand-file-name "~/.local/lib"))
+  (rime-share-data-dir (expand-file-name "~/.local/share/rime"))
+  (rime-user-data-dir (expand-file-name "~/.config/rime"))
+  (rime-emacs-module-header-root (expand-file-name "~/.local/include"))
+  (default-input-method "rime")
+  (rime-show-candidate 'posframe))
+
 ;;; 10-environment.el ends here
 ;;; End:

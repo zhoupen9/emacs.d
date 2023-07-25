@@ -55,6 +55,11 @@
    ("C-c c d" . lsp-bridge-diagnostic-list)
    ("C-c c f" . lsp-bridge-code-format)
    ("C-c c r" . lsp-bridge-rename)
+   ("C-c c p" . lsp-bridge-peek)
+   ("C-z p n" . lsp-bridge-peek-list-next-line)
+   ("C-z p p" . lsp-bridge-peek-list-prev-line)
+   ("C-z c p" . lsp-bridge-peek-file-content-prev-line)
+   ("C-z c n" . lsp-bridge-peek-file-content-next-line)
    ("M-[" . lsp-bridge-find-impl)
    ("M-]" . lsp-bridge-find-impl-other-window))
   :config
@@ -247,6 +252,15 @@
 (require 'ansi-color)
 (require 'files)
 (require 'compile)
+
+(use-package symbol-overlay
+  :bind
+  (("C-c n i" . symbol-overlay-put)
+   ("C-c n f" . symbol-overlay-switch-forward)
+   ("C-c n p" . symbol-overlay-switch-backward)
+   ("C-c n n" . symbol-overlay-remove-all)
+   ("C-c n >" . symbol-overlay-jump-next)
+   ("C-c n <" . symbol-overlay-jump-prev)))
 
 (defun ansi-color-apply-compilation-buffer ()
   "Apply ansi color for compilation buffer."

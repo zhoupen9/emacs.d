@@ -3,7 +3,7 @@
 
 ;;; Code:
 
-(let* ((xdg-data-dir "~/.local/share")
+(let* ((xdg-data-dir (expand-file-name (file-name-as-directory "~/.local/share")))
        (local-site-lisp (concat xdg-data-dir "/emacs/site-lisp")))
   (customize-set-variable 'package-user-dir (concat xdg-data-dir "/emacs/elpa/"))
   (customize-set-variable 'package-gnupghome-dir (concat xdg-data-dir "/emacs/elpa/gnupg/"))

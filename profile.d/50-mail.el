@@ -26,6 +26,9 @@
   (mu4e-get-mail-command "mbsync -aqq")
   (mu4e-update-interval 300)
   :init
+  (add-to-list 'display-buffer-alist
+             `(,(regexp-quote mu4e-main-buffer-name)
+               display-buffer-same-window))
   (add-hook 'after-init-hook 'mu4e-alert-enable-notifications t))
 
 (use-package mu4e-alert
