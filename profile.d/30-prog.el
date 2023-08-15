@@ -65,6 +65,7 @@
   :config
   (use-package acm
     :custom
+    (lsp-bridge-completion-hide-characters '(";" "(" ")" "[" "]" "{" "}" "," "\""))
     ;; (acm-enable-tabnine t)
     (acm-enable-tabnine nil)
     (acm-enable-search-file-words nil)
@@ -73,9 +74,9 @@
     (acm-enable-path nil)
     (acm-enable-tempel nil))
   (global-lsp-bridge-mode)
-  :hook
+  ;;:hook
   ;; (java-ts-mode . lsp-bridge-mode)
-  (go-ts-mode . lsp-bridge-mode)
+  ;; (go-ts-mode . lsp-bridge-mode)
   ;; (python-ts-mode . lsp-bridge-mode)
   ;; (lisp-interactive-mode . lsp-bridge-mode)
   ;; (emacs-lisp-mode . lsp-bridge-mode)
@@ -83,6 +84,8 @@
   (tabnine-bridge-binaries-folder (concat emacs-data-dir "TabNine"))
   (gc-cons-threshold (* 64 1024 1024))
   (read-process-output-max (* 2 1024 1024))
+  (lsp-bridge-signature-show-function 'lsp-bridge-signature-show-with-frame)
+  (lsp-bridge-signature-show-with-frame-position "point")
   (lsp-bridge-enable-candidate-doc-preview nil)
   (lsp-bridge-enable-search-words nil)
   (lsp-bridge-enable-debug nil)

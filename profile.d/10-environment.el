@@ -175,6 +175,10 @@
   :config
   (marginalia-mode))
 
+(use-package rg
+  :config
+  (rg-enable-default-bindings))
+
 (use-package rime
   :bind
   (:map rime-mode-map
