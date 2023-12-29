@@ -37,8 +37,9 @@
 (use-package mu4e-alert
   :config
   (use-package doom-modeline
-    :config
-    (setq doom-modeline-mu4e t))
+    :custom
+    (doom-modeline-mu4e t)
+    (mu4e-alert-set-window-urgency nil))
   (mu4e-alert-enable-mode-line-display)
   (mu4e-alert-set-default-style 'libnotify))
 

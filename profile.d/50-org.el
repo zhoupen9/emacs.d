@@ -55,8 +55,10 @@
   :defines org-roam-v2-ack
   :init
   (setq org-roam-v2-ack t)
+  ;;(advice-add #'org-roam-fontify-like-in-org-mode :around (lambda (fn &rest args) (save-excursion (apply fn args))))
   :bind (("C-c r o" . org-roam)
          ("C-c r f" . org-roam-node-find)
+         ("C-c r p" . org-roam-buffer-toggle)
          ("C-c r r" . org-roam-ref-find)
          ("C-c r i" . org-roam-node-insert))
   :custom
@@ -66,7 +68,21 @@
   (org-roam-db-location (concat emacs-data-dir "org-roam.db3"))
   (org-id-locations-file (concat emacs-data-dir "org-id-locations"))
   :config
-  (add-hook 'after-init-hook 'org-roam-mode))
+  (add-hook 'after-init-hook 'org-roam-mode)
+  (add-to-list 'display-buffer-alist
+             '("\\*org-roam\\*"
+               (display-buffer-in-direction)
+               (direction . right)
+               (window-width . 0.33)
+               (window-height . fit-window-to-buffer))))
+  ;; (add-to-list 'display-buffer-alist
+  ;;            '("\\*org-roam\\*"
+  ;;              (display-buffer-in-side-window)
+  ;;              (side . right)
+  ;;              (slot . 0)
+  ;;              (window-width . 0.33)
+  ;;              (window-parameters . ((no-other-window . t)
+  ;;                                    (no-delete-other-windows . t))))))
 
 (use-package markdown-mode
   :custom

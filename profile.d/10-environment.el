@@ -38,6 +38,13 @@
 (setq-default desktop-path (concat emacs-data-dir "desktop"))
 ;;(setq tab-stop-list (number-sequence 4 120 4))
 
+;; disable reordering for languages such as aribic.
+(setq-default bidi-display-reordering nil)
+(setq bidi-inhibit-bpa t
+      long-line-threshold 1000
+      large-hscroll-threshold 1000
+      syntax-wholeline-max 1000)
+
 (when (display-graphic-p)
   ;; Turn off toolbar.
   (tool-bar-mode 0)

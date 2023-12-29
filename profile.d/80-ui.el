@@ -80,6 +80,8 @@ if there's no active region."
   ;; mode line
   (mode-line ((t (:background "#242628" :foreground "#b2b2b2" :box (:line-width 1 :color "#26282a")))))
   (mode-line-inactive ((t (:background "#1a1a1a" :foreground "#8a8a8a" :box (:line-width 1 :color "#1f1f1f")))))
+  ;; (lazy-highlight ((t (:background "#28def0"))))
+  (lazy-highlight ((t (:background "grey19" :box (:line-width 1 :color "grey35")))))
   :custom
   ;; disable spacemacs comment background
   (spacemacs-theme-comment-bg nil)
@@ -100,12 +102,12 @@ if there's no active region."
   :config
   (setq doom-modeline-buffer-file-name-style 'truncate-upto-project)
   :custom
-  (doom-modeline-height 45)
+  (doom-modeline-height 25)
   :init
   (doom-modeline-mode t))
 
-(use-package all-the-icons-dired
-  :hook (dired-mode . all-the-icons-dired-mode))
+;; (use-package all-the-icons-dired
+;;  :hook (dired-mode . all-the-icons-dired-mode))
 
 ;; (use-package beacon
 ;;   :custom
@@ -128,6 +130,20 @@ if there's no active region."
 (use-package all-the-icons)
 
 (use-package nerd-icons)
+
+(use-package all-the-icons-nerd-fonts
+  :after all-the-icons
+  :config
+  (all-the-icons-nerd-fonts-prefer))
+
+(use-package dirvish
+  :init
+  (dirvish-override-dired-mode)
+  :config
+  (setq dirvish-mode-line-format
+        '(:left (sort symlink) :right (omit yank index)))
+  (setq dirvish-attributes
+        '(all-the-icons file-time file-size collapse subtree-state vc-state git-msg)))
 
 (use-package dashboard
   :demand
