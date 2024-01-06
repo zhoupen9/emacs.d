@@ -136,9 +136,15 @@ if there's no active region."
   :config
   (all-the-icons-nerd-fonts-prefer))
 
+(use-package nerd-icons-completion
+  :config
+  (nerd-icons-completion-mode))
+
 (use-package dirvish
   :init
   (dirvish-override-dired-mode)
+  :bind
+  (("C-x x d" . dirvish))
   :config
   (setq dirvish-mode-line-format
         '(:left (sort symlink) :right (omit yank index)))

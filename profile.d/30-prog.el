@@ -9,6 +9,9 @@
 (use-package magit
   :bind ("C-c g" . magit-status-here))
 
+(use-package magit-delta
+  :hook (magit-mode . magit-delta-mode))
+
 (use-package prog-mode
   :defines c-basic-offset
   :custom
@@ -92,6 +95,22 @@
   (lsp-bridge-enable-log nil)
   (lsp-bridge-enable-org-babel t)
   (lsp-bridge-org-babel-lang-list '("bash" "elisp" "go")))
+
+(unless (display-graphic-p)
+  (use-package popon)
+  (use-package acm-terminal
+    :init
+    (add-hook 'emacs-startup-hook
+          (lambda ()
+            ;; (require 'yasnippet)
+            ;; (yas-global-mode 1)
+
+            ;; (require 'lsp-bridge)
+            ;; (global-lsp-bridge-mode)
+
+            (unless (display-graphic-p)
+              (with-eval-after-load 'acm
+                (require 'acm-terminal)))))))
 
 (use-package python
   :interpreter ("python3" . python-mode)
@@ -272,6 +291,66 @@
   (read-only-mode))
 
 (add-hook 'compilation-filter-hook 'ansi-color-apply-compilation-buffer)
+
+(use-package dape
+  ;; To use window configuration like gud (gdb-mi)
+  ;; :init
+  ;; (setq dape-buffer-window-arrangement 'gud)
+  :config
+  ;; Info buffers to the right
+  ;; (setq dape-buffer-window-arrangement 'right)
+
+  ;; To not display info and/or buffers on startup
+  ;; (remove-hook 'dape-on-start-hooks 'dape-info)
+  ;; (remove-hook 'dape-on-start-hooks 'dape-repl)
+
+  ;; To display info and/or repl buffers on stopped
+  ;; (add-hook 'dape-on-stopped-hooks 'dape-info)
+  ;; (add-hook 'dape-on-stopped-hooks 'dape-repl)
+
+  ;; By default dape uses gdb keybinding prefix
+  ;; (setq dape-key-prefix "\C-x\C-a")
+
+  ;; Kill compile buffer on build success
+  ;; (add-hook 'dape-compile-compile-hooks 'kill-buffer)
+
+  ;; Save buffers on startup, useful for interpreted languages
+  ;; (add-hook 'dape-on-start-hooks
+  ;;           (defun dape--save-on-start ()
+  ;;             (save-some-buffers t t)))
+
+  ;; Projectile users
+  (setq dape-cwd-fn (lambda (&optional skip-tramp-trim)
+                      (let ((root (projectile-project-root)))
+                        (if (and (not skip-tramp-trim) (tramp-tramp-file-p root))
+                            (tramp-file-name-localname (tramp-dissect-file-name root))
+                          root))))
+  )
+
+(add-to-list 'dape-configs
+             `(delve-unit-test
+               modes (go-mode go-ts-mode)
+               ensure dape-ensure-command
+               fn dape-config-autoport
+               command "dlv"
+               command-args ("dap" "--listen" "127.0.0.1::autoport")
+               command-cwd dape-cwd-fn
+               port :autoport
+               :type "debug"
+               :request "launch"
+               :mode (lambda () (if (string-suffix-p "_test.go"   (buffer-name)) "test" "debug"))
+               :cwd dape-cwd-fn
+               :program (lambda () (if (string-suffix-p "_test.go"   (buffer-name))
+                                       (concat "./" (file-relative-name default-directory (funcall dape-cwd-fn)))
+                                     (funcall dape-cwd-fn)))
+               :args (lambda ()
+                       (require 'which-func)
+                       (if (string-suffix-p "_test.go"   (buffer-name))
+                           (when-let* ((test-name (which-function))
+                                       (test-regexp (concat "^" test-name "$")))
+                             (if test-name `["-test.run" ,test-regexp]
+                               (error "No test selected")))
+                         []))))
 
 ;;; 30-prog.el ends here
 ;;; End:
