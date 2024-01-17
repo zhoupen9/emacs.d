@@ -4,9 +4,9 @@
 ;;; Code:
 
 (let* ((xdg-data-dir (expand-file-name (file-name-as-directory "~/.local/share")))
-       (local-site-lisp (concat xdg-data-dir "/emacs/site-lisp")))
-  (customize-set-variable 'package-user-dir (concat xdg-data-dir "/emacs/elpa/"))
-  (customize-set-variable 'package-gnupghome-dir (concat xdg-data-dir "/emacs/elpa/gnupg/"))
+       (local-site-lisp (concat xdg-data-dir "emacs/site-lisp")))
+  (customize-set-variable 'package-user-dir (concat xdg-data-dir "emacs/elpa/"))
+  (customize-set-variable 'package-gnupghome-dir (concat xdg-data-dir "emacs/elpa/gnupg/"))
   (when (file-directory-p local-site-lisp)
     (add-to-list 'load-path local-site-lisp)))
 

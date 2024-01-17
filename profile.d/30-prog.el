@@ -296,6 +296,8 @@
   ;; To use window configuration like gud (gdb-mi)
   ;; :init
   ;; (setq dape-buffer-window-arrangement 'gud)
+  :custom
+  (dape-adapter-dir (concat emacs-data-dir "debug-adapter"))
   :config
   ;; Info buffers to the right
   ;; (setq dape-buffer-window-arrangement 'right)

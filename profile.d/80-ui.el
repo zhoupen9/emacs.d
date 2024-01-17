@@ -88,7 +88,8 @@ if there's no active region."
   ;; custom theme colors
   (spacemacs-theme-custom-colors
    (if (display-graphic-p)
-       '((bg1 . "#171a1f")
+       '((base . "#d2d2d2")
+         (bg1 . "#171a1f")
          (bg2 . "#14141a")
          (comment . "#6a6a70")
          (comment-bg . "#171a1f")
@@ -235,7 +236,9 @@ if there's no active region."
 (defun ui-prog-mode ()
   "Prog mode ui."
   (setq-local line-spacing 0.1)
-  (face-remap-add-relative 'font-lock-variable-name-face :foreground "#c2c2c2")
+  (face-remap-add-relative 'font-lock-function-call-face :slat 'italic :weight 'normal)
+  (face-remap-add-relative 'font-lock-variable-use-face :foreground "#f2f2f2")
+  (face-remap-add-relative 'font-lock-variable-name-face :foreground "#f2f2f2")
   (face-remap-add-relative 'font-lock-string-face :foreground "#77aa99")
   (face-remap-add-relative 'font-lock-type-face :weight 'normal :foreground "#4f97d7")
   (face-remap-add-relative 'font-lock-keyword-face :weight 'normal)
@@ -250,7 +253,9 @@ if there's no active region."
   (go-ts-mode . ui-prog-mode)
   (java-ts-mode . ui-prog-mode)
   :custom-face
-  (variable-pitch ((t :family "Source Serif Pro"))))
+  (fixed-pitch ((t :family "Liberation Mono")))
+  ;;(variable-pitch ((t :family "Source Serif Pro"))))
+  (variable-pitch ((t :family "Roboto"))))
 
 ;;; 80-ui.el ends here
 ;;; End:
