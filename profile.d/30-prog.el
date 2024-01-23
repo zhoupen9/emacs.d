@@ -37,7 +37,16 @@
   (java-ts-mode
    .
    (lambda()
-     (setq-local lsp-bridge-get-single-lang-server-by-project 'lsp-bridge-get-jdtls-server-by-project))))
+     (setq-local lsp-bridge-get-single-lang-server-by-project 'lsp-bridge-get-jdtls-server-by-project)))
+  :init
+  (use-package eglot
+    :init
+    (with-eval-after-load 'eglot
+      (add-to-list 'eglot-server-programs
+                   `((java-mode java-ts-mode) .
+                     ("jdtls"
+                      :initializationOptions
+                      (:bundles ["/home/pengz/.vscode/extensions/vscjava.vscode-java-debug-0.55.0/server/com.microsoft.java.debug.plugin-0.50.0.jar"])))))))
 
 (use-package xref
   :bind
@@ -72,7 +81,7 @@
     ;; (acm-enable-tabnine t)
     (acm-enable-tabnine nil)
     (acm-enable-search-file-words nil)
-    (acm-enable-doc nil)
+    (acm-enable-doc t)
     (acm-enable-yas t)
     (acm-enable-path nil)
     (acm-enable-tempel nil))

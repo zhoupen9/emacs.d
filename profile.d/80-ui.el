@@ -80,8 +80,8 @@ if there's no active region."
   ;; mode line
   (mode-line ((t (:background "#242628" :foreground "#b2b2b2" :box (:line-width 1 :color "#26282a")))))
   (mode-line-inactive ((t (:background "#1a1a1a" :foreground "#8a8a8a" :box (:line-width 1 :color "#1f1f1f")))))
-  ;; (lazy-highlight ((t (:background "#28def0"))))
-  (lazy-highlight ((t (:background "grey19" :box (:line-width 1 :color "grey35")))))
+  ;;(isearch ((t (:background "green3"))))
+  (lazy-highlight ((t (:background "grey19" :box (:line-width (-1 . -1) :color "grey35")))))
   :custom
   ;; disable spacemacs comment background
   (spacemacs-theme-comment-bg nil)
@@ -229,14 +229,14 @@ if there's no active region."
 (defun ui-article-mode ()
   "Define article mode."
   (variable-pitch-mode t)
-  (setq-local line-spacing 0.11)
+  (setq-local line-spacing 0.15)
   (face-remap-add-relative 'fixed-pitch :height 0.85)
   (face-remap-add-relative 'variable-pitch :height 1.2))
 
 (defun ui-prog-mode ()
   "Prog mode ui."
-  (setq-local line-spacing 0.1)
-  (face-remap-add-relative 'font-lock-function-call-face :slat 'italic :weight 'normal)
+  (setq-local line-spacing 0.15)
+  (face-remap-add-relative 'font-lock-function-call-face :slant 'italic :weight 'normal)
   (face-remap-add-relative 'font-lock-variable-use-face :foreground "#f2f2f2")
   (face-remap-add-relative 'font-lock-variable-name-face :foreground "#f2f2f2")
   (face-remap-add-relative 'font-lock-string-face :foreground "#77aa99")
