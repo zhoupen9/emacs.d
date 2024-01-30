@@ -97,7 +97,12 @@ if there's no active region."
          (cblk-ln-bg . "#21212a")
          (cblk-bg . "#202028")
          (border . "#282828"))
-     '((border . "#696969")))))
+     '((border . "#696969")
+       (base . "#d2d2d2")
+       (bg1 . "#171a1f")
+       (bg2 . "#14141a")
+       (comment . "#6a6a70")
+       ))))
 
 (use-package doom-modeline
   :config

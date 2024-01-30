@@ -72,8 +72,8 @@
    ("C-z p p" . lsp-bridge-peek-list-prev-line)
    ("C-z c p" . lsp-bridge-peek-file-content-prev-line)
    ("C-z c n" . lsp-bridge-peek-file-content-next-line)
-   ("M-[" . lsp-bridge-find-impl)
-   ("M-]" . lsp-bridge-find-impl-other-window))
+   ("C-c M-i" . lsp-bridge-find-impl)
+   ("C-c M-o" . lsp-bridge-find-impl-other-window))
   :config
   (use-package acm
     :custom
@@ -81,7 +81,7 @@
     ;; (acm-enable-tabnine t)
     (acm-enable-tabnine nil)
     (acm-enable-search-file-words nil)
-    (acm-enable-doc t)
+    (acm-enable-doc nil)
     (acm-enable-yas t)
     (acm-enable-path nil)
     (acm-enable-tempel nil))
@@ -306,7 +306,7 @@
   ;; :init
   ;; (setq dape-buffer-window-arrangement 'gud)
   :custom
-  (dape-adapter-dir (concat emacs-data-dir "debug-adapter"))
+  (dape-adapter-dir (concat emacs-data-dir "debug-adapters"))
   :config
   ;; Info buffers to the right
   ;; (setq dape-buffer-window-arrangement 'right)
