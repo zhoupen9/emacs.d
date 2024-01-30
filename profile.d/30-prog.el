@@ -46,7 +46,7 @@
                    `((java-mode java-ts-mode) .
                      ("jdtls"
                       :initializationOptions
-                      (:bundles ["/home/pengz/.vscode/extensions/vscjava.vscode-java-debug-0.55.0/server/com.microsoft.java.debug.plugin-0.50.0.jar"])))))))
+                      (:bundles [(expand-file-name "~/.vscode/extensions/vscjava.vscode-java-debug-0.55.0/server/com.microsoft.java.debug.plugin-0.50.0.jar")])))))))
 
 (use-package xref
   :bind
