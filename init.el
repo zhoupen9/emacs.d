@@ -18,6 +18,7 @@
 ;;   :custom
 ;;   (package-pinned-packages
 ;;    '((yasnippet . "elpa"))))
+;;    '((markdown-mode . "elpa"))))
 
 (defconst emacs-profile-dir (concat user-emacs-directory "profile.d/") "Emacs Profile directory.")
 

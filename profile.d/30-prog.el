@@ -119,7 +119,9 @@
 
             (unless (display-graphic-p)
               (with-eval-after-load 'acm
-                (require 'acm-terminal)))))))
+                (require 'acm-terminal)))))
+    :custom
+    (acm-terminal-enable-annotation-icon t)))
 
 (use-package python
   :interpreter ("python3" . python-mode)
@@ -174,8 +176,6 @@
 
 (use-package treesit
   :commands treesit-font-lock-rules treesit-font-lock-recompute-features
-  :config
-  (add-to-list 'treesit-extra-load-path (concat emacs-data-dir "treesit/"))
   :hook
   (c-ts-mode
    .

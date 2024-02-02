@@ -35,8 +35,9 @@
 ;; set tab stop to 4.
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
-(setq-default desktop-path (concat emacs-data-dir "desktop"))
+(setq desktop-path (list (concat emacs-data-dir "desktop")))
 ;;(setq tab-stop-list (number-sequence 4 120 4))
+(add-to-list 'treesit-extra-load-path (concat emacs-data-dir "treesit/"))
 
 ;; disable reordering for languages such as aribic.
 (setq-default bidi-display-reordering nil)
@@ -56,6 +57,8 @@
   ;; (speedbar-frame-mode t)
   (pixel-scroll-precision-mode)
 
+  (when (find-font (font-spec :name "Literation Mono Nerd Font"))
+    (set-frame-font "Literation Mono Nerd Font" nil t))
   ;; Make Noto CJK align with english characters horizontally
   ;; (add-to-list 'face-font-rescale-alist
   ;;               (cons (font-spec :family "Noto Sans CJK SC") 1.2) t)

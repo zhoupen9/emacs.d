@@ -258,7 +258,8 @@ if there's no active region."
   (go-ts-mode . ui-prog-mode)
   (java-ts-mode . ui-prog-mode)
   :custom-face
-  (fixed-pitch ((t :family "Liberation Mono")))
+  ;;(fixed-pitch ((t :family "LiterationMono Nerd Font Mono")))
+  ;;(fixed-pitch ((t :family "Fantasque Sans Mono")))
   ;;(variable-pitch ((t :family "Source Serif Pro"))))
   (variable-pitch ((t :family "Roboto"))))
 
