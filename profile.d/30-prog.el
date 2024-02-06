@@ -101,27 +101,34 @@
   (lsp-bridge-enable-candidate-doc-preview nil)
   (lsp-bridge-enable-search-words nil)
   (lsp-bridge-enable-debug nil)
-  (lsp-bridge-enable-log nil)
+  (lsp-bridge-enable-log t)
   (lsp-bridge-enable-org-babel t)
   (lsp-bridge-org-babel-lang-list '("bash" "elisp" "go")))
 
 (unless (display-graphic-p)
   (use-package popon)
-  (use-package acm-terminal
+  (use-package lsp-bridge-term
     :init
     (add-hook 'emacs-startup-hook
-          (lambda ()
-            ;; (require 'yasnippet)
-            ;; (yas-global-mode 1)
+              (lambda ()
+                (unless (display-graphic-p
+                         (with-eval-after-load 'acm
+                           (require 'lsp-bridge-term))))))))
+  ;; (use-package acm-terminal
+  ;;   :init
+  ;;   (add-hook 'emacs-startup-hook
+  ;;         (lambda ()
+  ;;           ;; (require 'yasnippet)
+  ;;           ;; (yas-global-mode 1)
 
-            ;; (require 'lsp-bridge)
-            ;; (global-lsp-bridge-mode)
+  ;;           ;; (require 'lsp-bridge)
+  ;;           ;; (global-lsp-bridge-mode)
 
-            (unless (display-graphic-p)
-              (with-eval-after-load 'acm
-                (require 'acm-terminal)))))
-    :custom
-    (acm-terminal-enable-annotation-icon t)))
+  ;;           (unless (display-graphic-p)
+  ;;             (with-eval-after-load 'acm
+  ;;               (require 'acm-terminal)))))
+  ;;   :custom
+  ;;   (acm-terminal-enable-annotation-icon t)))
 
 (use-package python
   :interpreter ("python3" . python-mode)
