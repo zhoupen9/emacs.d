@@ -101,7 +101,7 @@
   (lsp-bridge-enable-candidate-doc-preview nil)
   (lsp-bridge-enable-search-words nil)
   (lsp-bridge-enable-debug nil)
-  (lsp-bridge-enable-log t)
+  (lsp-bridge-enable-log nil)
   (lsp-bridge-enable-org-babel t)
   (lsp-bridge-org-babel-lang-list '("bash" "elisp" "go")))
 
@@ -109,11 +109,10 @@
   (use-package popon)
   (use-package lsp-bridge-term
     :init
-    (add-hook 'emacs-startup-hook
-              (lambda ()
-                (unless (display-graphic-p
-                         (with-eval-after-load 'acm
-                           (require 'lsp-bridge-term))))))))
+    (add-hook
+     'emacs-startup-hook
+     (lambda ()
+       (with-eval-after-load 'acm (require 'lsp-bridge-term))))))
   ;; (use-package acm-terminal
   ;;   :init
   ;;   (add-hook 'emacs-startup-hook

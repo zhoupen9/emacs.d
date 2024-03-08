@@ -46,6 +46,9 @@
       large-hscroll-threshold 1000
       syntax-wholeline-max 1000)
 
+(when (not (display-graphic-p))
+  (menu-bar-mode 0))
+
 (when (display-graphic-p)
   ;; Turn off toolbar.
   (tool-bar-mode 0)
