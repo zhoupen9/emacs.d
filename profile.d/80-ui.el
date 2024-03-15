@@ -76,7 +76,8 @@ if there's no active region."
   (line-number-current-line ((t (:inherit line-number :background "#106040" :foreground "#b2b2b2"))))
   (link ((t (:foreground "#2aa1ae"))))
   ;; hightlight line
-  (hl-line ((t (:background "#242628"))))
+  ;;(hl-line ((t (:background "#242628"))))
+  (hl-line ((t (:background "#1a1c1d"))))
   ;; mode line
   (mode-line ((t (:background "#242628" :foreground "#b2b2b2" :box (:line-width 1 :color "#26282a")))))
   (mode-line-inactive ((t (:background "#1a1a1a" :foreground "#8a8a8a" :box (:line-width 1 :color "#1f1f1f")))))
@@ -129,9 +130,9 @@ if there's no active region."
   :config
   (add-hook 'after-init-hook (lambda() (set-cursor-color "#fa6422"))))
 
-(use-package hl-line
-  :config
-  (global-hl-line-mode 1))
+;; (use-package hl-line
+;;   :config
+;;   (global-hl-line-mode 1))
 
 (use-package all-the-icons)
 

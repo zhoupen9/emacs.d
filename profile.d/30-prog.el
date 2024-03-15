@@ -94,7 +94,8 @@
   ;; (emacs-lisp-mode . lsp-bridge-mode)
   :custom
   (tabnine-bridge-binaries-folder (concat emacs-data-dir "TabNine"))
-  (gc-cons-threshold (* 64 1024 1024))
+  (gc-cons-threshold (* 256 1024 1024))
+  (gc-cons-percentage 0.3)
   (read-process-output-max (* 2 1024 1024))
   (lsp-bridge-signature-show-function 'lsp-bridge-signature-show-with-frame)
   (lsp-bridge-signature-show-with-frame-position "point")
@@ -108,26 +109,13 @@
 (unless (display-graphic-p)
   (use-package popon)
   (use-package lsp-bridge-term
+    :config
+    (setq lsp-bridge-term-doc-line-max 100)
     :init
     (add-hook
      'emacs-startup-hook
      (lambda ()
        (with-eval-after-load 'acm (require 'lsp-bridge-term))))))
-  ;; (use-package acm-terminal
-  ;;   :init
-  ;;   (add-hook 'emacs-startup-hook
-  ;;         (lambda ()
-  ;;           ;; (require 'yasnippet)
-  ;;           ;; (yas-global-mode 1)
-
-  ;;           ;; (require 'lsp-bridge)
-  ;;           ;; (global-lsp-bridge-mode)
-
-  ;;           (unless (display-graphic-p)
-  ;;             (with-eval-after-load 'acm
-  ;;               (require 'acm-terminal)))))
-  ;;   :custom
-  ;;   (acm-terminal-enable-annotation-icon t)))
 
 (use-package python
   :interpreter ("python3" . python-mode)
