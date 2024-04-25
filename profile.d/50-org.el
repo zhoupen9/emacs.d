@@ -7,6 +7,8 @@
              
 (use-package org
   :demand
+  :bind
+  (("C-c i s" . org-insert-structure-template))
   :custom
   (org-hide-emphasis-markers t)
   (org-directory (expand-file-name "~/Documents"))
@@ -34,7 +36,7 @@
   :defines org-re-reveal-root org-re-reveal-revealjs-version
   :custom
   (org-re-reveal-root (concat "file:///" (expand-file-name "~/.local/lib/reveal.js")))
-  (org-re-reveal-revealjs-version "4.2.1"))
+  (org-re-reveal-revealjs-version "5.0.5"))
 
 (use-package org-bullets
   :demand
@@ -75,14 +77,6 @@
                (direction . right)
                (window-width . 0.33)
                (window-height . fit-window-to-buffer))))
-  ;; (add-to-list 'display-buffer-alist
-  ;;            '("\\*org-roam\\*"
-  ;;              (display-buffer-in-side-window)
-  ;;              (side . right)
-  ;;              (slot . 0)
-  ;;              (window-width . 0.33)
-  ;;              (window-parameters . ((no-other-window . t)
-  ;;                                    (no-delete-other-windows . t))))))
 
 (use-package markdown-mode
   :custom

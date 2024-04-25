@@ -68,6 +68,7 @@
    ("C-c c f" . lsp-bridge-code-format)
    ("C-c c r" . lsp-bridge-rename)
    ("C-c c p" . lsp-bridge-peek)
+   ("C-c c o" . lsp-bridge-signature-help-fetch)
    ("C-z p n" . lsp-bridge-peek-list-next-line)
    ("C-z p p" . lsp-bridge-peek-list-prev-line)
    ("C-z c p" . lsp-bridge-peek-file-content-prev-line)
@@ -94,9 +95,10 @@
   ;; (emacs-lisp-mode . lsp-bridge-mode)
   :custom
   (tabnine-bridge-binaries-folder (concat emacs-data-dir "TabNine"))
-  (gc-cons-threshold (* 256 1024 1024))
-  (gc-cons-percentage 0.3)
+  ;; (gc-cons-threshold (* 256 1024 1024))
+  ;; (gc-cons-percentage 0.3)
   (read-process-output-max (* 2 1024 1024))
+  (lsp-bridge-enable-signature-help nil)
   (lsp-bridge-signature-show-function 'lsp-bridge-signature-show-with-frame)
   (lsp-bridge-signature-show-with-frame-position "point")
   (lsp-bridge-enable-candidate-doc-preview nil)
@@ -169,76 +171,6 @@
    (tsx-ts-mode . prettier-mode)))
 
 (use-package treesit
-  :commands treesit-font-lock-rules treesit-font-lock-recompute-features
-  :hook
-  (c-ts-mode
-   .
-   (lambda()
-     (setq-local treesit-font-lock-level 4)
-     (setq-local
-      treesit-font-lock-settings
-      (append
-       treesit-font-lock-settings
-       (treesit-font-lock-rules
-        :language 'c
-        :feature 'func
-        '((call_expression
-           function:
-           (identifier) @font-lock-property-face
-           arguments: (_))))))))
-  (java-ts-mode
-   .
-   (lambda()
-     (setq-local
-      treesit-font-lock-settings
-      (append
-       treesit-font-lock-settings
-       (treesit-font-lock-rules
-        :language 'java
-        :feature 'expression
-        :override t
-        '((method_invocation
-           name: (identifier) @font-lock-property-face)))))))
-  ;; (go-ts-mode
-  ;;  .
-  ;;  (lambda()
-  ;;    (setq-local treesit-font-lock-level 4)
-  ;;    (treesit-font-lock-recompute-features '(attribute import func))
-  ;;    (setq-local
-  ;;     treesit-font-lock-settings
-  ;;     (append
-  ;;      treesit-font-lock-settings
-  ;;      (treesit-font-lock-rules
-  ;;       :language 'go
-  ;;       :feature 'import
-  ;;       :override t
-  ;;       '((import_declaration (import_spec_list (import_spec path: (interpreted_string_literal) @font-lock-constant-face))))
-
-  ;;       :language 'go
-  ;;       :feature 'func
-  ;;       :override t
-  ;;       "[(function_declaration name: (identifier) @font-lock-function-name-face)
-  ;;         (call_expression
-  ;;           function:
-  ;;           (selector_expression
-  ;;            field: (field_identifier) @font-lock-property-face .))
-  ;;         (call_expression
-  ;;           function:
-  ;;           (identifier) @font-lock-property-face
-  ;;           arguments: (_))
-  ;;         (method_declaration
-  ;;           name: (field_identifier) @font-lock-function-name-face)]"
-
-  ;;       :language 'go
-  ;;       :feature 'variable
-  ;;       :override t
-  ;;       '((const_declaration
-  ;;        (const_spec name: (identifier) @font-lock-constant-face)))
-
-  ;;       :language 'go
-  ;;       :feature 'attribute
-  ;;       :override t
-  ;;       "(composite_literal body: (literal_value (keyed_element . (literal_element (identifier) @font-lock-property-face))))")))))
   :custom
   (major-mode-remap-alist
    '((c-mode . c-ts-mode)

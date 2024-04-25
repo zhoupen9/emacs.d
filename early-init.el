@@ -39,4 +39,6 @@
 
 (setq native-comp-eln-load-path (list (concat emacs-cache-dir "eln-cache")))
 
+(setq gc-cons-threshold (* 64 1024 1024))
+(setq gc-cons-percentage 0.1)
 ;;; early-init.el ends here
