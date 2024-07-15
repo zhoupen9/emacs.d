@@ -80,6 +80,7 @@
     :custom
     (lsp-bridge-completion-hide-characters '(";" "(" ")" "[" "]" "{" "}" "," "\""))
     ;; (acm-enable-tabnine t)
+    (acm-enable-capf t)
     (acm-enable-tabnine nil)
     (acm-enable-search-file-words nil)
     (acm-enable-doc nil)

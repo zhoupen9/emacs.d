@@ -29,35 +29,6 @@ if there's no active region."
   ;; print message done.
   (message "Beautify buffer done."))
 
-(defun ui--set-window-titlebar-theme-variant (variant)
-  "Change emacs-gtk title bars theme VARIANT."
-  (interactive "sTheme Variant Name: ")
-  (let ((pid (replace-regexp-in-string  "\n$" "" (shell-command-to-string "pidof emacs"))))
-    (let ((cmd (concat "wmctrl -lp | grep " pid " | awk '{ print $1 }'")))
-      (let ((ids (replace-regexp-in-string "\n$" " " (shell-command-to-string cmd))))
-        (dolist (id (split-string ids))
-          (shell-command
-           (concat "xprop -id " id " -f _GTK_THEME_VARIANT 8u -set _GTK_THEME_VARIANT " variant)))))))
-
-(defun ui--dark-idea ()
-  "Change idea title bars theme to dark."
-  (interactive)
-  (let ((pid (replace-regexp-in-string  "\n$" "" (shell-command-to-string "jps | grep Main | awk '{ print $1 }'"))))
-    (let ((cmd (concat "wmctrl -lp | grep " pid " | awk '{ print $1 }'")))
-      (let ((ids (replace-regexp-in-string "\n$" " " (shell-command-to-string cmd))))
-        (dolist (id (split-string ids))
-          (shell-command
-           (concat "xprop -id " id " -f _GTK_THEME_VARIANT 8u -set _GTK_THEME_VARIANT dark")))))))
-
-(defun ui--dark-flatpak-intellij-idea ()
-  "Change idea title bars theme to dark."
-  (interactive)
-  (let ((cmd (concat "wmctrl -lp | grep -e \"IntelliJ IDEA$\" | awk '{ print $1 }'")))
-    (let ((ids (replace-regexp-in-string "\n$" " " (shell-command-to-string cmd))))
-      (dolist (id (split-string ids))
-        (shell-command
-         (concat "xprop -id " id " -f _GTK_THEME_VARIANT 8u -set _GTK_THEME_VARIANT dark"))))))
-
 (defun ui--dark-titlebar ()
   "Change title bar to dark theme."
   (interactive)
@@ -236,8 +207,8 @@ if there's no active region."
   "Define article mode."
   (variable-pitch-mode t)
   (setq-local line-spacing 0.15)
-  (face-remap-add-relative 'fixed-pitch :height 0.85)
-  (face-remap-add-relative 'variable-pitch :height 1.2))
+  (face-remap-add-relative 'fixed-pitch :height 0.9)
+  (face-remap-add-relative 'variable-pitch :height 1.1))
 
 (defun ui-prog-mode ()
   "Prog mode ui."
@@ -262,7 +233,7 @@ if there's no active region."
   ;;(fixed-pitch ((t :family "LiterationMono Nerd Font Mono")))
   ;;(fixed-pitch ((t :family "Fantasque Sans Mono")))
   ;;(variable-pitch ((t :family "Source Serif Pro"))))
-  (variable-pitch ((t :family "Roboto"))))
+  (variable-pitch ((t :family "Inter Variant"))))
 
 ;;; 80-ui.el ends here
 ;;; End:
