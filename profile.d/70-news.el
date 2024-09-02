@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; 70-news.el --- org-mode related configurations
 ;;; Commentary:
 

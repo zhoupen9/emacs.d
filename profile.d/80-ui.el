@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; 80-ui.el --- Personal Private UI
 ;;; Commentary:
 
@@ -28,14 +29,6 @@ if there's no active region."
   (indent-region (point-min) (point-max))
   ;; print message done.
   (message "Beautify buffer done."))
-
-(defun ui--dark-titlebar ()
-  "Change title bar to dark theme."
-  (interactive)
-  (when (eq system-type 'darwin)
-    (add-to-list 'default-frame-alist '(ns-appearance . dark)))
-  (when (eq system-type 'gnu/linux)
-    (ui--set-window-titlebar-theme-variant "dark")))
 
 ;; spacemacs
 (use-package spacemacs-theme
@@ -84,26 +77,10 @@ if there's no active region."
   :init
   (doom-modeline-mode t))
 
-;; (use-package all-the-icons-dired
-;;  :hook (dired-mode . all-the-icons-dired-mode))
-
-;; (use-package beacon
-;;   :custom
-;;   (beacon-push-mark 10)
-;;   (beacon-color "#cc342b")
-;;   (beacon-blink-delay 0.3)
-;;   (beacon-blink-duration 0.3)
-;;   :config
-;;   (beacon-mode))
-
 (use-package frame
   :demand
   :config
   (add-hook 'after-init-hook (lambda() (set-cursor-color "#fa6422"))))
-
-;; (use-package hl-line
-;;   :config
-;;   (global-hl-line-mode 1))
 
 (use-package all-the-icons)
 
@@ -131,8 +108,6 @@ if there's no active region."
 
 (use-package dashboard
   :demand
-  ;; :commands all-the-icons-faicon all-the-icons-fileicon all-the-icons-octicon
-  ;; :after all-the-icons
   :commands nerd-icons-faicon nerd-icons-fileicon nerd-icons-octicon
   :after nerd-icons
   :config

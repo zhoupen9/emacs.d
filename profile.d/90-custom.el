@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; 90-custom.el --- Custom profile configuration
 ;;; Commentary:
 

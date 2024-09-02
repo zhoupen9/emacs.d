@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; 90-keybindings.el --- Key bindings
 ;;; Commentary:
 

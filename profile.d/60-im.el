@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; 60-im.el --- summary input method configurations
 ;;; Commentary:
 

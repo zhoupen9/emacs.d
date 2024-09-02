@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; 50-org.el --- org-mode related configurations
 ;;; Commentary:
 

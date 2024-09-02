@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; 10-environment.el --- Basic EMACS Configurations
 ;;; Commentary:
 

@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; 50-mail.el --- Mail configurations
 ;;; Commentary:
 

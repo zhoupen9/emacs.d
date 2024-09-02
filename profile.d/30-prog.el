@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; 30-prog.el --- Site start
 ;;; Commentary:
 

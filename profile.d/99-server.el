@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; 99-server.el --- server configuration
 ;;; Commentary:
 
