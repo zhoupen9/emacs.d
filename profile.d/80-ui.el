@@ -206,13 +206,15 @@ if there's no active region."
 (defun ui-article-mode ()
   "Define article mode."
   (variable-pitch-mode t)
-  (setq-local line-spacing 0.15)
+  ;;(setq-local line-spacing 0.15)
+  (setq-local line-spacing 0.2)
   (face-remap-add-relative 'fixed-pitch :height 0.9)
   (face-remap-add-relative 'variable-pitch :height 1.1))
 
 (defun ui-prog-mode ()
   "Prog mode ui."
-  (setq-local line-spacing 0.15)
+  ;;(setq-local line-spacing 0.15)
+  (setq-local line-spacing 0.2)
   (face-remap-add-relative 'font-lock-function-call-face :slant 'italic :weight 'normal)
   (face-remap-add-relative 'font-lock-variable-use-face :foreground "#f2f2f2")
   (face-remap-add-relative 'font-lock-variable-name-face :foreground "#f2f2f2")
@@ -231,9 +233,10 @@ if there's no active region."
   (java-ts-mode . ui-prog-mode)
   :custom-face
   ;;(fixed-pitch ((t :family "LiterationMono Nerd Font Mono")))
+  (fixed-pitch ((t :family "Monaspace Neon")))
   ;;(fixed-pitch ((t :family "Fantasque Sans Mono")))
   ;;(variable-pitch ((t :family "Source Serif Pro"))))
-  (variable-pitch ((t :family "Inter Variant"))))
+  (variable-pitch ((t :family "Inter"))))
 
 ;;; 80-ui.el ends here
 ;;; End:

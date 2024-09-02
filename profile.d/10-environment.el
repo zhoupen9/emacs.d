@@ -60,8 +60,10 @@
   ;; (speedbar-frame-mode t)
   (pixel-scroll-precision-mode)
 
-  (when (find-font (font-spec :name "Literation Mono Nerd Font"))
-    (set-frame-font "Literation Mono Nerd Font" nil t))
+  ;; (when (find-font (font-spec :name "Literation Mono Nerd Font"))
+  ;;   (set-frame-font "Literation Mono Nerd Font" nil t))
+  (when (find-font (font-spec :name "Monaspace Neon"))
+    (set-frame-font "Monaspace Neon" nil t))
   ;; Make Noto CJK align with english characters horizontally
   ;; (add-to-list 'face-font-rescale-alist
   ;;               (cons (font-spec :family "Noto Sans CJK SC") 1.2) t)
