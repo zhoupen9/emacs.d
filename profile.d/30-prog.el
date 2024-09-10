@@ -9,9 +9,6 @@
 (use-package magit
   :bind ("C-c g" . magit-status-here))
 
-(use-package magit-delta
-  :hook (magit-mode . magit-delta-mode))
-
 (use-package prog-mode
   :defines c-basic-offset
   :custom

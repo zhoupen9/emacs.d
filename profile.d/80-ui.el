@@ -29,14 +29,6 @@ if there's no active region."
   ;; print message done.
   (message "Beautify buffer done."))
 
-(defun ui--dark-titlebar ()
-  "Change title bar to dark theme."
-  (interactive)
-  (when (eq system-type 'darwin)
-    (add-to-list 'default-frame-alist '(ns-appearance . dark)))
-  (when (eq system-type 'gnu/linux)
-    (ui--set-window-titlebar-theme-variant "dark")))
-
 ;; spacemacs
 (use-package spacemacs-theme
   :ensure spacemacs-theme
@@ -84,18 +76,6 @@ if there's no active region."
   :init
   (doom-modeline-mode t))
 
-;; (use-package all-the-icons-dired
-;;  :hook (dired-mode . all-the-icons-dired-mode))
-
-;; (use-package beacon
-;;   :custom
-;;   (beacon-push-mark 10)
-;;   (beacon-color "#cc342b")
-;;   (beacon-blink-delay 0.3)
-;;   (beacon-blink-duration 0.3)
-;;   :config
-;;   (beacon-mode))
-
 (use-package frame
   :demand
   :config
@@ -129,58 +109,6 @@ if there's no active region."
   (setq dirvish-attributes
         '(all-the-icons file-time file-size collapse subtree-state vc-state git-msg)))
 
-(use-package dashboard
-  :demand
-  ;; :commands all-the-icons-faicon all-the-icons-fileicon all-the-icons-octicon
-  ;; :after all-the-icons
-  :commands nerd-icons-faicon nerd-icons-fileicon nerd-icons-octicon
-  :after nerd-icons
-  :config
-  (dashboard-setup-startup-hook)
-  :custom
-  (dashboard-page-separator "\n\n")
-  (dashboard-display-icons-p t)
-  (dashboard-icon-type 'nerd-icons)
-
-  (dashboard-navigator-buttons
-   `(
-     ((,(nerd-icons-faicon "nf-fa-gitlab" :height 1.1 :v-adjust 0.0)
-       "GitLab"
-       "Browse GitLab Repositories"
-       (lambda (&rest _) (browse-url "https://gitlab.nroad.com.cn")))
-      (,(nerd-icons-codicon "nf-cod-repo" :height 1.1 :v-adjust 0.0)
-       "Nexus"
-       "Browse Nexus Repositories"
-       (lambda (&rest _) (browse-url "https://nexus.nroad.com.cn")))
-      (,(nerd-icons-devicon "nf-dev-jenkins" :height 1.1 :v-adjust 0.0)
-       "Jenkins CI"
-       "Browse Jenkins CI Jobs"
-       (lambda (&rest _) (browse-url "https://jenkins.nroad.com.cn"))))
-     ((,(nerd-icons-faicon "nf-fa-github" :height 1.1 :v-adjust 0.0)
-       "Homepage"
-       "Browse GitHub Homepage"
-       (lambda (&rest _) (browse-url "https://github.com/zhoupen9")))
-      (,(nerd-icons-faicon "nf-fa-bug" :height 1.1 :v-adjust 0.0)
-       "Jira"
-       "Browse JIRA"
-       (lambda (&rest _) (browse-url "https://jira2.nroad.com.cn"))))))
-
-  (dashboard-center-content t)
-  (dashboard-items
-   '((recents  . 5)
-     (bookmarks . 5)
-     (projects . 5)
-     (agenda . 5)
-     (registers . 5)))
-  (dashboard-startup-banner (concat user-emacs-directory "themes/icons/spacemacs-app.png"))
-  (dashboard-set-heading-icons t)
-  (dashboard-set-file-icons t)
-  (dashboard-set-init-info t)
-  (dashboard-set-navigator t))
-
-(when (eq system-type 'darwin)
-  (add-to-list 'default-frame-alist '(ns-appearance . dark)))
-
 (use-package org
   :custom-face
   (org-link ((t (:underline t :foreground "#2aa1ae"))))
@@ -206,15 +134,11 @@ if there's no active region."
 (defun ui-article-mode ()
   "Define article mode."
   (variable-pitch-mode t)
-  ;;(setq-local line-spacing 0.15)
-  (setq-local line-spacing 0.2)
   (face-remap-add-relative 'fixed-pitch :height 0.9)
   (face-remap-add-relative 'variable-pitch :height 1.1))
 
 (defun ui-prog-mode ()
   "Prog mode ui."
-  ;;(setq-local line-spacing 0.15)
-  (setq-local line-spacing 0.2)
   (face-remap-add-relative 'font-lock-function-call-face :slant 'italic :weight 'normal)
   (face-remap-add-relative 'font-lock-variable-use-face :foreground "#f2f2f2")
   (face-remap-add-relative 'font-lock-variable-name-face :foreground "#f2f2f2")
@@ -230,13 +154,7 @@ if there's no active region."
   (markdown-mode . ui-article-mode)
   (prog-mode . ui-prog-mode)
   (go-ts-mode . ui-prog-mode)
-  (java-ts-mode . ui-prog-mode)
-  :custom-face
-  ;;(fixed-pitch ((t :family "LiterationMono Nerd Font Mono")))
-  (fixed-pitch ((t :family "Monaspace Neon")))
-  ;;(fixed-pitch ((t :family "Fantasque Sans Mono")))
-  ;;(variable-pitch ((t :family "Source Serif Pro"))))
-  (variable-pitch ((t :family "Inter"))))
+  (java-ts-mode . ui-prog-mode))
 
 ;;; 80-ui.el ends here
 ;;; End:
