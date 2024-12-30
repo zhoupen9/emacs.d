@@ -37,14 +37,15 @@ if there's no active region."
   (load-theme 'spacemacs-dark t)
   :custom-face
   ;; line number
-  (line-number-current-line ((t (:inherit line-number :background "#106040" :foreground "#b2b2b2"))))
+  (line-number-current-line ((t (:inherit line-number :background "#22283a" :foreground "#b2b2b2"))))
   (link ((t (:foreground "#2aa1ae"))))
   ;; hightlight line
   ;;(hl-line ((t (:background "#242628"))))
   (hl-line ((t (:background "#1a1c1d"))))
   ;; mode line
-  (mode-line ((t (:background "#242628" :foreground "#b2b2b2" :box (:line-width 1 :color "#26282a")))))
-  (mode-line-inactive ((t (:background "#1a1a1a" :foreground "#8a8a8a" :box (:line-width 1 :color "#1f1f1f")))))
+  ;;(mode-line ((t (:background "#242628" :foreground "#b2b2b2" :box (:line-width 1 :color "#26282a")))))
+  (mode-line ((t (:background "#242628" :foreground "#b2b2b2" :box (:line-width (2 . 2) :color "#010204" :style released-button)))))
+  (mode-line-inactive ((t (:background "#202224" :foreground "#8a8a8a" :box (:line-width (2 . 2) :color "#141416" :style unreleased-button)))))
   ;;(isearch ((t (:background "green3"))))
   (lazy-highlight ((t (:background "grey19" :box (:line-width (-1 . -1) :color "grey35")))))
   :custom
@@ -72,8 +73,10 @@ if there's no active region."
 (use-package doom-modeline
   :config
   (setq doom-modeline-buffer-file-name-style 'truncate-upto-project)
-  :custom
-  (doom-modeline-height 25)
+  (setq doom-modeline-bar-width 1)
+  (setq doom-modeline-height 25)
+  :custom-face
+  (doom-modeline-bar ((t (:background "#242628"))))
   :init
   (doom-modeline-mode t))
 
