@@ -43,9 +43,8 @@ if there's no active region."
   ;;(hl-line ((t (:background "#242628"))))
   (hl-line ((t (:background "#1a1c1d"))))
   ;; mode line
-  ;;(mode-line ((t (:background "#242628" :foreground "#b2b2b2" :box (:line-width 1 :color "#26282a")))))
-  (mode-line ((t (:background "#242628" :foreground "#b2b2b2" :box (:line-width (2 . 2) :color "#010204" :style released-button)))))
-  (mode-line-inactive ((t (:background "#202224" :foreground "#8a8a8a" :box (:line-width (2 . 2) :color "#141416" :style unreleased-button)))))
+  (mode-line ((t (:background "#282a30" :foreground "#b2b2b2" :box (:line-width (1 . 1) :color "#181820")))))
+  (mode-line-inactive ((t (:background "#222228" :foreground "#8a8a8a" :box (:line-width (1 . 1) :color "#181820")))))
   ;;(isearch ((t (:background "green3"))))
   (lazy-highlight ((t (:background "grey19" :box (:line-width (-1 . -1) :color "grey35")))))
   :custom
@@ -73,10 +72,11 @@ if there's no active region."
 (use-package doom-modeline
   :config
   (setq doom-modeline-buffer-file-name-style 'truncate-upto-project)
-  (setq doom-modeline-bar-width 1)
+  (setq doom-modeline-bar-width 2)
   (setq doom-modeline-height 25)
   :custom-face
-  (doom-modeline-bar ((t (:background "#242628"))))
+  (doom-modeline-bar ((t (:background "#fc6e55"))))
+  (doom-modeline-bar-inactive ((t (:background "#666666"))))
   :init
   (doom-modeline-mode t))
 
