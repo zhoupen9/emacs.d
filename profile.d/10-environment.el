@@ -115,6 +115,8 @@
 
 (use-package bind-key)
 
+(use-package vlf-setup)
+
 (use-package savehist
   :init
   (savehist-mode))
