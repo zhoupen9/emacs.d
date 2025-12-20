@@ -95,6 +95,7 @@
   ;; (python-ts-mode . lsp-bridge-mode)
   ;; (lisp-interactive-mode . lsp-bridge-mode)
   ;; (emacs-lisp-mode . lsp-bridge-mode)
+  (setq lsp-bridge-enable-with-tramp nil)
   :custom
   (tabnine-bridge-binaries-folder (concat emacs-data-dir "TabNine"))
   ;; (gc-cons-threshold (* 256 1024 1024))
@@ -106,7 +107,7 @@
   (lsp-bridge-enable-candidate-doc-preview nil)
   (lsp-bridge-enable-search-words nil)
   (lsp-bridge-enable-debug nil)
-  (lsp-bridge-enable-log nil)
+  (lsp-bridge-log-level "default")
   (lsp-bridge-enable-org-babel t)
   (lsp-bridge-org-babel-lang-list '("bash" "elisp" "go")))
 
@@ -166,6 +167,11 @@
 ;;  :config
 ;;  (add-to-list 'auto-mode-alist '("\\.go\\'" . go-ts-mode)))
 
+(use-package typescript-ts-mode
+  :config
+  (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-ts-mode))
+  (add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-ts-mode)))
+
 (use-package prettier
   :hook
   ((js-mode . prettier-mode)
@@ -185,6 +191,7 @@
      (java-mode . java-ts-mode)
      (rust-mode . rust-ts-mode)
      (ruby-mode . ruby-ts-mode)
+     (typescript-ts-mode . typescript-ts-mode)
      (conf-toml-mode . toml-ts-mode)
      (yaml-mode . yaml-ts-mode))))
 

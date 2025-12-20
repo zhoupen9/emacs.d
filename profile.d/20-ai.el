@@ -7,16 +7,16 @@
 (defvar home-directory)
 (defvar emacs-data-dir)
 
-(use-package gptel
-  :custom
-  (gptel-temperature 0.1)
-  (gptel-model 'Qwen2.5-Coder-7B-Instruct-Q6)
-  (gptel-backend (gptel-make-openai "llama-cpp"
-                        :stream t
-                        :header '(("Authorization" . "Bearer llama.cpp.s3cr3t"))
-                        :protocol "http"
-                        :host "localhost:22022"
-                        :models '(Qwen2.5-Coder-7B-Instruct-Q6))))
+;; (use-package gptel
+;;   :custom
+;;   (gptel-temperature 0.1)
+;;   (gptel-model 'Qwen2.5-Coder-7B-Instruct-Q6)
+;;   (gptel-backend (gptel-make-openai "llama-cpp"
+;;                         :stream t
+;;                         :header '(("Authorization" . "Bearer llama.cpp.s3cr3t"))
+;;                         :protocol "http"
+;;                         :host "localhost:22022"
+;;                         :models '(Qwen2.5-Coder-7B-Instruct-Q6))))
 
 (use-package aider
   ;;:straight (:host github :repo "tninja/aider.el" :files ("aider.el"))

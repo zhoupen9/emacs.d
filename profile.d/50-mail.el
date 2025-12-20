@@ -37,6 +37,7 @@
 
 (use-package mu4e-alert
   :config
+  (setq mu4e-mu-binary "~/.local/bin/mu")
   (use-package doom-modeline
     :custom
     (doom-modeline-mu4e t)

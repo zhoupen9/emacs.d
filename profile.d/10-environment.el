@@ -78,7 +78,6 @@
       (set-fontset-font (frame-parameter nil 'font)
                         charset
                         (font-spec :family "Noto Sans CJK SC")))))  ;; 中文宽度
-                        ;;(font-spec :family "Noto Sans CJK SC")))) ;; 12345678
 
 (use-package bookmark
   :custom
