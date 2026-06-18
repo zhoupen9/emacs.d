@@ -38,7 +38,7 @@
 (setq-default tab-width 4)
 (setq desktop-path (list (concat emacs-data-dir "desktop")))
 ;;(setq tab-stop-list (number-sequence 4 120 4))
-(add-to-list 'treesit-extra-load-path (concat emacs-data-dir "treesit/"))
+;;(add-to-list 'treesit-extra-load-path (concat emacs-data-dir "treesit/"))
 
 ;; disable reordering for languages such as aribic.
 (setq-default bidi-display-reordering nil)

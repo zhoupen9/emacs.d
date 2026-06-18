@@ -177,9 +177,9 @@ if there's no active region."
   (org-block-begin-line ((t (:inherit fixed-pitch))))
   (org-block-end-line ((t (:inherit fixed-pitch)))))
 
-(use-package markdown-mode
-  :custom-face
-  (markdown-table-face ((t (:inherit fixed-pitch :background "#182232")))))
+;; (use-package markdown-mode
+;;   :custom-face
+;;   (markdown-table-face ((t (:inherit fixed-pitch :background "#182232")))))
 
 (defun ui-article-mode ()
   "Define article mode."
@@ -205,7 +205,7 @@ if there's no active region."
 (use-package face-remap
   :hook
   (org-mode . ui-article-mode)
-  (markdown-mode . ui-article-mode)
+  ;;(markdown-mode . ui-article-mode)
   (prog-mode . ui-prog-mode)
   (go-ts-mode . ui-prog-mode)
   (java-ts-mode . ui-prog-mode)

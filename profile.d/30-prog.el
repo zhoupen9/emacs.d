@@ -180,6 +180,8 @@
 
 (use-package treesit
   :custom
+  (treesit-auto-install-grammer t)
+  (treesit-enabled-modes t)
   (major-mode-remap-alist
    '((c-mode . c-ts-mode)
      (c++-mode . c++-ts-mode)
@@ -195,7 +197,7 @@
      (conf-toml-mode . toml-ts-mode)
      (yaml-mode . yaml-ts-mode))))
 
-(use-package docker-compose-mode)
+;; (use-package docker-compose-mode)
 
 (defconst lombok-path
   (expand-file-name (file-name-as-directory "~/.local/lib/lombok")))

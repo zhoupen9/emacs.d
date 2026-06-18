@@ -79,9 +79,12 @@
                (window-width . 0.33)
                (window-height . fit-window-to-buffer))))
 
-(use-package markdown-mode
-  :custom
-  (markdown-fontify-code-blocks-natively t))
+;; (use-package markdown-mode
+;;   :custom
+;;   (markdown-fontify-code-blocks-natively t))
+(use-package markdown-ts-mode
+  :config
+  (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-ts-mode)))
 
 ;;; 50-org.el ends here
 ;;; End:
