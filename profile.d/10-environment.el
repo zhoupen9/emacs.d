@@ -120,6 +120,18 @@
   :init
   (savehist-mode))
 
+(use-package corfu
+  :custom
+  (corfu-auto t)                ;; Enable automatic completion
+  (corfu-auto-delay 0.2)        ;; Delay before popup appears
+  (corfu-quit-no-match t)       ;; Quit if no matching candidates
+  :init
+  (global-corfu-mode))
+
+(use-package nerd-icons-corfu
+  :init
+  (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
+
 (use-package vertico
   :demand
   :init

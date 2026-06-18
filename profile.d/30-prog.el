@@ -33,94 +33,19 @@
   :config
   (global-eldoc-mode -1))
 
-(use-package lsp-bridge-jdtls
-  :hook
-  (java-ts-mode
-   .
-   (lambda()
-     (setq-local lsp-bridge-get-single-lang-server-by-project 'lsp-bridge-get-jdtls-server-by-project)))
+(use-package eglot
   :init
-  (use-package eglot
-    :init
-    (with-eval-after-load 'eglot
-      (add-to-list 'eglot-server-programs
-                   `((java-mode java-ts-mode) .
-                     ("jdtls"
-                      :initializationOptions
-                      (:bundles [(expand-file-name "~/.vscode/extensions/vscjava.vscode-java-debug-0.55.0/server/com.microsoft.java.debug.plugin-0.50.0.jar")])))))))
+  (with-eval-after-load 'eglot
+    (add-to-list 'eglot-server-programs
+                 `((java-mode java-ts-mode) .
+                   ("jdtls"
+                    :initializationOptions
+                    (:bundles [(expand-file-name "~/.vscode/extensions/vscjava.vscode-java-debug-0.55.0/server/com.microsoft.java.debug.plugin-0.50.0.jar")]))))))
 
 (use-package xref
   :bind
   (("C-c M-[" . xref-find-definitions)
    ("C-c M-]" . xref-go-back)))
-
-;; lsp-bridge
-(use-package lsp-bridge
-  :demand
-  :commands global-lsp-bridge-mode
-  :bind
-  (("M-." . lsp-bridge-find-def)
-   ("M-," . lsp-bridge-find-def-return)
-   ("C-c M-." . lsp-bridge-find-def-other-window)
-   ("C-c M-," . lsp-bridge-find-references)
-   ("C-c M-p" . lsp-bridge-popup-documentation)
-   ("C-c c a" . lsp-bridge-code-action)
-   ("C-c c d" . lsp-bridge-diagnostic-list)
-   ("C-c c f" . lsp-bridge-code-format)
-   ("C-c c r" . lsp-bridge-rename)
-   ("C-c c p" . lsp-bridge-peek)
-   ("C-c c o" . lsp-bridge-signature-help-fetch)
-   ("C-z p n" . lsp-bridge-peek-list-next-line)
-   ("C-z p p" . lsp-bridge-peek-list-prev-line)
-   ("C-z c p" . lsp-bridge-peek-file-content-prev-line)
-   ("C-z c n" . lsp-bridge-peek-file-content-next-line)
-   ("C-c M-i" . lsp-bridge-find-impl)
-   ("C-c M-o" . lsp-bridge-find-impl-other-window))
-  :config
-  (use-package acm
-    :custom
-    (lsp-bridge-completion-hide-characters '(";" "(" ")" "[" "]" "{" "}" "," "\""))
-    ;; (acm-enable-tabnine t)
-    (acm-enable-capf t)
-    (acm-enable-tabnine nil)
-    (acm-enable-search-file-words nil)
-    (acm-enable-doc nil)
-    (acm-enable-yas t)
-    (acm-enable-path nil)
-    (acm-enable-tempel nil))
-  (global-lsp-bridge-mode)
-  ;;:hook
-  ;; (java-ts-mode . lsp-bridge-mode)
-  ;; (go-ts-mode . lsp-bridge-mode)
-  ;; (python-ts-mode . lsp-bridge-mode)
-  ;; (lisp-interactive-mode . lsp-bridge-mode)
-  ;; (emacs-lisp-mode . lsp-bridge-mode)
-  (setq lsp-bridge-enable-with-tramp nil)
-  :custom
-  (tabnine-bridge-binaries-folder (concat emacs-data-dir "TabNine"))
-  ;; (gc-cons-threshold (* 256 1024 1024))
-  ;; (gc-cons-percentage 0.3)
-  (read-process-output-max (* 2 1024 1024))
-  (lsp-bridge-enable-signature-help nil)
-  (lsp-bridge-signature-show-function 'lsp-bridge-signature-show-with-frame)
-  (lsp-bridge-signature-show-with-frame-position "point")
-  (lsp-bridge-enable-candidate-doc-preview nil)
-  (lsp-bridge-enable-search-words nil)
-  (lsp-bridge-enable-debug nil)
-  (lsp-bridge-log-level "default")
-  (lsp-bridge-enable-org-babel t)
-  (lsp-bridge-org-babel-lang-list '("bash" "elisp" "go")))
-
-(unless (display-graphic-p)
-  (use-package popon)
-  (use-package lsp-bridge-term
-    :config
-    (setq lsp-bridge-term-doc-line-max 100)
-    :init
-    (add-hook
-     'emacs-startup-hook
-     (lambda ()
-       (with-eval-after-load 'acm (require 'lsp-bridge-term))))))
 
 (use-package python
   :interpreter ("python3" . python-mode)
