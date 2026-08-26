@@ -8,6 +8,8 @@
 (defvar emacs-data-dir)
 
 (use-package magit
+  :config
+  (add-hook 'magit-status-sections-hook #'magit-insert-worktrees t)
   :bind ("C-c g" . magit-status-here))
 
 (use-package magit-delta
@@ -34,6 +36,14 @@
   (global-eldoc-mode -1))
 
 (use-package eglot
+  :config
+  (setq-default eglot-workspace-configuration
+              '(:typescript (:formatOptions (:enable nil)
+                             :documentFormattingProvider :json-false
+                             :documentRangeFormattingProvider :json-false)
+                :javascript (:formatOptions (:enable nil)
+                             :documentFormattingProvider :json-false
+                             :documentRangeFormattingProvider :json-false)))
   :init
   (with-eval-after-load 'eglot
     (add-to-list 'eglot-server-programs
@@ -95,7 +105,7 @@
 (use-package typescript-ts-mode
   :config
   (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-ts-mode))
-  (add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-ts-mode)))
+  (add-to-list 'auto-mode-alist '("\\.tsx\\'" . tsx-ts-mode)))
 
 (use-package prettier
   :hook

@@ -2,3 +2,4 @@
 *.elc
 custom-local.el
 .yas-compiled-snippets.el
+user-lisp/.user-lisp-autoloads.el

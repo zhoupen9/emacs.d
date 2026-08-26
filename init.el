@@ -7,18 +7,17 @@
   (add-to-list 'load-path "/usr/share/emacs/site-lisp/mu4e")
   (add-to-list 'load-path "~/.local/share/emacs/site-lisp"))
 
+(when (eq system-type 'gnu/linux)
+  (add-to-list 'load-path "/usr/share/emacs/site-lisp")
+  (add-to-list 'load-path "/usr/local/share/emacs/site-lisp")
+  (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e"))
+
 ;; Initialize packages
 (when (< emacs-major-version 27)
   (load (concat user-emacs-directory "early-init"))
   (package-initialize))
 
 (require 'use-package)
-
-;; (use-package package
-;;   :custom
-;;   (package-pinned-packages
-;;    '((yasnippet . "elpa"))))
-;;    '((markdown-mode . "elpa"))))
 
 (defconst emacs-profile-dir (concat user-emacs-directory "profile.d/") "Emacs Profile directory.")
 

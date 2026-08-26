@@ -50,5 +50,7 @@
 (when (file-readable-p mail-custom-file)
   (load (file-name-sans-extension mail-custom-file)))
 
+(use-package nano-mu4e)
+
 ;;; 50-mail.el ends here
 ;;; End:
